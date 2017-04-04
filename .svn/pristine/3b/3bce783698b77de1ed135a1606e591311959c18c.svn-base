@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim128"
+        android:background="@color/home_blue"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_my_billing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dim20"
+            android:drawableLeft="@mipmap/ic_launcher"
+            android:drawablePadding="@dimen/dim8"
+            android:gravity="center"
+            android:text="@string/my_billing"
+            android:textColor="@color/home_title_white"
+            android:textSize="@dimen/txt28" />
+
+        <TextView
+            android:id="@+id/tv_promotion_quota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dim20"
+            android:drawableLeft="@mipmap/ic_launcher"
+            android:drawablePadding="@dimen/dim10"
+            android:gravity="center"
+            android:text="@string/promotion_quota"
+            android:textColor="@color/home_title_white"
+            android:textSize="@dimen/txt28" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim320"
+                        android:background="@color/home_blue">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dim90"
+                            android:text="3100.00"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/txt90" />
+
+                        <RelativeLayout
+                            android:id="@+id/rl_need_repayment"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dim90"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/home_btn_orange">
+
+                            <ImageView
+                                android:id="@+id/iv_go"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/go" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="@dimen/dim10"
+                                android:layout_toLeftOf="@+id/iv_go"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_need_money"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dim12"
+                                    android:text="-$800.00"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/txt30" />
+
+                                <TextView
+                                    android:id="@+id/tv_need_money_time"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="@dimen/dim20"
+                                    android:text="2016/12/07"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/dim20" />
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginLeft="@dimen/dim30"
+                                android:gravity="center"
+                                android:text="@string/need_repayment"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/txt30" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim132"
+                        android:background="@color/home_blue"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_need_pay"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="3348.00元 \n应还金额"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/txt30" />
+
+                        <TextView
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:background="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_service_charge"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="3348.00元 \n服务费"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/txt30" />
+
+                        <TextView
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:background="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_loan"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="3348.00元 \n应还金额"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/txt30" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_nomal_loan"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/nomal_loan"
+                            android:textColor="@color/home_blue" />
+
+                        <TextView
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:background="@color/divide_line" />
+
+                        <TextView
+                            android:id="@+id/tv_staging_loan"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/staging_loan"
+                            android:textColor="@color/select_blue_gray" />
+                    </LinearLayout>
+
+                    <include layout="@layout/divide_line" />
+
+                    <SeekBar
+                        android:id="@+id/sb_money"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim80"
+                        android:layout_marginLeft="@dimen/dim44"
+                        android:layout_marginRight="@dimen/dim44"
+                        android:layout_marginTop="@dimen/dim80"
+                        android:max="100"
+                        android:paddingLeft="@dimen/dim20"
+                        android:paddingRight="@dimen/dim20"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/seek_bar_style"
+                        android:thumb="@drawable/seekbar_thumb" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/dim80"
+                        android:paddingRight="@dimen/dim80">
+
+                        <TextView
+                            android:id="@+id/tv_current_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100元" />
+
+                        <TextView
+                            android:id="@+id/tv_totle_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="5000元" />
+                    </RelativeLayout>
+
+
+                    <SeekBar
+                        android:id="@+id/sb_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim80"
+                        android:layout_marginLeft="@dimen/dim44"
+                        android:layout_marginRight="@dimen/dim44"
+                        android:layout_marginTop="@dimen/dim20"
+                        android:max="100"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/seek_bar_style"
+                        android:thumb="@drawable/seekbar_thumb" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/dim80"
+                        android:paddingRight="@dimen/dim80">
+
+                        <TextView
+                            android:id="@+id/tv_current_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10天" />
+
+                        <TextView
+                            android:id="@+id/tv_totle_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="50次" />
+                    </RelativeLayout>
+
+
+                    <SeekBar
+                        android:id="@+id/sb_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim80"
+                        android:layout_marginLeft="@dimen/dim44"
+                        android:layout_marginRight="@dimen/dim44"
+                        android:layout_marginTop="@dimen/dim20"
+                        android:max="100"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/seek_bar_style"
+                        android:thumb="@drawable/seekbar_thumb" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/dim80"
+                        android:paddingRight="@dimen/dim80">
+
+                        <TextView
+                            android:id="@+id/tv_current_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10天" />
+
+                        <TextView
+                            android:id="@+id/tv_totle_day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="50天" />
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/btn_repayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim80"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/dim200"
+                        android:layout_marginLeft="@dimen/dim80"
+                        android:layout_marginRight="@dimen/dim80"
+                        android:layout_marginTop="@dimen/dim96"
+                        android:background="@drawable/select_sure_register_btn"
+                        android:text="@string/right_repayment"
+                        android:textColor="@color/select_white_orange" />
+                </LinearLayout>
+
+                <include layout="@layout/error_page" />
+            </RelativeLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

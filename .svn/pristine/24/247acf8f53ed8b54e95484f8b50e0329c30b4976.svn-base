@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_choose_school"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.ChooseSchoolActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_text"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dim60"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dim20"
+            android:layout_weight="1"
+            android:background="@drawable/choose_shape"
+            android:hint="@string/input_msg"
+            android:paddingLeft="@dimen/dim20"
+            android:paddingRight="@dimen/dim20"
+            android:textColor="@color/home_blue"
+            android:textColorHint="@color/shallow_gray"
+            android:textSize="@dimen/txt28" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dim30"
+            android:layout_marginRight="@dimen/dim30"
+            android:gravity="center"
+            android:text="@string/cacal"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt34" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dim40"
+        android:background="@color/divide_line" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:scrollbars="none" />
+</LinearLayout>

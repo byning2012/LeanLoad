@@ -1,0 +1,450 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.AmountCreateModel;
+import com.hzxm.easyloan.presenter.implPresenter.AmountCreatePresenter;
+import com.hzxm.easyloan.presenter.implView.IAmountCreateView;
+import com.hzxm.easyloan.utils.Constant;
+import com.hzxm.easyloan.widget.HorizontalDecoration;
+import com.hzxm.easyloan.widget.loopview.LoopView;
+import com.hzxm.easyloan.widget.loopview.OnItemSelectedListener;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.glide.GliderHelper;
+import com.lmz.baselibrary.widget.TitleLayout;
+import com.lmz.baselibrary.widget.springview.container.LoanHeader;
+import com.lmz.baselibrary.widget.springview.widget.SpringView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import butterknife.BindArray;
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 额度提升
+ */
+public class IncreaseAmountActivity extends BaseActivity implements IAmountCreateView,
+        SpringView.OnFreshListener {
+    @BindView(R.id.refresh)
+    SpringView mRefreshLayout;
+    @BindView(R.id.title)
+    TitleLayout title;
+    @BindView(R.id.tv_identity)
+    TextView tvIdentity;
+    @BindView(R.id.rl_identity)
+    RelativeLayout rlIdentity;
+    @BindView(R.id.rv_base)
+    RecyclerView rvBase;
+    @BindView(R.id.rv_oother)
+    RecyclerView rvOther;
+    @BindView(R.id.activity_increase_amount)
+    LinearLayout activityIncreaseAmount;
+    @BindView(R.id.btn_verification)
+    Button btnVerification;
+    @BindView(R.id.ll_main)
+    LinearLayout llMain;
+
+    //错误界面
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+    @BindView(R.id.iv_error_logo)
+    ImageView mErrorView;
+
+    //头部警告栏
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.ll_top_remind)
+    LinearLayout llTopRemind;
+
+    @BindString(R.string.top_remind_increate)
+    String mTopMsg;
+
+
+    private AmountCreatePresenter mAmountCreatePresenter;
+    //用户的类型 1学生2工薪3其他
+    private int position = 3;
+    private int uid;
+    private AmountCreateModel mAmountCreateModel;
+
+
+    @BindArray(R.array.choose_dentity)
+    String[] mIndentityChoose;
+    boolean isFromCertification = false;
+    @BindString(R.string.promotion_certification_title)
+    String mPromotionTilte;
+    @BindString(R.string.student)
+    String student;
+    @BindString(R.string.salary_name)
+    String salary;
+    @BindString(R.string.other)
+    String other;
+
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_increase_amount);
+
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        try {
+            isFromCertification = getIntent().getExtras().getBoolean("From_Certification");
+        } catch (NullPointerException e) {
+            LogUtil.e("空指针了");
+        }
+        if (isFromCertification) {
+            llTopRemind.setVisibility(View.GONE);
+            title.setWhiteStyle(this);
+            title.setTitle(mPromotionTilte);
+            SetStatusBarColor(R.color.transparent_white);
+        }
+        tvRemind.setText(mTopMsg);
+        rvBase.setLayoutManager(new LinearLayoutManager(this));
+        rvOther.setLayoutManager(new LinearLayoutManager(this));
+        rvBase.setHasFixedSize(true);
+        rvOther.setHasFixedSize(true);
+        rvBase.addItemDecoration(new HorizontalDecoration(this, LinearLayout.VERTICAL));
+        rvOther.addItemDecoration(new HorizontalDecoration(this, LinearLayout.VERTICAL));
+
+        mRefreshLayout.setHeader(new LoanHeader());
+        mRefreshLayout.setGive(SpringView.Give.TOP);
+        mRefreshLayout.setListener(this);
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getApplication()).getInt(Constant.UID, -1);
+        mAmountCreatePresenter = new AmountCreatePresenter(this);
+        rvBase.setAdapter(mAmountCreatePresenter.getBaseAdapter());
+        rvOther.setAdapter(mAmountCreatePresenter.getOtherAdapter());
+        recycleViewListener();
+        GliderHelper.loadImage(R.drawable.net_error, mErrorView, null);
+    }
+
+    /**
+     * 提交基础提额信息
+     */
+    @OnClick(R.id.btn_verification)
+    public void verification() {
+        LogUtil.e(position);
+        mAmountCreatePresenter.metioninfoSubmit(uid + "", String.valueOf(position + 1));
+    }
+
+    private void recycleViewListener() {
+        rvBase.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                if (position == 0) {   //学生
+                    String menu_name = mAmountCreateModel.getData().getBase_menu().get(i).getMenu_name();
+                    Bundle bundle = new Bundle();
+                    switch (menu_name) {
+                        case "school":
+                            startActivity(ChooseSchoolActivity.class);
+                            break;
+                        case "school_depatr":
+                            startActivity(ChooseSchoolActivity.class);
+                            break;
+                        case "xuexin":
+                            bundle.putParcelable("xuexin", mAmountCreateModel.getData().getInfo().getXuexin());
+                            startActivity(EducationInfoActivity.class, bundle);
+                            break;
+                        case "connect_persion":
+                            bundle.putParcelable("father", mAmountCreateModel.getData().getInfo().getConnect_persion().getFather());
+                            bundle.putParcelable("mother", mAmountCreateModel.getData().getInfo().getConnect_persion().getMother());
+                            bundle.putParcelable("student", mAmountCreateModel.getData().getInfo().getConnect_persion().getStudent());
+                            bundle.putParcelable("teacher", mAmountCreateModel.getData().getInfo().getConnect_persion().getTeacher());
+                            startActivity(AddContactsActivity.class, bundle);
+                            break;
+                    }
+                } else if (position == 1) {  //工薪
+                    String menu_name = mAmountCreateModel.getData().getBase_menu().get(i).getMenu_name();
+                    switch (menu_name) {
+                        case "company": //跳转到公司信息
+                            if (!"".equals(mAmountCreateModel.getData().getInfo().getCompany().getCompany_name())) {
+                                Bundle bundle3 = new Bundle();
+                                bundle3.putParcelable("info", mAmountCreateModel.getData().getInfo().getCompany());
+                                try {
+                                    bundle3.putParcelableArrayList("img", (ArrayList<? extends Parcelable>) mAmountCreateModel.getData().getInfo().getCompany().getCompany_img());
+                                } catch (NullPointerException e) {
+                                    LogUtil.e(e);
+                                }
+                                startActivity(CompanyInfoActivity.class, bundle3);
+                            } else {
+                                startActivity(CompanyInfoActivity.class);
+                            }
+                            break;
+                        case "home":
+                            Bundle bundle = new Bundle();
+                            bundle.putBoolean("property", true);
+                            bundle.putParcelable("home", mAmountCreateModel.getData().getInfo().getHome());
+                            startActivity(PropertyAndCardActivity.class, bundle);
+                            break;
+                        case "car":
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putBoolean("property", false);
+                            bundle1.putParcelable("car", mAmountCreateModel.getData().getInfo().getCar());
+                            startActivity(PropertyAndCardActivity.class, bundle1);
+                            break;
+                        case "socal"://社保
+                            startActivity(SocialSecurityActivity.class);
+                            break;
+                    }
+                } else {
+                    String menu_name = mAmountCreateModel.getData().getBase_menu().get(i).getMenu_name();
+                    switch (menu_name) {
+                        case "unit": //跳转到单位
+                            if (!"".equals(mAmountCreateModel.getData().getInfo().getUnit().getUnit_name())) {
+                                Bundle bundle3 = new Bundle();
+                                bundle3.putParcelable("info", mAmountCreateModel.getData().getInfo().getUnit());
+                                try {
+                                    bundle3.putParcelableArrayList("img", (ArrayList<? extends Parcelable>) mAmountCreateModel.getData().getInfo().getUnit().getUnit_img());
+                                } catch (NullPointerException e) {
+                                    LogUtil.e(e);
+                                }
+                                startActivity(UnitInfoActivity.class, bundle3);
+                            } else {
+                                startActivity(UnitInfoActivity.class);
+                            }
+                            break;
+                        case "home":
+                            Bundle bundle = new Bundle();
+                            bundle.putBoolean("property", true);
+                            bundle.putParcelable("home", mAmountCreateModel.getData().getInfo().getHome());
+                            startActivity(PropertyAndCardActivity.class, bundle);
+                            break;
+                        case "car":
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putBoolean("property", false);
+                            bundle1.putParcelable("car", mAmountCreateModel.getData().getInfo().getCar());
+                            startActivity(PropertyAndCardActivity.class, bundle1);
+                            break;
+                        case "interfix":
+                            Bundle bundle2 = new Bundle();
+                            bundle2.putBoolean("type", true);
+                            bundle2.putParcelable("interfix", mAmountCreateModel.getData().getInfo().getInterfix());
+                            bundle2.putParcelableArrayList("img", (ArrayList<? extends Parcelable>) mAmountCreateModel.getData().getInfo().getInterfix().getInterfix_img());
+                            startActivity(RelatedOtherDataActivity.class, bundle2);
+                            break;
+                        case "socal"://社保
+                            startActivity(SocialSecurityActivity.class);
+                            break;
+                    }
+                }
+
+            }
+        });
+        rvOther.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void SimpleOnItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("other", mAmountCreateModel.getData().getOther_menu().get(i));
+                bundle.putParcelableArrayList("img", (ArrayList<? extends Parcelable>) mAmountCreateModel.getData().getOther_menu().get(i).getOther_img());
+                bundle.putInt("menu_type", position);
+                startActivity(RelatedOtherDataActivity.class, bundle);
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAmountCreatePresenter.amoutCreateInfo(String.valueOf((position + 1)), uid + "");
+    }
+
+    /**
+     * 关闭头部警告栏
+     */
+    @OnClick(R.id.iv_delete)
+    public void closeTop() {
+        llTopRemind.setVisibility(View.GONE);
+    }
+
+    /**
+     * 点击错误页面
+     */
+    @OnClick(R.id.btn_error)
+    public void setErrorBtn() {
+        mAmountCreatePresenter.amoutCreateInfo(String.valueOf((position + 1)), uid + "");
+    }
+
+    /**
+     * 点击身份选择 弹出POP
+     */
+    @OnClick(R.id.rl_identity)
+    public void chooseIndentity() {
+        PopDialog();
+    }
+
+    /**
+     * 获取数据成功
+     *
+     * @param amountCreateModel
+     */
+    @Override
+    public void getData(AmountCreateModel amountCreateModel) {
+        //   mRefreshLayout.onFinishFreshAndLoad();
+        //  mRefreshLayout.setRefreshing(false);
+        llMain.setVisibility(View.VISIBLE);
+        errorPage.setVisibility(View.GONE);
+        mAmountCreateModel = amountCreateModel;
+        LogUtil.e(mAmountCreateModel.getData().getType());
+        switch (mAmountCreateModel.getData().getType()) {
+            case 1:
+                tvIdentity.setText(student);
+                position = 0;
+                break;
+            case 2:
+                tvIdentity.setText(salary);
+                position = 1;
+                break;
+            case 3:
+                tvIdentity.setText(other);
+                position = 2;
+                break;
+        }
+    }
+
+    /**
+     * 提交提额审核成功
+     */
+    @Override
+    public void submitSuccess() {
+        Bundle bundle = new Bundle();
+        bundle.putString("from", "increaseAmount");
+        startActivity(AuditResultsActivity.class);
+    }
+
+    /**
+     * 提交失败
+     *
+     * @param msg
+     */
+    @Override
+    public void submitFaild(String msg) {
+        showToast(msg, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        //  mRefreshLayout.onFinishFreshAndLoad();
+        //   mRefreshLayout.setRefreshing(false);
+        llMain.setVisibility(View.GONE);
+        errorPage.setVisibility(View.VISIBLE);
+        LogUtil.e(error);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAmountCreatePresenter.unsubcrible();
+    }
+
+
+    /**
+     * 弹出Dialog选择身份
+     */
+    private void PopDialog() {
+        //每次打开position 重置
+        final int[] newPosition = {0};
+        final Dialog dialog = new Dialog(this, R.style.custom_bottom_dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View view = getLayoutInflater().inflate(R.layout.dialog_choose_identity, null);
+        LoopView loopView = (LoopView) view.findViewById(R.id.lv_identity);
+        TextView mCompleteTv = (TextView) view.findViewById(R.id.tv_complete);
+        TextView mCancelTv = (TextView) view.findViewById(R.id.tv_cancel);
+        loopView.setListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                newPosition[0] = index;
+            }
+        });
+        loopView.setNotLoop();
+        loopView.setItems(Arrays.asList(mIndentityChoose));
+        loopView.setInitPosition(0);
+        loopView.setTextSize(18);
+        mCompleteTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                position = newPosition[0];
+                tvIdentity.setText(mIndentityChoose[newPosition[0]]);
+                //选择之后 请求网络
+                LogUtil.e(newPosition[0]);
+                mAmountCreatePresenter.amoutCreateInfo(String.valueOf((newPosition[0] + 1)), uid + "");
+                dialog.dismiss();
+            }
+        });
+        mCancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+            }
+        });
+        dialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT));
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.x = 0;
+        wl.y = getWindowManager().getDefaultDisplay().getHeight();
+        wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        dialog.onWindowAttributesChanged(wl);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
+
+    @Override
+    public void onRefresh() {
+        LogUtil.e(position);
+        mAmountCreatePresenter.amoutCreateInfo(String.valueOf((position + 1)), uid + "");
+    }
+
+    @Override
+    public void onLoadmore() {
+
+    }
+}

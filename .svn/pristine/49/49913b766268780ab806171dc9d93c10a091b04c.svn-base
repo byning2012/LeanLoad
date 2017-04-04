@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_education_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.EducationInfoActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/education_info" />
+
+    <include layout="@layout/divide_line" />
+
+    <include layout="@layout/top_remind" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dim40"
+        android:background="@color/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim30"
+            android:gravity="center"
+            android:text="@string/credit_card_email"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_account"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim80"
+            android:layout_marginRight="@dimen/dim40"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="@string/input_credit_card_email"
+            android:lines="1"
+            android:textColorHint="@color/shallow_gray"
+            android:textSize="@dimen/txt30" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim30"
+            android:gravity="center"
+            android:text="@string/email_psw"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_psw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim100"
+            android:layout_marginRight="@dimen/dim40"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="@string/input_email_psw"
+            android:inputType="textPassword"
+            android:lines="1"
+            android:textColorHint="@color/shallow_gray"
+            android:textSize="@dimen/txt30" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <Button
+        android:id="@+id/btn_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_marginTop="@dimen/dim160"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/complete"
+        android:textSize="@dimen/txt34"
+        android:textColor="@color/select_white_orange" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dim40"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dim10"
+            android:gravity="center"
+            android:text="@string/agress_science_info"
+            android:textColor="@color/home_btn_orange"
+            android:textSize="@dimen/txt20" />
+    </LinearLayout>
+
+</LinearLayout>

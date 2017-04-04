@@ -1,0 +1,117 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.adapter.home.LoanStagingAdapter;
+import com.hzxm.easyloan.model.home.LoanStagingModel;
+import com.hzxm.easyloan.presenter.implPresenter.LoanStagingPresenter;
+import com.hzxm.easyloan.presenter.implView.ILoanStagingDetailView;
+import com.hzxm.easyloan.utils.Constant;
+import com.hzxm.easyloan.widget.HorizontalDecoration;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.util.glide.GliderHelper;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 借款分期详情
+ */
+public class LoanStagingDetailActivity extends BaseActivity implements ILoanStagingDetailView {
+
+
+    @BindView(R.id.recycleView)
+    RecyclerView recycleView;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
+    @BindView(R.id.activity_loan_staging_detail)
+    LinearLayout activityLoanStagingDetail;
+    @BindView(R.id.iv_error_logo)
+    ImageView ivErrorLogo;
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+
+
+    private int uid;
+    private String id;
+
+    private LoanStagingPresenter mLoanStagingPresenter;
+
+    private LoanStagingAdapter mLoanStagingAdapter;
+
+    private LoanStagingModel mLoanStagingModel;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_loan_staging_detail);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        recycleView.setLayoutManager(new LinearLayoutManager(this));
+        recycleView.setNestedScrollingEnabled(false);
+        recycleView.addItemDecoration(new HorizontalDecoration(this, LinearLayoutManager.VERTICAL));
+        GliderHelper.loadImage(R.drawable.net_error, ivErrorLogo, null);
+    }
+
+    @OnClick(R.id.btn_error)
+    public void errorBtn() {
+        mLoanStagingPresenter.billListDetail(uid, id);
+    }
+
+    @Override
+    protected void initData() {
+        id = getIntent().getExtras().getString("id");
+        mLoanStagingPresenter = new LoanStagingPresenter(this);
+        mLoanStagingPresenter.billListDetail(uid, id);
+        mLoanStagingAdapter = mLoanStagingPresenter.getAdapter();
+    }
+
+    /**
+     * 设置空页面
+     */
+    @Override
+    public void emptyView() {
+
+    }
+
+    @Override
+    public void getData(LoanStagingModel loanStagingModel) {
+        errorPage.setVisibility(View.GONE);
+        activityLoanStagingDetail.setVisibility(View.VISIBLE);
+        mLoanStagingModel = loanStagingModel;
+        recycleView.setAdapter(mLoanStagingAdapter);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        errorPage.setVisibility(View.VISIBLE);
+        activityLoanStagingDetail.setVisibility(View.GONE);
+    }
+
+}

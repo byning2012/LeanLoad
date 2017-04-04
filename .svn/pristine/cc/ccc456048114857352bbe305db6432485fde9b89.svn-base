@@ -1,0 +1,82 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.content.Intent;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.ui.activity.BankCarManagerActivity;
+import com.hzxm.easyloan.ui.activity.CertificationCenterActivity;
+import com.hzxm.easyloan.ui.activity.SeetingActivity;
+import com.lmz.baselibrary.ui.BaseFragment;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:59
+ * 个人中心
+ */
+public class MineFragment extends BaseFragment {
+    @BindView(R.id.tv_verification_center)
+    TextView tvVerificationCenter;
+    @BindView(R.id.tv_loan_num)
+    TextView tvLoanNum;
+    @BindView(R.id.loan_recording)
+    RelativeLayout loanRecording;
+    @BindView(R.id.tv_overdue_time)
+    TextView tvOverdueTime;
+    @BindView(R.id.overdue_time)
+    RelativeLayout overdueTime;
+    @BindView(R.id.tv_bank_car_manager)
+    TextView tvBankCarManager;
+    @BindView(R.id.bank_car)
+    RelativeLayout bankCar;
+    @BindView(R.id.tv_seeting)
+    TextView tvSeeting;
+
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_mine;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+        SetStatusBarColor(R.color.home_blue);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 认证中心
+     */
+    @OnClick(R.id.tv_verification_center)
+    public void verficationCenter() {
+        Intent intent = new Intent(context, CertificationCenterActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 银行卡管理
+     */
+    @OnClick(R.id.bank_car)
+    public void bankCar() {
+        Intent intent = new Intent(context, BankCarManagerActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 设置
+     */
+    @OnClick(R.id.tv_seeting)
+    public void seeting() {
+        Intent intent = new Intent(context, SeetingActivity.class);
+        startActivity(intent);
+    }
+
+}

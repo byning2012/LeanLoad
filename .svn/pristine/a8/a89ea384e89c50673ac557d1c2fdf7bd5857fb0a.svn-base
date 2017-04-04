@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="divide_line">#e5e5e5</color>
+    <color name="deep_text_white">#A5ACB2</color>
+    <color name="shallow_gray">#E6E6E6</color>
+    <color name="home_blue">#0E81D9</color>
+    <color name="home_blue_title">#1d9dff</color>
+    <color name="home_blue_splash">#3991F5</color>
+    <color name="home_btn_orange">#F86E3D</color>
+    <color name="light_orange">#F7AF94</color>
+    <color name="top_remind_bg">#F5E3C7</color>
+    <color name="transparent">#00000000</color>
+    <color name="pop_bg">#6f000000</color>
+    <color name="tab_color">#A5ACB2</color>
+    <color name="app_white">#ffffff</color>
+    <color name="transparent_white">#ffffffff</color>
+    <color name="home_title_white">#CCE9FF</color>
+    <color name="seek_bar_strock">#DBDBDB</color>
+    <color name="light_gray">#A5ACB2</color>
+    <color name="input_bg">#FAFAFA</color>
+    <color name="delete_txt">#999999</color>
+    <color name="home_red">#F35833</color>
+    <color name="head_text">#808080</color>
+</resources>

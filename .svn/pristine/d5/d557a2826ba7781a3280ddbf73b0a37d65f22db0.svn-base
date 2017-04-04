@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hzxm.easyloan">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- 主界面 -->
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <!-- 登陆 -->
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 注册 -->
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 找回密码 -->
+        <activity
+            android:name=".ui.activity.FindPswActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 重置密码 -->
+        <activity
+            android:name=".ui.activity.ResetPswActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 基本信息认证 -->
+        <activity
+            android:name=".ui.activity.VerifiedActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 闪屏 -->
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 证件上传 -->
+        <activity
+            android:name=".ui.activity.DocUploadActivity"
+            android:screenOrientation="portrait" />
+        <!-- 信息完善 -->
+        <activity
+            android:name=".ui.activity.InfoCompleteActivity"
+            android:screenOrientation="portrait" />
+        <!-- 认证中心 -->
+        <activity android:name=".ui.activity.CertificationCenterActivity" />
+        <!-- 基础认证 -->
+        <activity android:name=".ui.activity.BaseCertificationActivity" />
+        <activity android:name=".ui.activity.MatchQuotaActivity" />
+        <activity android:name=".ui.activity.SeetingActivity" />
+        <activity android:name=".ui.activity.FeedbackActivity"></activity>
+    </application>
+
+</manifest>

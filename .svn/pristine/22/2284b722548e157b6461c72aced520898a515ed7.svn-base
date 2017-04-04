@@ -1,0 +1,59 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.LinearLayout;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.ConstanctsModel;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 紧急联系人
+ */
+public class EmergencyContactActivity extends BaseActivity {
+
+    @BindView(R.id.et_relationship)
+    ClearEditText etRelationship;
+    @BindView(R.id.et_name)
+    ClearEditText etName;
+    @BindView(R.id.et_tel_num)
+    ClearEditText etTelNum;
+    @BindView(R.id.et_relationship2)
+    ClearEditText etRelationship2;
+    @BindView(R.id.et_name2)
+    ClearEditText etName2;
+    @BindView(R.id.et_tel_num2)
+    ClearEditText etTelNum2;
+    @BindView(R.id.activity_emergency_contact)
+    LinearLayout activityEmergencyContact;
+
+
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_emergency_contact);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 跳转到通讯录
+     */
+    @OnClick({R.id.et_name, R.id.et_tel_num, R.id.et_name2, R.id.et_tel_num2})
+    public void contact(ClearEditText et) {
+
+    }
+
+}

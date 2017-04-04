@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_related_other_data"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.RelatedOtherDataActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/other_data" />
+
+    <include layout="@layout/divide_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dim40"
+        android:background="@color/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim30"
+            android:gravity="center"
+            android:text="@string/documents_name"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_doc_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim40"
+            android:layout_marginRight="@dimen/dim40"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="@string/input_document_type"
+            android:lines="1"
+            android:textColorHint="@color/shallow_gray"
+            android:textSize="@dimen/txt28" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim300"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim10"
+        android:paddingRight="@dimen/dim10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim10"
+            android:layout_marginRight="@dimen/dim10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_updata1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim160"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@drawable/updata_pic">
+
+                <ImageView
+                    android:id="@+id/iv_updata1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/dim10"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/iv_compilete1"
+                    android:layout_width="@dimen/dim60"
+                    android:layout_height="@dimen/dim60"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/updata_complete"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_compilete1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_compilete1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dim10"
+                    android:text="上传完成"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim22"
+                    android:visibility="gone" />
+
+                <!--上传中-->
+                <TextView
+                    android:id="@+id/tv_uploading1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:text="@string/uploading"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim22"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/pb_uploading1"
+                    style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="@dimen/dim120"
+                    android:layout_height="@dimen/dim14"
+                    android:layout_below="@id/tv_uploading1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:progressDrawable="@drawable/upload_prograss"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_one"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="第一张"
+                android:textColor="@color/deep_text_white"
+                android:textSize="@dimen/dim28" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim10"
+            android:layout_marginRight="@dimen/dim10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_updata2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim160"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@drawable/updata_pic">
+
+                <ImageView
+                    android:id="@+id/iv_updata2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/dim10"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/iv_compilete2"
+                    android:layout_width="@dimen/dim60"
+                    android:layout_height="@dimen/dim60"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/updata_complete"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_compilete2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_compilete2"
+                    android:layout_centerHorizontal="true"
+                    android:text="上传完成"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt22"
+                    android:visibility="gone" />
+
+                <!--上传中-->
+                <TextView
+                    android:id="@+id/tv_uploading2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:text="@string/uploading"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim22"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/pb_uploading2"
+                    style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="@dimen/dim120"
+                    android:layout_height="@dimen/dim14"
+                    android:layout_below="@id/tv_uploading2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:progressDrawable="@drawable/upload_prograss"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="第二张"
+                android:textColor="@color/deep_text_white"
+                android:textSize="@dimen/txt28" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim10"
+            android:layout_marginRight="@dimen/dim10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_updata3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim160"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@drawable/updata_pic">
+
+                <ImageView
+                    android:id="@+id/iv_updata3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/dim10"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/iv_compilete3"
+                    android:layout_width="@dimen/dim60"
+                    android:layout_height="@dimen/dim60"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/updata_complete"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_compilete3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_compilete3"
+                    android:layout_centerHorizontal="true"
+                    android:text="上传完成"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt22"
+                    android:visibility="gone" />
+
+                <!--上传中-->
+                <TextView
+                    android:id="@+id/tv_uploading3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:text="@string/uploading"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim22"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/pb_uploading3"
+                    style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="@dimen/dim120"
+                    android:layout_height="@dimen/dim14"
+                    android:layout_below="@id/tv_uploading3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:progressDrawable="@drawable/upload_prograss"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_three"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="第三张"
+                android:textColor="@color/deep_text_white"
+                android:textSize="@dimen/dim28" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_marginTop="@dimen/dim90"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/complete"
+        android:textSize="@dimen/txt36"
+        android:textColor="@color/select_white_orange" />
+</LinearLayout>

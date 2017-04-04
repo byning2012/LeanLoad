@@ -1,0 +1,52 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseFragment;
+import com.lmz.baselibrary.widget.TitleLayout;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:57
+ */
+public class HomeFragment extends BaseFragment {
+
+
+    @BindView(R.id.title123)
+    TitleLayout title;
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+}

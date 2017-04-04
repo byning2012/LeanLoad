@@ -1,0 +1,13 @@
+package com.hzxm.easyloan.presenter.implView;
+
+import com.hzxm.easyloan.model.RegisterModel;
+import com.lmz.baselibrary.present.implView.IBasePresenter;
+
+/**
+ * 作者：LMZ on 2016/12/24 0024 16:52
+ */
+public interface IVerificationView extends IBasePresenter {
+    void showSuccess();
+
+    void registerData(RegisterModel registerModel);
+}

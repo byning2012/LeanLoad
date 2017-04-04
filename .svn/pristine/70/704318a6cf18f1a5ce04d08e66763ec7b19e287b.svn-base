@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_top_remind"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dim60"
+    android:background="@color/top_remind_bg"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_remind"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim36"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:text="@string/input_sure_address"
+        android:textColor="@color/home_btn_orange"
+        android:textSize="@dimen/txt20" />
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="@dimen/dim36"
+        android:layout_height="@dimen/dim36"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/dim20"
+        android:src="@drawable/remind_close" />
+</LinearLayout>

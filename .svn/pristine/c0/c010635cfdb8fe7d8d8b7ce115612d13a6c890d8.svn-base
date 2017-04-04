@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="choose_dentity">
+        <item>学生</item>
+        <item>工薪</item>
+        <item>其他</item>
+    </string-array>
+</resources>

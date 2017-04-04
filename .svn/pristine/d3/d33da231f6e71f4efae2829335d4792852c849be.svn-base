@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_verified"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.VerifiedActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_title="@string/verified" />
+
+    <RelativeLayout
+        android:id="@+id/rl_title_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dim40"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dim100"
+            android:layout_centerInParent="true"
+            android:background="@drawable/verified1" />
+    </RelativeLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/actual_name"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/clearEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim352"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="start"
+            android:gravity="center_vertical"
+            android:hint="@string/input_actual_name"
+            android:lines="1"
+            android:maxLength="6"
+            android:textColorHint="@color/deep_text_white"
+            android:textSize="@dimen/txt28" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/id_card_num"
+            android:textColor="@color/tc_black" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_card_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim286"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="@string/input_id_card_num"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="18"
+            android:textColorHint="@color/deep_text_white"
+            android:textSize="@dimen/txt28" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim60"
+        android:layout_marginRight="@dimen/dim60"
+        android:layout_marginTop="@dimen/dim72"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/next_step"
+        android:textColor="@color/select_white_orange" />
+</LinearLayout>

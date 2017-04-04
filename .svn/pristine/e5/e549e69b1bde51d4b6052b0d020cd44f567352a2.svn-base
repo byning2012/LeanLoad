@@ -1,0 +1,278 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.Manifest;
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.BaseCertificationModel;
+import com.hzxm.easyloan.model.mine.ConstanctsModel;
+import com.hzxm.easyloan.presenter.implPresenter.CompleteInfoPresenter;
+import com.hzxm.easyloan.presenter.implView.ICompleteInfoView;
+import com.hzxm.easyloan.utils.Constant;
+import com.hzxm.easyloan.utils.NeedPermissionUtils;
+import com.lmz.baselibrary.listener.IPermissionResultListener;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.widget.springview.container.LoanHeader;
+import com.lmz.baselibrary.widget.springview.widget.SpringView;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 基础认证
+ * 信息完善
+ */
+public class InfoCompleteActivity extends BaseActivity implements ICompleteInfoView, SpringView.OnFreshListener {
+
+    @BindView(R.id.tv_phone_num)
+    TextView tvPhoneNum;
+    @BindView(R.id.tv_verified_state)
+    TextView tvVerifiedState;
+    @BindView(R.id.rl_sesame_points)
+    RelativeLayout rlSesamePoints;
+    @BindView(R.id.tv_bank_card)
+    TextView tvBankCard;
+    @BindView(R.id.rl_bank_card)
+    RelativeLayout rlBankCard;
+    @BindView(R.id.tv_emergency_contact)
+    TextView tvEmergencyContact;
+    @BindView(R.id.rl_emergency_contact)
+    RelativeLayout rlEmergencyContact;
+    @BindView(R.id.tv_phone_certification)
+    TextView tvPhoneCertification;
+    @BindView(R.id.rl_phone_certification)
+    RelativeLayout rlPhoneCertification;
+    @BindView(R.id.tv_now_address)
+    TextView tvNowAddress;
+    @BindView(R.id.rl_now_address)
+    RelativeLayout rlNowAddress;
+    @BindView(R.id.btn_next)
+    Button btnNext;
+    @BindView(R.id.activity_info_complete)
+    LinearLayout activityInfoComplete;
+    @BindView(R.id.refresh)
+    SpringView refresh;
+
+    //存储用户通讯录信息
+    private List<ConstanctsModel> mConstancts;
+
+    private CompleteInfoPresenter mCompleteInfoPresenter;
+
+    private int uid;
+
+    private BaseCertificationModel baseCertificationModel;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_info_complete);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        refresh.setHeader(new LoanHeader());
+        refresh.setGive(SpringView.Give.TOP);
+        refresh.setListener(this);
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        tvPhoneNum.setText(SharedPreferencesUtil.getInstance(MyApplication.getContext()).getString(Constant.PHONE_NUM, ""));
+        mCompleteInfoPresenter = new CompleteInfoPresenter(this);
+        mCompleteInfoPresenter.baseInfoData(uid);
+    }
+
+    /**
+     * 点击下一步
+     */
+    @OnClick(R.id.btn_next)
+    public void next() {
+        mCompleteInfoPresenter.next(uid + "");
+    }
+
+    /**
+     * 紧急联系人
+     */
+    @OnClick(R.id.rl_emergency_contact)
+    public void emergencyContact() {
+        if (baseCertificationModel.getData().getConnect().getUrgent_tel() != null) {
+            tvEmergencyContact.setText("已添加");
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("emergency", baseCertificationModel.getData().getConnect());
+            startActivity(EmergencyContactActivity.class, bundle);
+        } else {
+            startActivity(EmergencyContactActivity.class);
+        }
+
+    }
+
+    /**
+     * 银行卡
+     */
+    @OnClick(R.id.rl_bank_card)
+    public void bankCard() {
+        if (baseCertificationModel.getData().getBanck_card().getBank_number() != null) {
+            tvBankCard.setText("已添加");
+            startActivity(BankCarManagerActivity.class);
+        }
+        startActivityForResult(AddBankCardActivity.class, 101);
+    }
+
+    /**
+     * 现住地址
+     */
+    @OnClick(R.id.rl_now_address)
+    public void currentAddress() {
+        startActivity(CurrentAddressActivity.class);
+    }
+
+    /**
+     * 手机认证
+     */
+    @OnClick(R.id.rl_phone_certification)
+    public void phoneCertification() {
+        if (!"0".equals(baseCertificationModel.getData().getTel_sure().getTel_sure())) {
+            tvPhoneCertification.setText("已认证");
+        } else {
+            showContactsDialog();
+        }
+
+    }
+
+    /**
+     * 询问用户是否可以访问通讯录
+     */
+    public void showContactsDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_contacts, null);
+        view.findViewById(R.id.iv_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        //同意访问
+        view.findViewById(R.id.btn_aggree).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                permissionRequest("是否允许访问通讯录信息", new String[]{Manifest.permission.READ_CONTACTS}
+                        , 101, new IPermissionResultListener() {
+                            @Override
+                            public void onPermissionSuccess() {
+                                dialog.dismiss();
+                                NeedPermissionUtils utils = new NeedPermissionUtils();
+                                //获取成功
+                                mConstancts = utils.GetConstanctsInfo(InfoCompleteActivity.this);
+                                LogUtil.e("TAG--->" + mConstancts.size());
+                            }
+
+                            @Override
+                            public void onPermissionFaild() {
+                                dialog.dismiss();
+                            }
+                        });
+            }
+        });
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wl = window.getAttributes();
+        window.setGravity(Gravity.CENTER);
+        dialog.onWindowAttributesChanged(wl);
+        dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == 101) { //添加银行卡返回
+            tvBankCard.setText("已添加");
+        }
+    }
+
+    /**
+     * 获取成功基础数据
+     *
+     * @param baseCertificationModel
+     */
+    @Override
+    public void data(BaseCertificationModel baseCertificationModel) {
+        this.baseCertificationModel = baseCertificationModel;
+        refresh.onFinishFreshAndLoad();
+        if (!"0".equals(baseCertificationModel.getData().getZhima().getCredit_score())) {
+            tvVerifiedState.setText(baseCertificationModel.getData().getZhima().getCredit_score());
+        }
+        if (!"0".equals(baseCertificationModel.getData().getTel_sure().getTel_sure())) {
+            tvPhoneCertification.setText("已认证");
+        }
+        if (baseCertificationModel.getData().getConnect().getUrgent_tel() != null) {
+            tvEmergencyContact.setText("已添加");
+        }
+        if (baseCertificationModel.getData().getBanck_card().getBank_number() != null) {
+            tvBankCard.setText("已添加");
+        }
+        if (!"".equals(baseCertificationModel.getData().getAddress().getAddress())) {
+            tvNowAddress.setText(baseCertificationModel.getData().getAddress().getAddress());
+        }
+
+    }
+
+    @Override
+    public void showSuccess() {
+        startActivity(MatchQuotaActivity.class);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        refresh.onFinishFreshAndLoad();
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+
+    /**
+     * 刷新
+     */
+    @Override
+    public void onRefresh() {
+        mCompleteInfoPresenter.baseInfoData(uid);
+    }
+
+    @Override
+    public void onLoadmore() {
+
+    }
+}

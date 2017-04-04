@@ -1,0 +1,155 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.AmountCreateModel;
+import com.hzxm.easyloan.model.mine.EducationModel;
+import com.hzxm.easyloan.presenter.implPresenter.EducationPresenter;
+import com.hzxm.easyloan.presenter.implView.IEducationView;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 学历信息
+ */
+public class EducationInfoActivity extends BaseActivity implements IEducationView {
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.ll_top_remind)
+    LinearLayout llTopRemind;
+    @BindView(R.id.et_account)
+    ClearEditText etAccount;
+    @BindView(R.id.et_psw)
+    ClearEditText etPsw;
+    @BindView(R.id.btn_complete)
+    Button btnComplete;
+    @BindView(R.id.activity_education_info)
+    LinearLayout activityEducationInfo;
+    @BindString(R.string.top_remind)
+    String mTopRemind;
+    private int uid;
+
+    private AmountCreateModel.DataEntity.InfoEntity.XuexinEntity mXuexinEntity;
+
+    private EducationPresenter mEducationPresenter;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_education_info);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        tvRemind.setText(mTopRemind);
+    }
+
+    @Override
+    protected void initData() {
+        try {
+            mXuexinEntity = getIntent().getExtras().getParcelable("xuexin");
+            etAccount.setText(mXuexinEntity.getUser());
+            etAccount.setSelection(mXuexinEntity.getUser().length());
+        } catch (NullPointerException e) {
+            LogUtil.e(e);
+        }
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        mEducationPresenter = new EducationPresenter(this);
+
+    }
+
+    //关闭头部警告蓝
+    @OnClick(R.id.iv_delete)
+    public void closeTop() {
+        llTopRemind.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.btn_complete)
+    public void complete() {
+        String username = etAccount.getText().toString().trim();
+        String password = etPsw.getText().toString().trim();
+        if (TextUtils.isEmpty(username)) {
+            showToast("请输入账号", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            showToast("请输入密码", Toast.LENGTH_SHORT);
+            return;
+        }
+        mEducationPresenter.xuexinCode(uid, username, password);
+    }
+
+    //获取token
+    @Override
+    public void getData(EducationModel educationModel) {
+        LogUtil.e(educationModel.getData());
+        mEducationPresenter.xuexinStatus(uid, educationModel.getData().trim());
+    }
+
+    @Override
+    public void statusSuccess(String token) {
+        mEducationPresenter.xuexinResult(uid, token.trim());
+    }
+
+    /**
+     * 获取学信网状态失败
+     */
+    @Override
+    public void statusFaild(String error) {
+        showToast("statusFaild" + error, Toast.LENGTH_SHORT);
+    }
+
+    /**
+     * 学信网成功
+     */
+    @Override
+    public void resultSuccess() {
+        showToast("资料提交成功", Toast.LENGTH_SHORT);
+        AppActivityManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    public void resultFaild(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mEducationPresenter.unsubcrible();
+    }
+}

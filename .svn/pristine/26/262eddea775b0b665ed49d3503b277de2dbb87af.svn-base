@@ -1,0 +1,44 @@
+package com.hzxm.easyloan.api;
+
+import com.hzxm.easyloan.utils.Constant;
+
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+/**
+ * 作者：LMZ on 2016/12/20 0020 16:11
+ */
+public class ApiManager {
+    private static ApiManager apiManager;
+
+    public static ApiManager getInstance() {
+        synchronized (ApiManager.class) {
+            if (apiManager == null) {
+                apiManager = new ApiManager();
+            }
+        }
+        return apiManager;
+    }
+
+    LoanApi loanApi;
+    private Object object = new Object();
+
+
+    public LoanApi getLoanApiService() {
+        if (loanApi == null) {
+            synchronized (object.getClass()) {
+                if (loanApi == null) {
+                    loanApi = new Retrofit.Builder()
+                            .baseUrl(Constant.WebSite)
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build()
+                            .create(LoanApi.class);
+                }
+            }
+        }
+        return loanApi;
+    }
+
+}

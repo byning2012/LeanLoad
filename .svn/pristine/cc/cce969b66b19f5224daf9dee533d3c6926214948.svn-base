@@ -1,0 +1,9 @@
+package com.hzxm.easyloan;
+
+import com.lmz.baselibrary.BaseApplication;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:08
+ */
+public class MyApplication extends BaseApplication {
+}

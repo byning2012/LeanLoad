@@ -1,0 +1,275 @@
+package com.hzxm.easyloan.model.mine;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/27 0027 14:55
+ */
+public class BaseCertificationModel {
+
+    /**
+     * Code : 0
+     * Msg : 获取成功
+     * Time : 2016-12-27 14:43:01
+     * ApiUrl : /Api/Baseinfo/base_info_data.html
+     * Data : {"id":"1","reallyname":"xx","id_card":"330122199210142711","uid":"10","card_img_face":"123","card_img_back":"123","card_img_all":"123","tel":"15067126319","urgent_tel":[{"name":"妈妈","tel":"15067126311"},{"name":"爸爸","tel":"15058827741"}],"credit_score":"657","tel_sure":"1","address":"","status":"3","tel_serve":"12580","banck_card":"2","bank_number":"15064126319111","bank_tel":"15067126319","banck_name":"中国银行"}
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private DataEntity Data;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public DataEntity getData() {
+        return Data;
+    }
+
+    public void setData(DataEntity Data) {
+        this.Data = Data;
+    }
+
+    public static class DataEntity {
+        /**
+         * id : 1
+         * reallyname : xx
+         * id_card : 330122199210142711
+         * uid : 10
+         * card_img_face : 123
+         * card_img_back : 123
+         * card_img_all : 123
+         * tel : 15067126319
+         * urgent_tel : [{"name":"妈妈","tel":"15067126311"},{"name":"爸爸","tel":"15058827741"}]
+         * credit_score : 657
+         * tel_sure : 1
+         * address :
+         * status : 3
+         * tel_serve : 12580
+         * banck_card : 2
+         * bank_number : 15064126319111
+         * bank_tel : 15067126319
+         * banck_name : 中国银行
+         */
+
+        private String id;
+        private String reallyname;
+        private String id_card;
+        private String uid;
+        private String card_img_face;
+        private String card_img_back;
+        private String card_img_all;
+        private String tel;
+        private String credit_score;
+        private String tel_sure;
+        private String address;
+        private String status;
+        private String tel_serve;
+        private String banck_card;
+        private String bank_number;
+        private String bank_tel;
+        private String banck_name;
+        private List<UrgentTelEntity> urgent_tel;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getReallyname() {
+            return reallyname;
+        }
+
+        public void setReallyname(String reallyname) {
+            this.reallyname = reallyname;
+        }
+
+        public String getId_card() {
+            return id_card;
+        }
+
+        public void setId_card(String id_card) {
+            this.id_card = id_card;
+        }
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getCard_img_face() {
+            return card_img_face;
+        }
+
+        public void setCard_img_face(String card_img_face) {
+            this.card_img_face = card_img_face;
+        }
+
+        public String getCard_img_back() {
+            return card_img_back;
+        }
+
+        public void setCard_img_back(String card_img_back) {
+            this.card_img_back = card_img_back;
+        }
+
+        public String getCard_img_all() {
+            return card_img_all;
+        }
+
+        public void setCard_img_all(String card_img_all) {
+            this.card_img_all = card_img_all;
+        }
+
+        public String getTel() {
+            return tel;
+        }
+
+        public void setTel(String tel) {
+            this.tel = tel;
+        }
+
+        public String getCredit_score() {
+            return credit_score;
+        }
+
+        public void setCredit_score(String credit_score) {
+            this.credit_score = credit_score;
+        }
+
+        public String getTel_sure() {
+            return tel_sure;
+        }
+
+        public void setTel_sure(String tel_sure) {
+            this.tel_sure = tel_sure;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getTel_serve() {
+            return tel_serve;
+        }
+
+        public void setTel_serve(String tel_serve) {
+            this.tel_serve = tel_serve;
+        }
+
+        public String getBanck_card() {
+            return banck_card;
+        }
+
+        public void setBanck_card(String banck_card) {
+            this.banck_card = banck_card;
+        }
+
+        public String getBank_number() {
+            return bank_number;
+        }
+
+        public void setBank_number(String bank_number) {
+            this.bank_number = bank_number;
+        }
+
+        public String getBank_tel() {
+            return bank_tel;
+        }
+
+        public void setBank_tel(String bank_tel) {
+            this.bank_tel = bank_tel;
+        }
+
+        public String getBanck_name() {
+            return banck_name;
+        }
+
+        public void setBanck_name(String banck_name) {
+            this.banck_name = banck_name;
+        }
+
+        public List<UrgentTelEntity> getUrgent_tel() {
+            return urgent_tel;
+        }
+
+        public void setUrgent_tel(List<UrgentTelEntity> urgent_tel) {
+            this.urgent_tel = urgent_tel;
+        }
+
+        public static class UrgentTelEntity {
+            /**
+             * name : 妈妈
+             * tel : 15067126311
+             */
+
+            private String name;
+            private String tel;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getTel() {
+                return tel;
+            }
+
+            public void setTel(String tel) {
+                this.tel = tel;
+            }
+        }
+    }
+}

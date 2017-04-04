@@ -1,0 +1,27 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.view.View;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseFragment;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:59
+ * 管家
+ */
+public class ChamberlainFragment extends BaseFragment {
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_chamberlain;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+}

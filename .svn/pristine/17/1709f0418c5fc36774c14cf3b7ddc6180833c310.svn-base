@@ -1,0 +1,133 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MainActivity;
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.LoginModel;
+import com.hzxm.easyloan.presenter.implPresenter.LoginPresenter;
+import com.hzxm.easyloan.presenter.implView.ILoginView;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 登陆界面
+ */
+public class LoginActivity extends BaseActivity implements ILoginView {
+
+    @BindView(R.id.btm_login)
+    Button btmLogin;
+    @BindView(R.id.btm_register)
+    Button btmRegister;
+    @BindView(R.id.tv_forget_psw)
+    TextView tvForgetPsw;
+    @BindView(R.id.et_user_num)
+    ClearEditText etUserNum;
+    @BindView(R.id.et_user_psw)
+    ClearEditText etUserPsw;
+    @BindView(R.id.activity_login)
+    LinearLayout activityLogin;
+
+    private LoginPresenter mLoginPresenter;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_login);
+    }
+
+    /**
+     * 登陆
+     */
+    @OnClick(R.id.btm_login)
+    public void login() {
+        String username = etUserNum.getText().toString().trim();
+        String password = etUserPsw.getText().toString().trim();
+        if ("".equals(username)) {
+            showToast("用户名不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ("".equals(password)) {
+            showToast("密码不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (password.length() < 8) {
+            showToast("密码长度需大于8位", Toast.LENGTH_SHORT);
+            return;
+        }
+        mLoginPresenter.login(username, password);
+    }
+
+    /**
+     * 注册
+     */
+    @OnClick(R.id.btm_register)
+    public void register() {
+        startActivity(RegisterActivity.class);
+    }
+
+    /**
+     * 忘记密码
+     */
+    @OnClick(R.id.tv_forget_psw)
+    public void forgetPsw() {
+        startActivity(FindPswActivity.class);
+        // startActivity(VerifiedActivity.class);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent);
+    }
+
+    @Override
+    protected void initData() {
+        mLoginPresenter = new LoginPresenter(this);
+    }
+
+    /**
+     * 登陆成功返回
+     *
+     * @param loginModel
+     */
+    @Override
+    public void loginSuccess(LoginModel loginModel) {
+        SharedPreferencesUtil.getInstance(MyApplication.getApplication()).putBoolean(Constant.IS_LOGIN, true);
+        SharedPreferencesUtil.getInstance(MyApplication.getApplication()).putInt(Constant.UID, loginModel.getData().getUid());
+        SharedPreferencesUtil.getInstance(MyApplication.getApplication()).putString(Constant.HASH_ID, loginModel.getData().getHashid());
+        startActivity(MainActivity.class);
+        AppActivityManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mLoginPresenter.unsubcrible();
+        super.onDestroy();
+    }
+}

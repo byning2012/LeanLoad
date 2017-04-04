@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:background="@color/home_blue">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/chamberlain"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt36" />
+
+        <FrameLayout
+            android:id="@+id/fl_news"
+            android:layout_width="@dimen/dim46"
+            android:layout_height="@dimen/dim38"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dim30">
+
+            <ImageView
+                android:layout_width="@dimen/dim36"
+                android:layout_height="@dimen/dim28"
+                android:layout_gravity="center"
+                android:src="@drawable/news" />
+
+            <ImageView
+                android:id="@+id/iv_news_remind"
+                android:layout_width="@dimen/dim20"
+                android:layout_height="@dimen/dim20"
+                android:layout_gravity="right"
+                android:src="@drawable/news_remind" />
+        </FrameLayout>
+    </RelativeLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+    <include layout="@layout/error_page" />
+
+    <LinearLayout
+        android:id="@+id/ll_chamberlain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim240"
+            android:background="@drawable/chamberlain_bg">
+
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="@dimen/dim522"
+                android:layout_height="@dimen/dim120"
+                android:layout_marginLeft="@dimen/dim204"
+                android:layout_marginRight="@dimen/dim40"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@drawable/chamberlain_chat_bg"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textSize="@dimen/txt26" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/dim30"
+                android:layout_marginRight="@dimen/dim30"
+                android:text="@string/service_time"
+                android:textColor="@color/deep_text_white"
+                android:textSize="@dimen/txt18" />
+        </RelativeLayout>
+
+        <include layout="@layout/divide_line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/dim40"
+            android:background="@color/divide_line" />
+
+        <TextView
+            android:id="@+id/tv_common_proble"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim90"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/common_problem"
+            android:drawablePadding="@dimen/dim20"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dim30"
+            android:text="@string/common_problem"
+            android:textColor="@color/home_blue"
+            android:textSize="@dimen/txt30" />
+
+        <include layout="@layout/divide_line" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none" />
+    </LinearLayout>
+   </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:drawableTop="@drawable/bank_card"
+        android:gravity="center"
+        android:text="@string/no_card"
+        android:textColor="@color/deep_text_white"
+        android:textSize="@dimen/txt30" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim20"
+        android:text="@string/card_supposed"
+        android:textColor="@color/deep_text_white"
+        android:textSize="@dimen/txt20" />
+
+    <Button
+        android:id="@+id/btn_add_bank"
+        android:layout_width="@dimen/dim300"
+        android:layout_height="@dimen/dim90"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim160"
+        android:background="@drawable/select_add_bank_btn"
+        android:text="@string/add_bank_card"
+        android:textColor="@color/select_orange_white"
+        android:textSize="@dimen/txt34" />
+</LinearLayout>

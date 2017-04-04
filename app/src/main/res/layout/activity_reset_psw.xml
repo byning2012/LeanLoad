@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_reset_psw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.ResetPswActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dim20"
+        app:titlelayout_showback="true"
+        app:titlelayout_title="@string/reset_psw" />
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/new_psw"
+            android:textColor="@color/tc_black" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim70"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="@string/input_new_psw"
+            android:inputType="textPassword"
+            android:lines="1"
+            android:maxLength="16"
+            android:textColor="@color/tc_black"
+            android:textColorHint="@color/deep_text_white"
+            android:textSize="@dimen/txt30" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/sure_psw"
+            android:textColor="@color/tc_black" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_verification_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim40"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/sure_psw"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/tc_black"
+            android:textColorHint="@color/deep_text_white"
+            android:textSize="@dimen/txt30" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <Button
+        android:id="@+id/btn_verification"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_marginTop="@dimen/dim60"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/sure"
+        android:textColor="@color/select_white_orange"
+        android:textSize="@dimen/txt34" />
+</LinearLayout>

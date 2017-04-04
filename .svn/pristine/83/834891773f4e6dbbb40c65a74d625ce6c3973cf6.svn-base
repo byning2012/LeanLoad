@@ -1,0 +1,176 @@
+package com.hzxm.easyloan.presenter.implPresenter;
+
+import com.hzxm.easyloan.api.ApiManager;
+import com.hzxm.easyloan.model.BaseModel;
+import com.hzxm.easyloan.model.UploadPicModel;
+import com.hzxm.easyloan.presenter.IRelatedOtherData;
+import com.hzxm.easyloan.presenter.implView.IRelatedOtherDataView;
+import com.lmz.baselibrary.listener.ProgressListener;
+import com.lmz.baselibrary.present.implPresenter.BasePresenterImpl;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.UploadFileRequestBody;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.schedulers.Schedulers;
+
+/**
+ * 作者：LMZ on 2017/1/3 0003 09:47
+ * 相关资料和其他资料
+ */
+public class RelatedOtherPresenter extends BasePresenterImpl implements IRelatedOtherData {
+    IRelatedOtherDataView mIRelatedOtherDataView;
+
+    public RelatedOtherPresenter(IRelatedOtherDataView mIRelatedOtherDataView) {
+        this.mIRelatedOtherDataView = mIRelatedOtherDataView;
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param file
+     * @param uid
+     * @param hashid
+     * @param type
+     */
+    @Override
+    public void uploadFace(File file, String uid, String hashid, final int type) {
+        Map<String, RequestBody> param = new HashMap<>();
+        LogUtil.e("onProgress--6666-->" + type);
+        UploadFileRequestBody fileRequestBody = new UploadFileRequestBody(file, new ProgressListener() {
+            @Override
+            public void onProgress(long hasWrittenLen, long totalLen, boolean hasFinish) {
+                LogUtil.e("onProgress---Presenter-->" + type);
+                mIRelatedOtherDataView.uploadPrograss(hasWrittenLen, totalLen, type);
+            }
+        });
+        LogUtil.e("filename-->" + file.getName());
+        param.put("picture\";filename=\"" + file.getName(), fileRequestBody);
+        Subscription s = ApiManager.getInstance().getLoanApiService().uploadPic(System.currentTimeMillis() + "",
+                "0a51a705ca8ec26d83af2f1b239aae67", uid, hashid, "picture", param)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UploadPicModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIRelatedOtherDataView.showPicError(e.getMessage(), type);
+                    }
+
+                    @Override
+                    public void onNext(UploadPicModel baseModel) {
+                        if (baseModel.getCode() == 0) {
+                            mIRelatedOtherDataView.uploadSuccess(baseModel.getData().getPath(), type);
+                        } else {
+                            mIRelatedOtherDataView.showPicError(baseModel.getMsg(), type);
+                        }
+
+                    }
+                });
+        addSubscription(s);
+    }
+
+    /**
+     * 添加其他证件
+     *
+     * @param uid
+     * @param other_name
+     * @param other_img
+     * @param type
+     * @param other_pid
+     */
+    @Override
+    public void addOtherInfo(String uid, String other_name, String other_img, String type, String other_pid) {
+        Subscription s = ApiManager.getInstance().getLoanApiService().addOtherInfo(System.currentTimeMillis() + "", "063b5dedce2bc8e79f7d1d126a101344",
+                uid, other_name, other_img, type, other_pid)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mIRelatedOtherDataView.showProgressDialog();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIRelatedOtherDataView.hiteProgressDialog();
+                        mIRelatedOtherDataView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        mIRelatedOtherDataView.hiteProgressDialog();
+                        LogUtil.e(baseModel.getCode());
+                        if (baseModel.getCode() == 0) {
+                            mIRelatedOtherDataView.showSuccess();
+                        } else {
+                            mIRelatedOtherDataView.showError(baseModel.getMsg());
+                        }
+
+                    }
+                });
+        addSubscription(s);
+    }
+
+    /**
+     * 上传相关资料
+     *
+     * @param uid
+     * @param interfix_name
+     * @param interfix_img
+     */
+    @Override
+    public void addInterfix(String uid, String interfix_name, String interfix_img) {
+        Subscription s = ApiManager.getInstance().getLoanApiService().addInterfix(System.currentTimeMillis() + "", "d236291eacc964d1a9b2ca86f8a7d9bd",
+                uid, interfix_name, interfix_img)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mIRelatedOtherDataView.showProgressDialog();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIRelatedOtherDataView.hiteProgressDialog();
+                        mIRelatedOtherDataView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.getCode() == 0) {
+                            mIRelatedOtherDataView.showSuccess();
+                        } else {
+                            mIRelatedOtherDataView.showError(baseModel.getMsg());
+                        }
+                    }
+                });
+        addSubscription(s);
+    }
+}

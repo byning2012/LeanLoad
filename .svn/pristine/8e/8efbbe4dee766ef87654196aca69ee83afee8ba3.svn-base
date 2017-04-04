@@ -1,0 +1,118 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.presenter.implPresenter.ResetPswPresenter;
+import com.hzxm.easyloan.presenter.implView.IResetPswView;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 重置密码
+ */
+public class ResetPswActivity extends BaseActivity implements IResetPswView {
+
+    @BindView(R.id.et_num)
+    ClearEditText etNum;
+    @BindView(R.id.et_verification_code)
+    ClearEditText etVerificationCode;
+    @BindView(R.id.btn_verification)
+    Button btnVerification;
+    @BindView(R.id.activity_reset_psw)
+    LinearLayout activityResetPsw;
+
+    private String mRecodeId, uid;
+
+    private ResetPswPresenter mResetPswPresenter;
+
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_reset_psw);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+    }
+
+    @Override
+    protected void initData() {
+        mRecodeId = getIntent().getExtras().getString(FindPswActivity.RECODE_ID, "");
+        uid = getIntent().getExtras().getString(Constant.UID, "");
+        mResetPswPresenter = new ResetPswPresenter(this);
+    }
+
+    /**
+     * 重置密码
+     */
+    @OnClick(R.id.btn_verification)
+    public void resetCode() {
+        String psw = etNum.getText().toString().trim();
+        String pswSure = etVerificationCode.getText().toString().trim();
+        if ("".equals(uid) || "".equals(mRecodeId)) {
+            return;
+        }
+        if (TextUtils.isEmpty(psw)) {
+            showToast("密码不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(pswSure)) {
+            showToast("密码不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (psw.length() < 8) {
+            showToast("密码长度需大于8位", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (pswSure.length() < 8) {
+            showToast("密码长度需大于8位", Toast.LENGTH_SHORT);
+            return;
+        }
+
+        if (!psw.equals(pswSure)) {
+            showToast("两次输入的密码不相同", Toast.LENGTH_SHORT);
+            return;
+        }
+        mResetPswPresenter.setnewpass(uid, psw, pswSure, mRecodeId);
+    }
+
+    @Override
+    public void showSuccess() {
+        showToast("重置密码成功", Toast.LENGTH_SHORT);
+        startActivity(LoginActivity.class);
+        AppActivityManager.getAppManager().finishActivity(FindPswActivity.class);
+        AppActivityManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mResetPswPresenter.unsubcrible();
+        super.onDestroy();
+    }
+}

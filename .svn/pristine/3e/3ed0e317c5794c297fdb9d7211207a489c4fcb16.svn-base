@@ -1,0 +1,15 @@
+package com.hzxm.easyloan.presenter;
+
+import com.hzxm.easyloan.adapter.mine.AmountBaseAdapter;
+import com.hzxm.easyloan.adapter.mine.AmountCreateAdapter;
+
+/**
+ * 作者：LMZ on 2016/12/29 0029 17:55
+ */
+public interface IAmountCreate {
+    void amoutCreateInfo(String type, String uid);
+
+    AmountBaseAdapter getBaseAdapter();
+
+    AmountCreateAdapter getOtherAdapter();
+}

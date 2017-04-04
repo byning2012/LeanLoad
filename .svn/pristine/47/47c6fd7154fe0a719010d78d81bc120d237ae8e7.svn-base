@@ -1,0 +1,149 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseFragment;
+import com.lmz.baselibrary.util.StringUtils;
+
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:57
+ */
+public class HomeFragment extends BaseFragment {
+
+
+    @BindView(R.id.tv_my_billing)
+    TextView tvMyBilling;
+    @BindView(R.id.tv_promotion_quota)
+    TextView tvPromotionQuota;
+    @BindView(R.id.iv_go)
+    ImageView ivGo;
+    @BindView(R.id.tv_need_money)
+    TextView tvNeedMoney;
+    @BindView(R.id.tv_need_money_time)
+    TextView tvNeedMoneyTime;
+    @BindView(R.id.rl_need_repayment)
+    RelativeLayout rlNeedRepayment;
+    @BindView(R.id.tv_need_pay)
+    TextView tvNeedPay;
+    @BindView(R.id.tv_service_charge)
+    TextView tvServiceCharge;
+    @BindView(R.id.tv_loan)
+    TextView tvLoan;
+    @BindView(R.id.tv_nomal_loan)
+    TextView tvNomalLoan;
+    @BindView(R.id.tv_staging_loan)
+    TextView tvStagingLoan;
+    @BindView(R.id.sb_money)
+    SeekBar sbMoney;
+    @BindView(R.id.tv_current_money)
+    TextView tvCurrentMoney;
+    @BindView(R.id.tv_totle_money)
+    TextView tvTotleMoney;
+    @BindView(R.id.sb_time)
+    SeekBar sbTime;
+    @BindView(R.id.tv_current_time)
+    TextView tvCurrentTime;
+    @BindView(R.id.tv_totle_time)
+    TextView tvTotleTime;
+    @BindView(R.id.sb_data)
+    SeekBar sbData;
+    @BindView(R.id.tv_current_day)
+    TextView tvCurrentDay;
+    @BindView(R.id.tv_totle_day)
+    TextView tvTotleDay;
+    @BindView(R.id.btn_repayment)
+    Button btnRepayment;
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+    @BindView(R.id.ll_home)
+    LinearLayout llHome;
+    @BindView(R.id.rl_time)
+    RelativeLayout rlTime;
+
+    @BindColor(R.color.home_blue)
+    int mBlueColor;
+    @BindColor(R.color.deep_text_white)
+    int mDeepWhiteColor;
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setTvSize(tvNeedPay);
+        setTvSize(tvServiceCharge);
+        setTvSize(tvLoan);
+        sbMoney.setMax(1900);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 设置字体颜色
+     *
+     * @param view
+     */
+    public void setTvSize(TextView view) {
+        String mMsg = view.getText().toString().trim();
+        int index = mMsg.indexOf("元");
+        SpannableString ss = new SpannableString(mMsg);
+        ss.setSpan(new AbsoluteSizeSpan(StringUtils.dip2px(getContext(), 11)), index, mMsg.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        view.setText(ss);
+    }
+
+    /**
+     * 分期
+     */
+    @OnClick({R.id.tv_nomal_loan, R.id.tv_staging_loan})
+    public void loanCleck(TextView tv) {
+        switch (tv.getId()) {
+            case R.id.tv_nomal_loan:
+                sbTime.setVisibility(View.GONE);
+                rlTime.setVisibility(View.GONE);
+                tvStagingLoan.setTextColor(mDeepWhiteColor);
+                tvNomalLoan.setTextColor(mBlueColor);
+                break;
+            case R.id.tv_staging_loan:
+                sbTime.setVisibility(View.VISIBLE);
+                rlTime.setVisibility(View.VISIBLE);
+                tvStagingLoan.setTextColor(mBlueColor);
+                tvNomalLoan.setTextColor(mDeepWhiteColor);
+                break;
+        }
+    }
+
+
+}

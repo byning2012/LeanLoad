@@ -1,0 +1,135 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.Manifest;
+import android.app.Dialog;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.ConstanctsModel;
+import com.hzxm.easyloan.utils.NeedPermissionUtils;
+import com.lmz.baselibrary.listener.IPermissionResultListener;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.LogUtil;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 基础认证
+ * 信息完善
+ */
+public class InfoCompleteActivity extends BaseActivity {
+
+    @BindView(R.id.tv_phone_num)
+    TextView tvPhoneNum;
+    @BindView(R.id.tv_verified_state)
+    TextView tvVerifiedState;
+    @BindView(R.id.rl_sesame_points)
+    RelativeLayout rlSesamePoints;
+    @BindView(R.id.tv_bank_card)
+    TextView tvBankCard;
+    @BindView(R.id.rl_bank_card)
+    RelativeLayout rlBankCard;
+    @BindView(R.id.tv_emergency_contact)
+    TextView tvEmergencyContact;
+    @BindView(R.id.rl_emergency_contact)
+    RelativeLayout rlEmergencyContact;
+    @BindView(R.id.tv_phone_certification)
+    TextView tvPhoneCertification;
+    @BindView(R.id.rl_phone_certification)
+    RelativeLayout rlPhoneCertification;
+    @BindView(R.id.tv_now_address)
+    TextView tvNowAddress;
+    @BindView(R.id.rl_now_address)
+    RelativeLayout rlNowAddress;
+    @BindView(R.id.btn_next)
+    Button btnNext;
+    @BindView(R.id.activity_info_complete)
+    LinearLayout activityInfoComplete;
+
+    //存储用户通讯录信息
+    private List<ConstanctsModel> mConstancts;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_info_complete);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 手机认证
+     */
+    @OnClick(R.id.rl_phone_certification)
+    public void phoneCertification() {
+        showContactsDialog();
+    }
+
+    /**
+     * 询问用户是否可以访问通讯录
+     */
+    public void showContactsDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_contacts, null);
+        view.findViewById(R.id.iv_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        //同意访问
+        view.findViewById(R.id.btn_aggree).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                permissionRequest("是否允许访问通讯录信息", new String[]{Manifest.permission.READ_CONTACTS}
+                        , 101, new IPermissionResultListener() {
+                            @Override
+                            public void onPermissionSuccess() {
+                                dialog.dismiss();
+                                NeedPermissionUtils utils = new NeedPermissionUtils();
+                                //获取成功
+                                mConstancts = utils.GetConstanctsInfo(InfoCompleteActivity.this);
+                                LogUtil.e("TAG--->" + mConstancts.size());
+                            }
+
+                            @Override
+                            public void onPermissionFaild() {
+                                dialog.dismiss();
+                            }
+                        });
+            }
+        });
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wl = window.getAttributes();
+        window.setGravity(Gravity.CENTER);
+        dialog.onWindowAttributesChanged(wl);
+        dialog.show();
+    }
+
+}

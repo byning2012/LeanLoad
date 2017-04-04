@@ -1,0 +1,12 @@
+package com.hzxm.easyloan.presenter.implView;
+
+import com.hzxm.easyloan.model.mine.BaseCertificationModel;
+import com.lmz.baselibrary.present.implView.IBasePresenter;
+
+/**
+ * 作者：LMZ on 2016/12/27 0027 14:53
+ * 基础认证
+ */
+public interface IBaseCertificationView extends IBasePresenter {
+    void data(BaseCertificationModel baseCertificationModel);
+}

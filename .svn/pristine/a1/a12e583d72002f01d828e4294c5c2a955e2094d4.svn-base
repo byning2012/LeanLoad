@@ -1,0 +1,65 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 设置界面
+ */
+public class SeetingActivity extends BaseActivity {
+
+    @BindView(R.id.tv_psw_modify)
+    TextView tvPswModify;
+    @BindView(R.id.tv_feedback)
+    TextView tvFeedback;
+    @BindView(R.id.tv_call_phone)
+    TextView tvCallPhone;
+    @BindView(R.id.rl_call_phone)
+    RelativeLayout rlCallPhone;
+    @BindView(R.id.tv_about_us)
+    TextView tvAboutUs;
+    @BindView(R.id.btn_exit_login)
+    Button btnExitLogin;
+    @BindView(R.id.activity_seeting)
+    LinearLayout activitySeeting;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_seeting);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 退出登录
+     */
+    @OnClick(R.id.btn_exit_login)
+    public void exitLoin() {
+        SharedPreferencesUtil.getInstance(getApplicationContext()).removeKey(Constant.IS_LOGIN);
+        SharedPreferencesUtil.getInstance(getApplicationContext()).removeKey(Constant.UID);
+        SharedPreferencesUtil.getInstance(getApplicationContext()).removeKey(Constant.HASH_ID);
+        startActivity(LoginActivity.class);
+        AppActivityManager.getAppManager().finishAllActivity();
+    }
+
+}

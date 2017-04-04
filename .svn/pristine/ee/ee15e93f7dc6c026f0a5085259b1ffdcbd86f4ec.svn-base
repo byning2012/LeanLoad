@@ -1,0 +1,100 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.adapter.chamberlain.CommonProblemAdapte;
+import com.hzxm.easyloan.presenter.implPresenter.ChamberlainPresenter;
+import com.hzxm.easyloan.presenter.implView.IChamberlainView;
+import com.lmz.baselibrary.ui.BaseFragment;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+
+import butterknife.BindColor;
+import butterknife.BindView;
+import ca.barrenechea.widget.recyclerview.decoration.DividerDecoration;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:59
+ * 管家
+ */
+public class ChamberlainFragment extends BaseFragment implements IChamberlainView {
+    @BindView(R.id.iv_news_remind)
+    ImageView ivNewsRemind;
+    @BindView(R.id.fl_news)
+    FrameLayout flNews;
+    @BindView(R.id.tv_msg)
+    TextView tvMsg;
+    @BindView(R.id.tv_common_proble)
+    TextView tvCommonProble;
+    @BindView(R.id.recycle_view)
+    RecyclerView recycleView;
+
+    @BindColor(R.color.home_blue)
+    int mBlueColor;
+
+
+    private ChamberlainPresenter mChamberlainPresenter;
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_chamberlain;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+        SetStatusBarColor(R.color.home_blue);
+        //改变字体颜色
+        SpannableString ss = new SpannableString(tvMsg.getText().toString());
+        ss.setSpan(new ForegroundColorSpan(mBlueColor), 23, 36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvMsg.setText(ss);
+        //设置RecycleView
+        recycleView.setLayoutManager(new LinearLayoutManager(context));
+        recycleView.addItemDecoration(new DividerDecoration.Builder(context)
+                .setHeight(R.dimen.dim2)
+                .setColorResource(R.color.divide_line)
+                .build());
+        recycleView.setHasFixedSize(true);
+    }
+
+
+    @Override
+    protected void initData() {
+        mChamberlainPresenter = new ChamberlainPresenter(getActivity(), this);
+        mChamberlainPresenter.getsystem();
+    }
+
+    @Override
+    public void getAdapter(CommonProblemAdapte commonProblemAdapte) {
+        recycleView.setAdapter(commonProblemAdapte);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(getContext());
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onDestroy() {
+        mChamberlainPresenter.unsubcrible();
+        super.onDestroy();
+    }
+}

@@ -1,0 +1,104 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.presenter.implPresenter.FeedBackPresenter;
+import com.hzxm.easyloan.presenter.implView.IFeedBackView;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.StringUtils;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 意见反馈
+ */
+public class FeedbackActivity extends BaseActivity implements IFeedBackView {
+    @BindView(R.id.et_content)
+    ClearEditText etContent;
+    @BindView(R.id.et_tel)
+    ClearEditText etTel;
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
+    @BindView(R.id.activity_feedback)
+    LinearLayout activityFeedback;
+    private FeedBackPresenter mFeedBackPresenter;
+    private int uid;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_feedback);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        mFeedBackPresenter = new FeedBackPresenter(this);
+    }
+
+    /**
+     * 提交意见反馈
+     */
+    @OnClick(R.id.btn_submit)
+    public void submit() {
+        String content = etContent.getText().toString().trim();
+        String tel = etTel.getText().toString().trim();
+        if ("".equals(content)) {
+            showToast("请输入您的意见", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ("".equals(tel)) {
+            showToast("请输入您的联系方式", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (!StringUtils.isPhone(tel) && !StringUtils.isEmail(tel)) {
+            showToast("请填写正确的电话或者邮箱", Toast.LENGTH_SHORT);
+            return;
+        }
+        mFeedBackPresenter.feedBack(uid + "", tel, content);
+    }
+
+    /**
+     * 提交成功
+     */
+    @Override
+    public void suggestSuccess() {
+        showToast("提交成功，感谢您的反馈意见。", Toast.LENGTH_SHORT);
+        AppActivityManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mFeedBackPresenter.unsubcrible();
+        super.onDestroy();
+    }
+}

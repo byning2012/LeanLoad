@@ -1,0 +1,226 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.IdCardModel;
+import com.hzxm.easyloan.presenter.implPresenter.AddBankCardPresenter;
+import com.hzxm.easyloan.presenter.implView.IAddBankCardView;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.StringUtils;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindColor;
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 添加银行卡
+ */
+public class AddBankCardActivity extends BaseActivity implements IAddBankCardView {
+
+
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.ll_top_remind)
+    LinearLayout llTopRemind;
+    @BindView(R.id.et_name)
+    TextView etName;
+    @BindView(R.id.et_bank_card_num)
+    ClearEditText etBankCardNum;
+    @BindView(R.id.et_reserved_num)
+    ClearEditText etReservedNum;
+    @BindView(R.id.et_verification)
+    ClearEditText etVerification;
+    @BindView(R.id.tv_verification)
+    TextView tvVerification;
+    @BindView(R.id.btn_bind)
+    Button btnBind;
+    @BindView(R.id.activity_add_bank_card)
+    LinearLayout activityAddBankCard;
+
+
+    @BindString(R.string.bind_bank_card_msg)
+    String remindMsg;
+
+    //计时器
+    private TimeCount timeCount;
+    @BindColor(R.color.home_blue)
+    int mBlueColor;
+
+    private AddBankCardPresenter mAddBankCardPresenter;
+
+    private int uid;
+    private String idCard = "";
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_add_bank_card);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        tvRemind.setText(remindMsg);
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        mAddBankCardPresenter = new AddBankCardPresenter(this);
+
+        mAddBankCardPresenter.getIdCard(uid + "");
+    }
+
+    @OnClick(R.id.iv_delete)
+    public void clockTop() {
+        llTopRemind.setVisibility(View.GONE);
+    }
+
+    /**
+     * 绑定银行卡
+     */
+    @OnClick(R.id.btn_bind)
+    public void bindIdCard() {
+        String cardNum = etBankCardNum.getText().toString().trim();
+        String reservedNum = etReservedNum.getText().toString().trim();
+        String code = etVerification.getText().toString().trim();
+        if ("".equals(etName.getText().toString().trim())) {
+            showToast("持卡人姓名有误", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ("".equals(idCard)) {
+            showToast("持卡人姓名有误", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ("".equals(cardNum)) {
+            showToast("请输入银行卡号", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (!isPhone(reservedNum)) {
+            showToast("手机号码有误", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ("".equals(code)) {
+            showToast("请输入验证码", Toast.LENGTH_SHORT);
+            return;
+        }
+        mAddBankCardPresenter.addBankCard(uid + "", etName.getText().toString().trim(), idCard,
+                cardNum, reservedNum, code);
+    }
+
+    /**
+     * 获取验证码
+     */
+    @OnClick(R.id.tv_verification)
+    public void getVerification() {
+        String phoneNum = etReservedNum.getText().toString().trim();
+        if (isPhone(phoneNum)) {
+            mAddBankCardPresenter.sendcode(phoneNum, 3 + "");
+        }
+    }
+
+    private boolean isPhone(String phoneNum) {
+        if (TextUtils.isEmpty(phoneNum)) {
+            showToast("手机号码不能为空", Toast.LENGTH_SHORT);
+            return false;
+        }
+        if (!StringUtils.isPhone(phoneNum)) {
+            showToast("手机号码错误", Toast.LENGTH_SHORT);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 计时器
+     * millisInFuture  总时长
+     * countDownInterval 计时间隔
+     */
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            tvVerification.setClickable(false);
+            tvVerification.setText(millisUntilFinished / 1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            tvVerification.setTextColor(mBlueColor);
+            tvVerification.setText("重新验证");
+            tvVerification.setClickable(true);
+        }
+    }
+
+    /**
+     * 获取用户身份证信息
+     *
+     * @param idCardModel
+     */
+    @Override
+    public void getIdCard(IdCardModel idCardModel) {
+        etName.setText(idCardModel.getData().getReallyname());
+        idCard = idCardModel.getData().getId_card();
+    }
+
+    /**
+     * 验证码发送成功
+     */
+    @Override
+    public void showSuccess() {
+        timeCount = new TimeCount(60000, 1000);//构造CountDownTimer对象
+        timeCount.start();
+    }
+
+    /**
+     * 添加身份证成功
+     */
+    @Override
+    public void showAddSuccess() {
+        setResult(101);
+        AppActivityManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    public void showProgressDialog() {
+      createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+       cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        LogUtil.e(error);
+        showToast(error,Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mAddBankCardPresenter.unsubcrible();
+        super.onDestroy();
+    }
+}

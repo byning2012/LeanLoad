@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_contacts"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.AddContactsActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/contact" />
+
+    <include layout="@layout/divide_line" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@color/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/txt30"
+                android:text="@string/father"
+                android:textColor="@color/tc_black"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_father_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_name"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_father_tel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_tel"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@color/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/txt30"
+                android:text="@string/mother"
+                android:textColor="@color/tc_black"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_mother_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_name"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_mother_tel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_tel"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@color/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/txt30"
+                android:text="@string/counselor"
+                android:textColor="@color/tc_black"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_counselor_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_name"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_counselor_tel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_tel"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@color/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/txt30"
+                android:text="@string/classmates"
+                android:textColor="@color/tc_black"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_classmates_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_name"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <com.lmz.baselibrary.widget.ClearEditText
+                android:id="@+id/et_classmates_tel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:hint="@string/input_relative_tel"
+                android:paddingLeft="@dimen/dim30"
+                android:paddingRight="@dimen/dim30"
+                android:textColorHint="@color/shallow_gray"
+                android:textSize="@dimen/txt36" />
+
+            <include layout="@layout/divide_line" />
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:layout_marginBottom="@dimen/dim200"
+                android:layout_marginLeft="@dimen/dim30"
+                android:layout_marginRight="@dimen/dim30"
+                android:layout_marginTop="@dimen/dim80"
+                android:background="@drawable/select_sure_register_btn"
+                android:text="@string/submit"
+                android:textColor="@color/select_white_orange"
+                android:textSize="@dimen/txt36" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+package com.hzxm.easyloan.model.mine;
+
+/**
+ * 作者：LMZ on 2017/1/19 0019 17:19
+ */
+public class EducationModel {
+
+    /**
+     * Code : 0
+     * Msg : 状态检测成功
+     * Time : 2017-01-19 18:12:51
+     * ApiUrl : /Api/Metioninfo/xuexin_status.html
+     * Data : 4ab9ab31b0064bd9a03bc825fe3b5b1c
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private String Data;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public String getData() {
+        return Data;
+    }
+
+    public void setData(String Data) {
+        this.Data = Data;
+    }
+
+}

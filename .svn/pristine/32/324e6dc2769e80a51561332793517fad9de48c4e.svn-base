@@ -1,0 +1,66 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 社保
+ */
+public class SocialSecurityActivity extends BaseActivity {
+
+
+    @BindView(R.id.tv_city)
+    TextView tvCity;
+    @BindView(R.id.rl_social_city)
+    RelativeLayout rlSocialCity;
+    @BindView(R.id.et_login_name)
+    ClearEditText etLoginName;
+    @BindView(R.id.et_login_psw)
+    ClearEditText etLoginPsw;
+    @BindView(R.id.btn_next)
+    Button btnNext;
+    @BindView(R.id.activity_social_security)
+    LinearLayout activitySocialSecurity;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_social_security);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 选择城市
+     */
+    @OnClick(R.id.rl_social_city)
+    public void socialCity() {
+        startActivityForResult(SocialSecurityCityActivity.class, 101);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode ==101 && resultCode ==101){
+            tvCity.setText(data.getStringExtra("name"));
+        }
+    }
+}

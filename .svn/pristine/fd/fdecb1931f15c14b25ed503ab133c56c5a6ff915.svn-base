@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/ll_problem"
+        android:layout_width="@dimen/dim200"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/dim88"
+            android:layout_height="@dimen/dim88"
+            android:src="@drawable/verified_problem" />
+
+        <TextView
+            android:id="@+id/tv_problem"
+            android:layout_width="@dimen/dim200"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim20"
+            android:gravity="center"
+            android:text="@string/loan_problem"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt22" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@color/divide_line" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" />
+</LinearLayout>

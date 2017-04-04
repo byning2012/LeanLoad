@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_find_psw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.FindPswActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dim20"
+        app:titlelayout_showback="true"
+        app:titlelayout_title="@string/find_password" />
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/tel_num"
+            android:textColor="@color/tc_black" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_num"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim20"
+            android:layout_marginRight="@dimen/dim20"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/input_tel_num"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="11"
+            android:textColor="@color/tc_black"
+            android:textColorHint="@color/deep_text_white"
+            android:textSize="@dimen/txt30" />
+
+        <TextView
+            android:id="@+id/tv_verification_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/verification_code"
+            android:textColor="@color/home_blue"
+            android:textSize="@dimen/txt24" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/verify_code"
+            android:textColor="@color/tc_black" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_verification_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim20"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/input_verification_code"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textColor="@color/tc_black"
+            android:textColorHint="@color/deep_text_white"
+            android:textSize="@dimen/txt30" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <Button
+        android:id="@+id/btn_verification"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_marginTop="@dimen/dim60"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/verification"
+        android:textColor="@color/select_white_orange"
+        android:textSize="@dimen/txt34" />
+
+</LinearLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hzxm.easyloan">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 读取通讯录 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/loan"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- 主界面 -->
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <!-- 登陆 -->
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 注册 -->
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 找回密码 -->
+        <activity
+            android:name=".ui.activity.FindPswActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 重置密码 -->
+        <activity
+            android:name=".ui.activity.ResetPswActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 基本信息认证 -->
+        <activity
+            android:name=".ui.activity.VerifiedActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <!-- 闪屏 -->
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 证件上传 -->
+        <activity
+            android:name=".ui.activity.DocUploadActivity"
+            android:screenOrientation="portrait" />
+        <!-- 信息完善 -->
+        <activity
+            android:name=".ui.activity.InfoCompleteActivity"
+            android:screenOrientation="portrait" />
+        <!-- 认证中心 -->
+        <activity
+            android:name=".ui.activity.CertificationCenterActivity"
+            android:screenOrientation="portrait" />
+        <!-- 基础认证 -->
+        <activity
+            android:name=".ui.activity.BaseCertificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MatchQuotaActivity"
+            android:screenOrientation="portrait" />
+        <!-- 设置 -->
+        <activity
+            android:name=".ui.activity.SeetingActivity"
+            android:screenOrientation="portrait" />
+        <!-- 意见反馈 -->
+        <activity
+            android:name=".ui.activity.FeedbackActivity"
+            android:screenOrientation="portrait" />
+        <!-- 当前地址 -->
+        <activity
+            android:name=".ui.activity.CurrentAddressActivity"
+            android:screenOrientation="portrait" />
+        <!-- 手机认证 -->
+        <activity
+            android:name=".ui.activity.PhoneCertificationActivity"
+            android:screenOrientation="portrait" />
+        <!-- 预留银行卡 -->
+        <activity
+            android:name=".ui.activity.BankCarManagerActivity"
+            android:screenOrientation="portrait" />
+        <!-- 添加银行卡 -->
+        <activity
+            android:name=".ui.activity.AddBankCardActivity"
+            android:screenOrientation="portrait" />
+        <!-- 紧急联系人 -->
+        <activity
+            android:name=".ui.activity.EmergencyContactActivity"
+            android:screenOrientation="portrait" />
+        <!-- 公司信息 -->
+        <activity
+            android:name=".ui.activity.CompanyInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 帮助中心 -->
+        <activity
+            android:name=".ui.activity.HelpCenterActivity"
+            android:screenOrientation="portrait" />
+        <!-- 提升额度 -->
+        <activity
+            android:name=".ui.activity.IncreaseAmountActivity"
+            android:screenOrientation="portrait" />
+        <!-- 审核结果 -->
+        <activity
+            android:name=".ui.activity.AuditResultsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 车辆和房产信息 -->
+        <activity
+            android:name=".ui.activity.PropertyAndCardActivity"
+            android:screenOrientation="portrait" />
+        <!-- 其他资料 -->
+        <activity
+            android:name=".ui.activity.RelatedOtherDataActivity"
+            android:screenOrientation="portrait" />
+        <!-- 学信网信息 -->
+        <activity
+            android:name=".ui.activity.EducationInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 信用卡邮箱 -->
+        <activity
+            android:name=".ui.activity.CreditCardEmailActivity"
+            android:screenOrientation="portrait" />
+        <!-- 学校选择 -->
+        <activity
+            android:name=".ui.activity.ChooseSchoolActivity"
+            android:screenOrientation="portrait" />
+        <!-- 关于我们 -->
+        <activity
+            android:name=".ui.activity.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <!-- 单位信息 -->
+        <activity
+            android:name=".ui.activity.UnitInfoActivity"
+            android:screenOrientation="portrait" />
+        <!-- 添加联系人 -->
+        <activity android:name=".ui.activity.AddContactsActivity" />
+        <!-- 认证结果 -->
+        <activity android:name=".ui.activity.VerificationResultActivity" />
+        <!-- 修改密码 -->
+        <activity android:name=".ui.activity.PswModifyActivity" />
+        <!-- 立即借款 -->
+        <activity android:name=".ui.activity.LoanActivity" />
+        <activity android:name=".ui.activity.LoanApplicationActivity" />
+        <activity android:name=".ui.activity.StagingActivity" />
+        <activity android:name=".ui.activity.RepaymentActivity"></activity>
+    </application>
+
+</manifest>

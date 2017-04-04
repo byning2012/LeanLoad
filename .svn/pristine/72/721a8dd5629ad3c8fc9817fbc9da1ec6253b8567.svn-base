@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about_us"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.AboutUsActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/about_us" />
+
+    <include layout="@layout/divide_line" />
+
+    <RelativeLayout
+        android:layout_width="@dimen/dim196"
+        android:layout_height="@dimen/dim196"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim100">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/loading_out" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/loading_in" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/easy_loan"
+        android:textColor="@color/deep_text_white"
+        android:textSize="@dimen/txt30"
+        android:layout_marginTop="@dimen/dim100"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/about_us_msg"
+        android:layout_marginLeft="@dimen/dim90"
+        android:layout_marginRight="@dimen/dim90"
+        android:textColor="@color/deep_text_white"
+        android:textSize="@dimen/txt30"
+        android:layout_marginTop="@dimen/dim40"/>
+</LinearLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dim600"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg_corner"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dim30"
+    android:paddingRight="@dimen/dim30">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/loan_protocol"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt36"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/rl_close"
+            android:layout_width="@dimen/dim90"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="@dimen/dim28"
+                android:layout_height="@dimen/dim28"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/dim20"
+                android:src="@drawable/perturbation" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <include layout="@layout/divide_line" />
+
+    <TextView
+        android:id="@+id/et_detail_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim300"
+        android:layout_marginTop="@dimen/dim40"
+        android:text="凡易贷平台借款的利率范围不高于同期银行贷款利率的4倍。若银行贷款利率调整，利率上限也将随之调整。根据法律要求，借款人在经过平台放款流程审核后，资金将由投资人账户直接划转至借款人在第三方支付平台的账户中。 利率调整的流程：商业银行宣布贷款利率调整当日起，30个自然日内，钱胖胖平台会调整最高借款利率。 在利率调整之前的已完成借款不受调整影响。日内，钱胖胖平台会调日内，钱胖胖平台会调日内，钱胖胖平台会调"
+        android:textColorHint="@color/delete_txt"
+        android:textSize="@dimen/txt28"
+        android:scrollbars="vertical"/>
+
+    <TextView
+        android:id="@+id/tv_expand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim30"
+        android:drawableBottom="@drawable/expand_to_view"
+        android:text="@string/expand_to_view"
+        android:textColor="@color/home_blue"
+        android:textSize="@dimen/txt26" />
+
+    <Button
+        android:id="@+id/btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:layout_marginBottom="@dimen/dim60"
+        android:layout_marginLeft="@dimen/dim20"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginTop="@dimen/dim60"
+        android:background="@drawable/select_sure_register_btn"
+        android:drawableLeft="@drawable/read_protocol"
+        android:text="@string/already_read_protocol"
+        android:textColor="@color/select_white_orange"
+        android:paddingLeft="@dimen/dim60"
+        android:paddingRight="@dimen/dim40"
+        android:textSize="@dimen/txt36" />
+
+
+</LinearLayout>

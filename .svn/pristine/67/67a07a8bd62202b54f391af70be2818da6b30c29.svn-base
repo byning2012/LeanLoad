@@ -1,0 +1,843 @@
+package com.hzxm.easyloan.model.mine;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/29 0029 17:57
+ */
+public class AmountCreateModel {
+
+
+    /**
+     * Code : 0
+     * Msg : ok
+     * Time : 2017-01-04 15:41:51
+     * ApiUrl : /Api/Metioninfo/othermenu.html
+     * Data : {"base_menu":[{"id":"8","up_type":"3","menu_name":"company","remark":"单位"},{"id":"9","up_type":"3","menu_name":"socal","remark":"社保"},{"id":"10","up_type":"3","menu_name":"car","remark":"车辆信息"},{"id":"11","up_type":"3","menu_name":"home","remark":"房产证"},{"id":"14","up_type":"3","menu_name":"credit_card","remark":"信用卡邮箱"},{"id":"15","up_type":"3","menu_name":"correlation","remark":"相关证件"}],"other_menu":[{"id":"20","pid":"3","name":"其他资料"}],"info":{"unit":{"unit_name":"","unit_tel":"","unit_work":"","unit_work_year":"0","uint_work_time":"","unit_money":"0","unit_img":""},"car":{"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"home":{"house_back_img":"0","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"interfix":{"interfix_name":"","interfix_img":""}},"check_status":"0"}
+     * info : {"id":"10","uid":"16","type":"3","student":"","teacher":"","mother":"","father":"","xuexin":"","company_name":"测试","company_tel":"22225","company_img":"[{\"name\":\"工作证\\/入职协议\",\"image\":\"http:\\/\\/139.196.214.241:8100\\/Uploads\\/Picture\\/2016-12-27\\/5861c14817465.jpg\"}, {\"name\":\"公司照片\",\"image\":\"http:\\/\\/139.196.214.241:8100\\/Uploads\\/Picture\\/2016-12-27\\/5861c14817465.jpg\"}, {\"name\":\"其他\",\"image\":\"http:\\/\\/139.196.214.241:8100\\/Uploads\\/Picture\\/2016-12-27\\/5861c14817465.jpg\"}]","social_province":"","social_city":"","social_user":"","car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","house_back_img":"0","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","interfix_img":"","status":"1","school":"","school_depart":"","company_year":"20161616","work_year":"10年","work_money":"99999999.99","company_work":"测试","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","check_status":"0","create_time":"454565345","remark":"","unit_name":"","unit_tel":"","unit_work":"","unit_work_year":"0","uint_work_time":"","unit_money":"0","unit_img":"","interfix_name":""}
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private DataEntity Data;
+    private InfoEntityX info;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public DataEntity getData() {
+        return Data;
+    }
+
+    public void setData(DataEntity Data) {
+        this.Data = Data;
+    }
+
+    public InfoEntityX getInfo() {
+        return info;
+    }
+
+    public void setInfo(InfoEntityX info) {
+        this.info = info;
+    }
+
+    public static class DataEntity {
+        /**
+         * base_menu : [{"id":"8","up_type":"3","menu_name":"company","remark":"单位"},{"id":"9","up_type":"3","menu_name":"socal","remark":"社保"},{"id":"10","up_type":"3","menu_name":"car","remark":"车辆信息"},{"id":"11","up_type":"3","menu_name":"home","remark":"房产证"},{"id":"14","up_type":"3","menu_name":"credit_card","remark":"信用卡邮箱"},{"id":"15","up_type":"3","menu_name":"correlation","remark":"相关证件"}]
+         * other_menu : [{"id":"20","pid":"3","name":"其他资料"}]
+         * info : {"unit":{"unit_name":"","unit_tel":"","unit_work":"","unit_work_year":"0","uint_work_time":"","unit_money":"0","unit_img":""},"car":{"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"home":{"house_back_img":"0","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"interfix":{"interfix_name":"","interfix_img":""}}
+         * check_status : 0
+         */
+
+        private InfoEntity info;
+        private String check_status;
+        private List<BaseMenuEntity> base_menu;
+        private List<OtherMenuEntity> other_menu;
+
+        public InfoEntity getInfo() {
+            return info;
+        }
+
+        public void setInfo(InfoEntity info) {
+            this.info = info;
+        }
+
+        public String getCheck_status() {
+            return check_status;
+        }
+
+        public void setCheck_status(String check_status) {
+            this.check_status = check_status;
+        }
+
+        public List<BaseMenuEntity> getBase_menu() {
+            return base_menu;
+        }
+
+        public void setBase_menu(List<BaseMenuEntity> base_menu) {
+            this.base_menu = base_menu;
+        }
+
+        public List<OtherMenuEntity> getOther_menu() {
+            return other_menu;
+        }
+
+        public void setOther_menu(List<OtherMenuEntity> other_menu) {
+            this.other_menu = other_menu;
+        }
+
+        public static class InfoEntity {
+            /**
+             * unit : {"unit_name":"","unit_tel":"","unit_work":"","unit_work_year":"0","uint_work_time":"","unit_money":"0","unit_img":""}
+             * car : {"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}
+             * home : {"house_back_img":"0","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}
+             * interfix : {"interfix_name":"","interfix_img":""}
+             */
+
+            private UnitEntity unit;
+            private CarEntity car;
+            private HomeEntity home;
+            private InterfixEntity interfix;
+
+            public UnitEntity getUnit() {
+                return unit;
+            }
+
+            public void setUnit(UnitEntity unit) {
+                this.unit = unit;
+            }
+
+            public CarEntity getCar() {
+                return car;
+            }
+
+            public void setCar(CarEntity car) {
+                this.car = car;
+            }
+
+            public HomeEntity getHome() {
+                return home;
+            }
+
+            public void setHome(HomeEntity home) {
+                this.home = home;
+            }
+
+            public InterfixEntity getInterfix() {
+                return interfix;
+            }
+
+            public void setInterfix(InterfixEntity interfix) {
+                this.interfix = interfix;
+            }
+
+            public static class UnitEntity {
+                /**
+                 * unit_name :
+                 * unit_tel :
+                 * unit_work :
+                 * unit_work_year : 0
+                 * uint_work_time :
+                 * unit_money : 0
+                 * unit_img :
+                 */
+
+                private String unit_name;
+                private String unit_tel;
+                private String unit_work;
+                private String unit_work_year;
+                private String uint_work_time;
+                private String unit_money;
+                private String unit_img;
+
+                public String getUnit_name() {
+                    return unit_name;
+                }
+
+                public void setUnit_name(String unit_name) {
+                    this.unit_name = unit_name;
+                }
+
+                public String getUnit_tel() {
+                    return unit_tel;
+                }
+
+                public void setUnit_tel(String unit_tel) {
+                    this.unit_tel = unit_tel;
+                }
+
+                public String getUnit_work() {
+                    return unit_work;
+                }
+
+                public void setUnit_work(String unit_work) {
+                    this.unit_work = unit_work;
+                }
+
+                public String getUnit_work_year() {
+                    return unit_work_year;
+                }
+
+                public void setUnit_work_year(String unit_work_year) {
+                    this.unit_work_year = unit_work_year;
+                }
+
+                public String getUint_work_time() {
+                    return uint_work_time;
+                }
+
+                public void setUint_work_time(String uint_work_time) {
+                    this.uint_work_time = uint_work_time;
+                }
+
+                public String getUnit_money() {
+                    return unit_money;
+                }
+
+                public void setUnit_money(String unit_money) {
+                    this.unit_money = unit_money;
+                }
+
+                public String getUnit_img() {
+                    return unit_img;
+                }
+
+                public void setUnit_img(String unit_img) {
+                    this.unit_img = unit_img;
+                }
+            }
+
+            public static class CarEntity {
+                /**
+                 * car_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 * car_back_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 */
+
+                private String car_img;
+                private String car_back_img;
+
+                public String getCar_img() {
+                    return car_img;
+                }
+
+                public void setCar_img(String car_img) {
+                    this.car_img = car_img;
+                }
+
+                public String getCar_back_img() {
+                    return car_back_img;
+                }
+
+                public void setCar_back_img(String car_back_img) {
+                    this.car_back_img = car_back_img;
+                }
+            }
+
+            public static class HomeEntity {
+                /**
+                 * house_back_img : 0
+                 * house_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 */
+
+                private String house_back_img;
+                private String house_img;
+
+                public String getHouse_back_img() {
+                    return house_back_img;
+                }
+
+                public void setHouse_back_img(String house_back_img) {
+                    this.house_back_img = house_back_img;
+                }
+
+                public String getHouse_img() {
+                    return house_img;
+                }
+
+                public void setHouse_img(String house_img) {
+                    this.house_img = house_img;
+                }
+            }
+
+            public static class InterfixEntity {
+                /**
+                 * interfix_name :
+                 * interfix_img :
+                 */
+
+                private String interfix_name;
+                private String interfix_img;
+
+                public String getInterfix_name() {
+                    return interfix_name;
+                }
+
+                public void setInterfix_name(String interfix_name) {
+                    this.interfix_name = interfix_name;
+                }
+
+                public String getInterfix_img() {
+                    return interfix_img;
+                }
+
+                public void setInterfix_img(String interfix_img) {
+                    this.interfix_img = interfix_img;
+                }
+            }
+        }
+
+        public static class BaseMenuEntity implements Parcelable{
+            /**
+             * id : 8
+             * up_type : 3
+             * menu_name : company
+             * remark : 单位
+             */
+
+            private String id;
+            private String up_type;
+            private String menu_name;
+            private String remark;
+
+            protected BaseMenuEntity(Parcel in) {
+                id = in.readString();
+                up_type = in.readString();
+                menu_name = in.readString();
+                remark = in.readString();
+            }
+
+            public static final Creator<BaseMenuEntity> CREATOR = new Creator<BaseMenuEntity>() {
+                @Override
+                public BaseMenuEntity createFromParcel(Parcel in) {
+                    return new BaseMenuEntity(in);
+                }
+
+                @Override
+                public BaseMenuEntity[] newArray(int size) {
+                    return new BaseMenuEntity[size];
+                }
+            };
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getUp_type() {
+                return up_type;
+            }
+
+            public void setUp_type(String up_type) {
+                this.up_type = up_type;
+            }
+
+            public String getMenu_name() {
+                return menu_name;
+            }
+
+            public void setMenu_name(String menu_name) {
+                this.menu_name = menu_name;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(id);
+                dest.writeString(up_type);
+                dest.writeString(menu_name);
+                dest.writeString(remark);
+            }
+        }
+
+        public static class OtherMenuEntity implements  Parcelable{
+            /**
+             * id : 20
+             * pid : 3
+             * name : 其他资料
+             */
+
+            private String id;
+            private String pid;
+            private String name;
+
+            protected OtherMenuEntity(Parcel in) {
+                id = in.readString();
+                pid = in.readString();
+                name = in.readString();
+            }
+
+            public static final Creator<OtherMenuEntity> CREATOR = new Creator<OtherMenuEntity>() {
+                @Override
+                public OtherMenuEntity createFromParcel(Parcel in) {
+                    return new OtherMenuEntity(in);
+                }
+
+                @Override
+                public OtherMenuEntity[] newArray(int size) {
+                    return new OtherMenuEntity[size];
+                }
+            };
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getPid() {
+                return pid;
+            }
+
+            public void setPid(String pid) {
+                this.pid = pid;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(id);
+                dest.writeString(pid);
+                dest.writeString(name);
+            }
+        }
+    }
+
+    public static class InfoEntityX {
+        /**
+         * id : 10
+         * uid : 16
+         * type : 3
+         * student :
+         * teacher :
+         * mother :
+         * father :
+         * xuexin :
+         * company_name : 测试
+         * company_tel : 22225
+         * company_img : [{"name":"工作证\/入职协议","image":"http:\/\/139.196.214.241:8100\/Uploads\/Picture\/2016-12-27\/5861c14817465.jpg"}, {"name":"公司照片","image":"http:\/\/139.196.214.241:8100\/Uploads\/Picture\/2016-12-27\/5861c14817465.jpg"}, {"name":"其他","image":"http:\/\/139.196.214.241:8100\/Uploads\/Picture\/2016-12-27\/5861c14817465.jpg"}]
+         * social_province :
+         * social_city :
+         * social_user :
+         * car_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+         * house_back_img : 0
+         * house_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+         * interfix_img :
+         * status : 1
+         * school :
+         * school_depart :
+         * company_year : 20161616
+         * work_year : 10年
+         * work_money : 99999999.99
+         * company_work : 测试
+         * car_back_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+         * check_status : 0
+         * create_time : 454565345
+         * remark :
+         * unit_name :
+         * unit_tel :
+         * unit_work :
+         * unit_work_year : 0
+         * uint_work_time :
+         * unit_money : 0
+         * unit_img :
+         * interfix_name :
+         */
+
+        private String id;
+        private String uid;
+        private String type;
+        private String student;
+        private String teacher;
+        private String mother;
+        private String father;
+        private String xuexin;
+        private String company_name;
+        private String company_tel;
+        private String company_img;
+        private String social_province;
+        private String social_city;
+        private String social_user;
+        private String car_img;
+        private String house_back_img;
+        private String house_img;
+        private String interfix_img;
+        private String status;
+        private String school;
+        private String school_depart;
+        private String company_year;
+        private String work_year;
+        private String work_money;
+        private String company_work;
+        private String car_back_img;
+        private String check_status;
+        private String create_time;
+        private String remark;
+        private String unit_name;
+        private String unit_tel;
+        private String unit_work;
+        private String unit_work_year;
+        private String uint_work_time;
+        private String unit_money;
+        private String unit_img;
+        private String interfix_name;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getUid() {
+            return uid;
+        }
+
+        public void setUid(String uid) {
+            this.uid = uid;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getStudent() {
+            return student;
+        }
+
+        public void setStudent(String student) {
+            this.student = student;
+        }
+
+        public String getTeacher() {
+            return teacher;
+        }
+
+        public void setTeacher(String teacher) {
+            this.teacher = teacher;
+        }
+
+        public String getMother() {
+            return mother;
+        }
+
+        public void setMother(String mother) {
+            this.mother = mother;
+        }
+
+        public String getFather() {
+            return father;
+        }
+
+        public void setFather(String father) {
+            this.father = father;
+        }
+
+        public String getXuexin() {
+            return xuexin;
+        }
+
+        public void setXuexin(String xuexin) {
+            this.xuexin = xuexin;
+        }
+
+        public String getCompany_name() {
+            return company_name;
+        }
+
+        public void setCompany_name(String company_name) {
+            this.company_name = company_name;
+        }
+
+        public String getCompany_tel() {
+            return company_tel;
+        }
+
+        public void setCompany_tel(String company_tel) {
+            this.company_tel = company_tel;
+        }
+
+        public String getCompany_img() {
+            return company_img;
+        }
+
+        public void setCompany_img(String company_img) {
+            this.company_img = company_img;
+        }
+
+        public String getSocial_province() {
+            return social_province;
+        }
+
+        public void setSocial_province(String social_province) {
+            this.social_province = social_province;
+        }
+
+        public String getSocial_city() {
+            return social_city;
+        }
+
+        public void setSocial_city(String social_city) {
+            this.social_city = social_city;
+        }
+
+        public String getSocial_user() {
+            return social_user;
+        }
+
+        public void setSocial_user(String social_user) {
+            this.social_user = social_user;
+        }
+
+        public String getCar_img() {
+            return car_img;
+        }
+
+        public void setCar_img(String car_img) {
+            this.car_img = car_img;
+        }
+
+        public String getHouse_back_img() {
+            return house_back_img;
+        }
+
+        public void setHouse_back_img(String house_back_img) {
+            this.house_back_img = house_back_img;
+        }
+
+        public String getHouse_img() {
+            return house_img;
+        }
+
+        public void setHouse_img(String house_img) {
+            this.house_img = house_img;
+        }
+
+        public String getInterfix_img() {
+            return interfix_img;
+        }
+
+        public void setInterfix_img(String interfix_img) {
+            this.interfix_img = interfix_img;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getSchool() {
+            return school;
+        }
+
+        public void setSchool(String school) {
+            this.school = school;
+        }
+
+        public String getSchool_depart() {
+            return school_depart;
+        }
+
+        public void setSchool_depart(String school_depart) {
+            this.school_depart = school_depart;
+        }
+
+        public String getCompany_year() {
+            return company_year;
+        }
+
+        public void setCompany_year(String company_year) {
+            this.company_year = company_year;
+        }
+
+        public String getWork_year() {
+            return work_year;
+        }
+
+        public void setWork_year(String work_year) {
+            this.work_year = work_year;
+        }
+
+        public String getWork_money() {
+            return work_money;
+        }
+
+        public void setWork_money(String work_money) {
+            this.work_money = work_money;
+        }
+
+        public String getCompany_work() {
+            return company_work;
+        }
+
+        public void setCompany_work(String company_work) {
+            this.company_work = company_work;
+        }
+
+        public String getCar_back_img() {
+            return car_back_img;
+        }
+
+        public void setCar_back_img(String car_back_img) {
+            this.car_back_img = car_back_img;
+        }
+
+        public String getCheck_status() {
+            return check_status;
+        }
+
+        public void setCheck_status(String check_status) {
+            this.check_status = check_status;
+        }
+
+        public String getCreate_time() {
+            return create_time;
+        }
+
+        public void setCreate_time(String create_time) {
+            this.create_time = create_time;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public String getUnit_name() {
+            return unit_name;
+        }
+
+        public void setUnit_name(String unit_name) {
+            this.unit_name = unit_name;
+        }
+
+        public String getUnit_tel() {
+            return unit_tel;
+        }
+
+        public void setUnit_tel(String unit_tel) {
+            this.unit_tel = unit_tel;
+        }
+
+        public String getUnit_work() {
+            return unit_work;
+        }
+
+        public void setUnit_work(String unit_work) {
+            this.unit_work = unit_work;
+        }
+
+        public String getUnit_work_year() {
+            return unit_work_year;
+        }
+
+        public void setUnit_work_year(String unit_work_year) {
+            this.unit_work_year = unit_work_year;
+        }
+
+        public String getUint_work_time() {
+            return uint_work_time;
+        }
+
+        public void setUint_work_time(String uint_work_time) {
+            this.uint_work_time = uint_work_time;
+        }
+
+        public String getUnit_money() {
+            return unit_money;
+        }
+
+        public void setUnit_money(String unit_money) {
+            this.unit_money = unit_money;
+        }
+
+        public String getUnit_img() {
+            return unit_img;
+        }
+
+        public void setUnit_img(String unit_img) {
+            this.unit_img = unit_img;
+        }
+
+        public String getInterfix_name() {
+            return interfix_name;
+        }
+
+        public void setInterfix_name(String interfix_name) {
+            this.interfix_name = interfix_name;
+        }
+    }
+}

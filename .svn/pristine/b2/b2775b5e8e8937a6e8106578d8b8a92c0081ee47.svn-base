@@ -1,0 +1,246 @@
+package com.hzxm.easyloan.api;
+
+import com.hzxm.easyloan.model.BaseModel;
+import com.hzxm.easyloan.model.LoginModel;
+import com.hzxm.easyloan.model.RecodeModel;
+import com.hzxm.easyloan.model.RegisterModel;
+import com.hzxm.easyloan.model.UploadPicModel;
+import com.hzxm.easyloan.model.mine.AddBankModel;
+import com.hzxm.easyloan.model.mine.AmountCreateModel;
+import com.hzxm.easyloan.model.mine.BankCardModel;
+import com.hzxm.easyloan.model.mine.BaseCertificationModel;
+import com.hzxm.easyloan.model.mine.IdCardModel;
+import com.hzxm.easyloan.model.mine.UpLoadModel;
+
+import java.util.Map;
+
+import okhttp3.RequestBody;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.PartMap;
+import retrofit2.http.Query;
+import rx.Observable;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:21
+ */
+public interface LoanApi {
+    /**
+     * 获取验证码
+     *
+     * @param time
+     * @param hash
+     * @param mobile
+     * @param type   验证码类型
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("Sms/sendcode.html")
+    Observable<BaseModel> getVerication(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("mobile") String mobile,
+            @Field("checktype") String type
+    );
+
+    @FormUrlEncoded
+    @POST("User/uregister.html")
+    Observable<RegisterModel> register(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("repeatpwd") String repeatpwd,
+            @Field("checkcode") String checkcode,
+            @Field("invite_code") String invite_code
+    );
+
+    //重置密码
+    @FormUrlEncoded
+    @POST("User/recode.html")
+    Observable<RecodeModel> recode(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("checkcode") String checkcode,
+            @Field("mobile") String mobile
+    );
+
+    //设置密码
+    @FormUrlEncoded
+    @POST("User/setnewpass.html")
+    Observable<BaseModel> setnewpass(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("repassword") String repassword,
+            @Field("password") String password,
+            @Field("recode_id") String recode_id
+    );
+
+    //登陆
+    @FormUrlEncoded
+    @POST("User/ulogin.html")
+    Observable<LoginModel> ulogin(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("username") String username,
+            @Field("password") String password
+    );
+
+    //图片上传
+    @Multipart
+    @POST("Upload/uploadFace.html")
+    Observable<UploadPicModel> uploadPic(
+            @Query("time") String time,
+            @Query("hash") String hash,
+            @Query("uid") String uid,
+            @Query("hashid") String hashid,
+            @Query("uploadname") String uploadname,
+            @PartMap Map<String, RequestBody> param
+    );
+
+    //证件上传
+    @FormUrlEncoded
+    @POST("Baseinfo/baseinfo_card.html")
+    Observable<BaseModel> baseinfoCard(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("reallyname") String reallyname,
+            @Field("id_card") String id_card,
+            @Field("type") String type
+    );
+
+    //身份证证件上传（只保存图片地址）
+    @FormUrlEncoded
+    @POST("Baseinfo/baseinfo_img.html")
+    Observable<BaseModel> baseinfoImg(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("card_img_face") String card_img_face,
+            @Field("card_img_back") String card_img_back,
+            @Field("card_img_all") String card_img_all,
+            @Field("type") String type
+    );
+
+    //获取基础认证资料
+    @FormUrlEncoded
+    @POST("Baseinfo/base_info_data.html")
+    Observable<BaseCertificationModel> baseInfoData(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid
+    );
+
+    //详细地址
+    @FormUrlEncoded
+    @POST("Baseinfo/base_address.html")
+    Observable<BaseModel> baseAddress(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("address") String address
+    );
+
+    //获取身份证信息
+    @FormUrlEncoded
+    @POST("Baseinfo/get_idcard.html")
+    Observable<IdCardModel> idCard(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid
+    );
+
+    //银行卡管理(查询)
+    @FormUrlEncoded
+    @POST("Baseinfo/baseinfo_bank.html")
+    Observable<BankCardModel> baseBankCard(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("reallyname") String reallyname,
+            @Field("id_card") String id_card,
+            @Field("bank_number") String bank_number,
+            @Field("bank_tel") String bank_tel,
+            @Field("check_code") String check_code,
+            @Field("type") String type
+    );
+
+    //银行卡管理(添加)
+    @FormUrlEncoded
+    @POST("Baseinfo/baseinfo_bank.html")
+    Observable<AddBankModel> addBankCard(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("reallyname") String reallyname,
+            @Field("id_card") String id_card,
+            @Field("bank_number") String bank_number,
+            @Field("bank_tel") String bank_tel,
+            @Field("check_code") String check_code,
+            @Field("type") String type
+    );
+
+
+    //提额栏目列表
+    @FormUrlEncoded
+    @POST("Metioninfo/othermenu.html")
+    Observable<AmountCreateModel> createAmount(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("type") String type
+
+    );
+
+    //上传公司信息
+    @FormUrlEncoded
+    @POST("Metioninfo/company_message.html")
+    Observable<UpLoadModel> companyInfo(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("company_name") String company_name,
+            @Field("company_tel") String company_tel,
+            @Field("company_img") String company_img,
+            @Field("company_year") String company_year,
+            @Field("work_year") String work_year,
+            @Field("work_money") String work_money,
+            @Field("company_work") String company_work
+    );
+
+    //添加房产证信息
+    @FormUrlEncoded
+    @POST("Metioninfo/house_message.html")
+    Observable<UpLoadModel> houseMessage(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("house_img") String house_img,
+            @Field("house_back_img") String house_back_img
+    );
+
+    //添加车辆信息
+    @FormUrlEncoded
+    @POST("Metioninfo/car_message.html")
+    Observable<UpLoadModel> carMessage(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("car_img") String car_img,
+            @Field("car_back_img") String car_back_img
+    );
+
+    //请求下一步
+    @FormUrlEncoded
+    @POST("Baseinfo/base_step.html")
+    Observable<BaseModel> baseStep(
+            @Field("time") String time,
+            @Field("hash") String hash,
+            @Field("uid") String uid,
+            @Field("step") String step
+    );
+}

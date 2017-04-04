@@ -1,0 +1,110 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.adapter.mine.RepaymentListAdapter;
+import com.hzxm.easyloan.presenter.implPresenter.RepaymentDetailPresenter;
+import com.hzxm.easyloan.presenter.implView.IRepaymentDetailView;
+import com.hzxm.easyloan.utils.Constant;
+import com.hzxm.easyloan.widget.HorizontalDecoration;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.glide.GliderHelper;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 还款详细
+ */
+public class RepaymentDetailActivity extends BaseActivity implements IRepaymentDetailView {
+
+
+    @BindView(R.id.iv_error_logo)
+    ImageView ivErrorLogo;
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+    @BindView(R.id.recycleView)
+    RecyclerView recycleView;
+
+    private int uid;
+    private View EmptyView;
+
+    private RepaymentListAdapter mRepaymentListAdapter;
+    private RepaymentDetailPresenter mRepaymentDetailPresenter;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_repayment_detail);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        recycleView.setHasFixedSize(true);
+        recycleView.addItemDecoration(new HorizontalDecoration(this, LinearLayoutManager.VERTICAL));
+        recycleView.setLayoutManager(new LinearLayoutManager(this));
+        EmptyView = getLayoutInflater().inflate(R.layout.empty_repayment_list, (ViewGroup) recycleView.getParent(), false);
+        GliderHelper.loadImage(R.drawable.net_error, ivErrorLogo, null);
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        mRepaymentDetailPresenter = new RepaymentDetailPresenter(this);
+        mRepaymentDetailPresenter.repayList(uid);
+        mRepaymentListAdapter = mRepaymentDetailPresenter.getAdapter();
+        recycleView.setAdapter(mRepaymentListAdapter);
+    }
+
+    @OnClick(R.id.btn_error)
+    public void errorBtn() {
+        mRepaymentDetailPresenter.repayList(uid);
+    }
+
+    @Override
+    public void emptyView() {
+        mRepaymentListAdapter.setEmptyView(EmptyView);
+    }
+
+    @Override
+    public void success() {
+        recycleView.setVisibility(View.VISIBLE);
+        errorPage.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        recycleView.setVisibility(View.GONE);
+        errorPage.setVisibility(View.VISIBLE);
+        LogUtil.e(error);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRepaymentDetailPresenter.unsubcrible();
+    }
+}

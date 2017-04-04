@@ -1,0 +1,52 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.ImageView;
+
+import com.hzxm.easyloan.MainActivity;
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+
+import butterknife.BindView;
+
+public class SplashActivity extends BaseActivity {
+
+    @BindView(R.id.activity_splash)
+    ImageView activitySplash;
+
+    private Handler handler;
+
+    private boolean isLogin = false;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.home_blue_splash);
+    }
+
+    @Override
+    protected void initData() {
+        isLogin = SharedPreferencesUtil.getInstance(MyApplication.getApplication()).getBoolean(Constant.IS_LOGIN, false);
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isLogin) {
+                    startActivity(MainActivity.class);
+                } else {
+                    startActivity(LoginActivity.class);
+                }
+                AppActivityManager.getAppManager().finishActivity(SplashActivity.this);
+            }
+        }, 1500);
+    }
+}

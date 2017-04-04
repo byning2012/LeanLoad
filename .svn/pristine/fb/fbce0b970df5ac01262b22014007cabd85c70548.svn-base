@@ -1,0 +1,207 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.app.Dialog;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.presenter.implPresenter.CurrentAddPresenter;
+import com.hzxm.easyloan.presenter.implView.ICurrentAddressView;
+import com.hzxm.easyloan.utils.Constant;
+import com.hzxm.easyloan.utils.OptionsWindowHelper;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
+import cn.jeesoft.widget.pickerview.CharacterPickerWindow;
+
+/**
+ * 现住地址
+ */
+public class CurrentAddressActivity extends BaseActivity implements ICurrentAddressView {
+
+    @BindView(R.id.ll_address)
+    RelativeLayout llAddress;
+    @BindView(R.id.tv_detail_address)
+    TextView tvDetailAddress;
+    @BindView(R.id.btn_save)
+    Button btnSave;
+    @BindView(R.id.activity_current_address)
+    LinearLayout activityCurrentAddress;
+    @BindView(R.id.tv_show_address)
+    TextView tvShowAddress;
+    //头部提示栏
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.ll_top_remind)
+    LinearLayout llTopRemind;
+
+    @BindView(R.id.rl_detail_address)
+    LinearLayout rlDetailAddress;
+    private int uid;
+
+    private int status = 0;
+    @BindString(R.string.pass_address)
+    String mTitleMsg;
+
+    private CurrentAddPresenter mCurrentAddPresenter;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_current_address);
+
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        try {
+            status = getIntent().getExtras().getInt("status");
+        } catch (NullPointerException e) {
+            LogUtil.e("空指针");
+        }
+        if (status == 1) {
+            tvRemind.setText(mTitleMsg);
+            btnSave.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getApplication()).getInt(Constant.UID, -1);
+        mCurrentAddPresenter = new CurrentAddPresenter(this);
+    }
+
+    /**
+     * 顶部提示栏 点击关闭
+     */
+    @OnClick(R.id.iv_delete)
+    public void perturbationTop() {
+        llTopRemind.setVisibility(View.GONE);
+    }
+
+
+    /**
+     * 所在地址
+     */
+    @OnClick(R.id.ll_address)
+    public void address() {
+        CharacterPickerWindow window = OptionsWindowHelper.builder(CurrentAddressActivity.this, new OptionsWindowHelper.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(String province, String city, String area) {
+                //显示省市区
+                tvShowAddress.setText(province + city + area);
+            }
+        });
+        //如果popWindows 消失  就让屏幕 透明度变回1
+        window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
+        window.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+    /**
+     * 输入详细地址
+     */
+    @OnClick(R.id.rl_detail_address)
+    public void detailAddress() {
+        showDialog();
+    }
+
+    /**
+     * 上传详细地址
+     */
+    @OnClick(R.id.btn_save)
+    public void saveAddress() {
+        String address = tvShowAddress.getText().toString().trim();
+        String detailAdd = tvDetailAddress.getText().toString().trim();
+        if ("详细地址".equals(address)) {
+            showToast("请选择您的地址", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ("".equals(detailAdd)) {
+            showToast("请填写您的详细地址", Toast.LENGTH_SHORT);
+            return;
+        }
+        mCurrentAddPresenter.detailAddress(uid, address + detailAdd);
+    }
+
+    protected void showDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_detail_address, null);
+        //删除按钮
+        view.findViewById(R.id.rl_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        final ClearEditText et = (ClearEditText) view.findViewById(R.id.et_detail_address);
+        view.findViewById(R.id.btn_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!"".equals(et.getText().toString().trim())) {
+                    tvDetailAddress.setText(et.getText().toString().trim());
+                    dialog.dismiss();
+                } else {
+                    showToast("请输入详细地址", Toast.LENGTH_SHORT);
+                }
+            }
+        });
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        assert window != null;
+        WindowManager.LayoutParams wl = window.getAttributes();
+        window.setGravity(Gravity.CENTER);
+        dialog.onWindowAttributesChanged(wl);
+        dialog.show();
+    }
+
+    @Override
+    public void addressSuccess() {
+        showToast("保存地址成功", Toast.LENGTH_SHORT);
+        setResult(104);
+        AppActivityManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+}

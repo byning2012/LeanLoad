@@ -1,0 +1,200 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.RegisterModel;
+import com.hzxm.easyloan.presenter.implPresenter.VerificationPresenter;
+import com.hzxm.easyloan.presenter.implView.IVerificationView;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.StringUtils;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 注册界面
+ */
+public class RegisterActivity extends BaseActivity implements IVerificationView {
+
+
+    @BindView(R.id.et_user_num)
+    ClearEditText etUserNum;
+    @BindView(R.id.tv_verification)
+    TextView tvVerification;
+    @BindView(R.id.et_verification_code)
+    ClearEditText etVerificationCode;
+    @BindView(R.id.et_set_psw)
+    ClearEditText etSetPsw;
+    @BindView(R.id.et_sure_psw)
+    ClearEditText etSurePsw;
+    @BindView(R.id.et_invate_code)
+    ClearEditText etInvateCode;
+    @BindView(R.id.btn_sure_register)
+    Button btnSureRegister;
+    @BindView(R.id.activity_register)
+    LinearLayout activityRegister;
+
+    //注册接口
+    VerificationPresenter mVerificationPresenter;
+
+    //橙色
+    @BindColor(R.color.home_btn_orange)
+    int btnColorOrange;
+
+    //计时器
+    private TimeCount timeCount;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_register);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+    }
+
+    @Override
+    protected void initData() {
+        mVerificationPresenter = new VerificationPresenter(this);
+    }
+
+    /**
+     * 获取验证码
+     */
+    @OnClick(R.id.tv_verification)
+    public void getVerification() {
+        String phoneNum = etUserNum.getText().toString().trim();
+        if (isPhone(phoneNum)) {
+            mVerificationPresenter.getVerification(phoneNum, "1");
+        }
+    }
+
+    @OnClick(R.id.btn_sure_register)
+    public void register() {
+        String phoneNum = etUserNum.getText().toString().trim();
+        String verificationCode = etVerificationCode.getText().toString().trim();
+        String psw = etSetPsw.getText().toString().trim();
+        String pswSure = etSurePsw.getText().toString().trim();
+        String invateCode = etInvateCode.getText().toString().trim();
+        if (!isPhone(phoneNum)) {
+            return;
+        }
+        if (TextUtils.isEmpty(verificationCode)) {
+            showToast("验证码不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (psw.length() < 8) {
+            showToast("密码长度需大于8位", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (pswSure.length() < 8) {
+            showToast("密码长度需大于8位", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(psw)) {
+            showToast("密码不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (TextUtils.isEmpty(pswSure)) {
+            showToast("密码不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (!psw.equals(pswSure)) {
+            showToast("两次输入的密码不相同", Toast.LENGTH_SHORT);
+            return;
+        }
+        mVerificationPresenter.register(phoneNum, psw, pswSure, verificationCode, invateCode);
+
+    }
+
+    private boolean isPhone(String phoneNum) {
+        if (TextUtils.isEmpty(phoneNum)) {
+            showToast("手机号码不能为空", Toast.LENGTH_SHORT);
+            return false;
+        }
+        if (!StringUtils.isPhone(phoneNum)) {
+            showToast("手机号码错误", Toast.LENGTH_SHORT);
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(RegisterActivity.this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        LogUtil.e("RegisterActivity发送验证码-->" + error);
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    /**
+     * 验证码发送成功
+     */
+    @Override
+    public void showSuccess() {
+        timeCount = new TimeCount(60000, 1000);//构造CountDownTimer对象
+        timeCount.start();
+    }
+
+    /**
+     * 登陆成功返回的数据
+     *
+     * @param registerModel
+     */
+    @Override
+    public void registerData(RegisterModel registerModel) {
+        LogUtil.e(registerModel.getData().toString());
+    }
+
+
+    /**
+     * 计时器
+     * millisInFuture  总时长
+     * countDownInterval 计时间隔
+     */
+    class TimeCount extends CountDownTimer {
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            tvVerification.setClickable(false);
+            tvVerification.setText(millisUntilFinished / 1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            tvVerification.setTextColor(btnColorOrange);
+            tvVerification.setText("重新验证");
+            tvVerification.setClickable(true);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mVerificationPresenter.unsubcrible();
+        super.onDestroy();
+    }
+}

@@ -1,0 +1,670 @@
+package com.hzxm.easyloan.model.mine;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/29 0029 17:57
+ */
+public class AmountCreateModel {
+
+    /**
+     * Code : 0
+     * Msg : ok
+     * Time : 2017-01-05 18:12:07
+     * ApiUrl : /Api/Metioninfo/othermenu.html
+     * Data : {"type":3,"other_menu":[{"id":"20","name":"其他资料","pid":"3","other_img":null}],"base_menu":[{"id":"8","up_type":"3","menu_name":"unit","remark":"单位"},{"id":"9","up_type":"3","menu_name":"socal","remark":"社保"},{"id":"10","up_type":"3","menu_name":"car","remark":"车辆信息"},{"id":"11","up_type":"3","menu_name":"home","remark":"房产证"},{"id":"15","up_type":"3","menu_name":"interfix","remark":"相关证件"}],"info":{"unit":{"unit_name":"新苗网络","unit_tel":"666666","unit_work":"6666","unit_work_year":"10","uint_work_time":"2016.6.6","unit_money":"8000000000","unit_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"单位照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]},"car":{"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"home":{"house_back_img":"0","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"interfix":{"interfix_name":"啊","interfix_img":[{"name":"第一张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第二张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第三张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"}]}},"check_status":"0"}
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private DataEntity Data;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public DataEntity getData() {
+        return Data;
+    }
+
+    public void setData(DataEntity Data) {
+        this.Data = Data;
+    }
+
+    public static class DataEntity {
+        /**
+         * type : 3
+         * other_menu : [{"id":"20","name":"其他资料","pid":"3","other_img":null}]
+         * base_menu : [{"id":"8","up_type":"3","menu_name":"unit","remark":"单位"},{"id":"9","up_type":"3","menu_name":"socal","remark":"社保"},{"id":"10","up_type":"3","menu_name":"car","remark":"车辆信息"},{"id":"11","up_type":"3","menu_name":"home","remark":"房产证"},{"id":"15","up_type":"3","menu_name":"interfix","remark":"相关证件"}]
+         * info : {"unit":{"unit_name":"新苗网络","unit_tel":"666666","unit_work":"6666","unit_work_year":"10","uint_work_time":"2016.6.6","unit_money":"8000000000","unit_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"单位照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]},"car":{"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"home":{"house_back_img":"0","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"interfix":{"interfix_name":"啊","interfix_img":[{"name":"第一张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第二张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第三张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"}]}}
+         * check_status : 0
+         */
+
+        private int type;
+        private InfoEntity info;
+        private String check_status;
+        private List<OtherMenuEntity> other_menu;
+        private List<BaseMenuEntity> base_menu;
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public InfoEntity getInfo() {
+            return info;
+        }
+
+        public void setInfo(InfoEntity info) {
+            this.info = info;
+        }
+
+        public String getCheck_status() {
+            return check_status;
+        }
+
+        public void setCheck_status(String check_status) {
+            this.check_status = check_status;
+        }
+
+        public List<OtherMenuEntity> getOther_menu() {
+            return other_menu;
+        }
+
+        public void setOther_menu(List<OtherMenuEntity> other_menu) {
+            this.other_menu = other_menu;
+        }
+
+        public List<BaseMenuEntity> getBase_menu() {
+            return base_menu;
+        }
+
+        public void setBase_menu(List<BaseMenuEntity> base_menu) {
+            this.base_menu = base_menu;
+        }
+
+        public static class InfoEntity implements Parcelable {
+            /**
+             * unit : {"unit_name":"新苗网络","unit_tel":"666666","unit_work":"6666","unit_work_year":"10","uint_work_time":"2016.6.6","unit_money":"8000000000","unit_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"单位照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]}
+             * car : {"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}
+             * home : {"house_back_img":"0","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}
+             * interfix : {"interfix_name":"啊","interfix_img":[{"name":"第一张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第二张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第三张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"}]}
+             */
+
+            private UnitEntity unit;
+            private CarEntity car;
+            private HomeEntity home;
+            private InterfixEntity interfix;
+
+            protected InfoEntity(Parcel in) {
+            }
+
+            public static final Creator<InfoEntity> CREATOR = new Creator<InfoEntity>() {
+                @Override
+                public InfoEntity createFromParcel(Parcel in) {
+                    return new InfoEntity(in);
+                }
+
+                @Override
+                public InfoEntity[] newArray(int size) {
+                    return new InfoEntity[size];
+                }
+            };
+
+            public UnitEntity getUnit() {
+                return unit;
+            }
+
+            public void setUnit(UnitEntity unit) {
+                this.unit = unit;
+            }
+
+            public CarEntity getCar() {
+                return car;
+            }
+
+            public void setCar(CarEntity car) {
+                this.car = car;
+            }
+
+            public HomeEntity getHome() {
+                return home;
+            }
+
+            public void setHome(HomeEntity home) {
+                this.home = home;
+            }
+
+            public InterfixEntity getInterfix() {
+                return interfix;
+            }
+
+            public void setInterfix(InterfixEntity interfix) {
+                this.interfix = interfix;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+            }
+
+            public static class UnitEntity implements Parcelable{
+                /**
+                 * unit_name : 新苗网络
+                 * unit_tel : 666666
+                 * unit_work : 6666
+                 * unit_work_year : 10
+                 * uint_work_time : 2016.6.6
+                 * unit_money : 8000000000
+                 * unit_img : [{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"单位照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]
+                 */
+
+                private String unit_name;
+                private String unit_tel;
+                private String unit_work;
+                private String unit_work_year;
+                private String uint_work_time;
+                private String unit_money;
+                private List<UnitImgEntity> unit_img;
+
+                protected UnitEntity(Parcel in) {
+                    unit_name = in.readString();
+                    unit_tel = in.readString();
+                    unit_work = in.readString();
+                    unit_work_year = in.readString();
+                    uint_work_time = in.readString();
+                    unit_money = in.readString();
+                }
+
+                public static final Creator<UnitEntity> CREATOR = new Creator<UnitEntity>() {
+                    @Override
+                    public UnitEntity createFromParcel(Parcel in) {
+                        return new UnitEntity(in);
+                    }
+
+                    @Override
+                    public UnitEntity[] newArray(int size) {
+                        return new UnitEntity[size];
+                    }
+                };
+
+                public String getUnit_name() {
+                    return unit_name;
+                }
+
+                public void setUnit_name(String unit_name) {
+                    this.unit_name = unit_name;
+                }
+
+                public String getUnit_tel() {
+                    return unit_tel;
+                }
+
+                public void setUnit_tel(String unit_tel) {
+                    this.unit_tel = unit_tel;
+                }
+
+                public String getUnit_work() {
+                    return unit_work;
+                }
+
+                public void setUnit_work(String unit_work) {
+                    this.unit_work = unit_work;
+                }
+
+                public String getUnit_work_year() {
+                    return unit_work_year;
+                }
+
+                public void setUnit_work_year(String unit_work_year) {
+                    this.unit_work_year = unit_work_year;
+                }
+
+                public String getUint_work_time() {
+                    return uint_work_time;
+                }
+
+                public void setUint_work_time(String uint_work_time) {
+                    this.uint_work_time = uint_work_time;
+                }
+
+                public String getUnit_money() {
+                    return unit_money;
+                }
+
+                public void setUnit_money(String unit_money) {
+                    this.unit_money = unit_money;
+                }
+
+                public List<UnitImgEntity> getUnit_img() {
+                    return unit_img;
+                }
+
+                public void setUnit_img(List<UnitImgEntity> unit_img) {
+                    this.unit_img = unit_img;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(unit_name);
+                    dest.writeString(unit_tel);
+                    dest.writeString(unit_work);
+                    dest.writeString(unit_work_year);
+                    dest.writeString(uint_work_time);
+                    dest.writeString(unit_money);
+                }
+
+                public static class UnitImgEntity implements Parcelable{
+                    /**
+                     * name : 工作证/入职协议
+                     * image : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                     */
+
+                    private String name;
+                    private String image;
+
+                    protected UnitImgEntity(Parcel in) {
+                        name = in.readString();
+                        image = in.readString();
+                    }
+
+                    public static final Creator<UnitImgEntity> CREATOR = new Creator<UnitImgEntity>() {
+                        @Override
+                        public UnitImgEntity createFromParcel(Parcel in) {
+                            return new UnitImgEntity(in);
+                        }
+
+                        @Override
+                        public UnitImgEntity[] newArray(int size) {
+                            return new UnitImgEntity[size];
+                        }
+                    };
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getImage() {
+                        return image;
+                    }
+
+                    public void setImage(String image) {
+                        this.image = image;
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(name);
+                        dest.writeString(image);
+                    }
+                }
+            }
+
+            public static class CarEntity {
+                /**
+                 * car_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 * car_back_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 */
+
+                private String car_img;
+                private String car_back_img;
+
+                public String getCar_img() {
+                    return car_img;
+                }
+
+                public void setCar_img(String car_img) {
+                    this.car_img = car_img;
+                }
+
+                public String getCar_back_img() {
+                    return car_back_img;
+                }
+
+                public void setCar_back_img(String car_back_img) {
+                    this.car_back_img = car_back_img;
+                }
+            }
+
+            public static class HomeEntity {
+                /**
+                 * house_back_img : 0
+                 * house_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 */
+
+                private String house_back_img;
+                private String house_img;
+
+                public String getHouse_back_img() {
+                    return house_back_img;
+                }
+
+                public void setHouse_back_img(String house_back_img) {
+                    this.house_back_img = house_back_img;
+                }
+
+                public String getHouse_img() {
+                    return house_img;
+                }
+
+                public void setHouse_img(String house_img) {
+                    this.house_img = house_img;
+                }
+            }
+
+            public static class InterfixEntity implements Parcelable{
+                /**
+                 * interfix_name : 啊
+                 * interfix_img : [{"name":"第一张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第二张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"第三张","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"}]
+                 */
+
+                private String interfix_name;
+                private List<InterfixImgEntity> interfix_img;
+
+                protected InterfixEntity(Parcel in) {
+                    interfix_name = in.readString();
+                }
+
+                public static final Creator<InterfixEntity> CREATOR = new Creator<InterfixEntity>() {
+                    @Override
+                    public InterfixEntity createFromParcel(Parcel in) {
+                        return new InterfixEntity(in);
+                    }
+
+                    @Override
+                    public InterfixEntity[] newArray(int size) {
+                        return new InterfixEntity[size];
+                    }
+                };
+
+                public String getInterfix_name() {
+                    return interfix_name;
+                }
+
+                public void setInterfix_name(String interfix_name) {
+                    this.interfix_name = interfix_name;
+                }
+
+                public List<InterfixImgEntity> getInterfix_img() {
+                    return interfix_img;
+                }
+
+                public void setInterfix_img(List<InterfixImgEntity> interfix_img) {
+                    this.interfix_img = interfix_img;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(interfix_name);
+                }
+
+                public static class InterfixImgEntity implements Parcelable {
+                    /**
+                     * name : 第一张
+                     * image : http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg
+                     */
+
+                    private String name;
+                    private String image;
+
+                    protected InterfixImgEntity(Parcel in) {
+                        name = in.readString();
+                        image = in.readString();
+                    }
+
+                    public static final Creator<InterfixImgEntity> CREATOR = new Creator<InterfixImgEntity>() {
+                        @Override
+                        public InterfixImgEntity createFromParcel(Parcel in) {
+                            return new InterfixImgEntity(in);
+                        }
+
+                        @Override
+                        public InterfixImgEntity[] newArray(int size) {
+                            return new InterfixImgEntity[size];
+                        }
+                    };
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getImage() {
+                        return image;
+                    }
+
+                    public void setImage(String image) {
+                        this.image = image;
+                    }
+
+                    @Override
+                    public int describeContents() {
+                        return 0;
+                    }
+
+                    @Override
+                    public void writeToParcel(Parcel dest, int flags) {
+                        dest.writeString(name);
+                        dest.writeString(image);
+                    }
+                }
+            }
+        }
+
+        public static class OtherMenuEntity implements Parcelable {
+            /**
+             * id : 20
+             * name : 其他资料
+             * pid : 3
+             * other_img : null
+             */
+
+            private String id;
+            private String name;
+            private String pid;
+            private Object other_img;
+
+            protected OtherMenuEntity(Parcel in) {
+                id = in.readString();
+                name = in.readString();
+                pid = in.readString();
+            }
+
+            public static final Creator<OtherMenuEntity> CREATOR = new Creator<OtherMenuEntity>() {
+                @Override
+                public OtherMenuEntity createFromParcel(Parcel in) {
+                    return new OtherMenuEntity(in);
+                }
+
+                @Override
+                public OtherMenuEntity[] newArray(int size) {
+                    return new OtherMenuEntity[size];
+                }
+            };
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getPid() {
+                return pid;
+            }
+
+            public void setPid(String pid) {
+                this.pid = pid;
+            }
+
+            public Object getOther_img() {
+                return other_img;
+            }
+
+            public void setOther_img(Object other_img) {
+                this.other_img = other_img;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(id);
+                dest.writeString(name);
+                dest.writeString(pid);
+            }
+        }
+
+        public static class BaseMenuEntity implements Parcelable{
+            /**
+             * id : 8
+             * up_type : 3
+             * menu_name : unit
+             * remark : 单位
+             */
+
+            private String id;
+            private String up_type;
+            private String menu_name;
+            private String remark;
+
+            protected BaseMenuEntity(Parcel in) {
+                id = in.readString();
+                up_type = in.readString();
+                menu_name = in.readString();
+                remark = in.readString();
+            }
+
+            public static final Creator<BaseMenuEntity> CREATOR = new Creator<BaseMenuEntity>() {
+                @Override
+                public BaseMenuEntity createFromParcel(Parcel in) {
+                    return new BaseMenuEntity(in);
+                }
+
+                @Override
+                public BaseMenuEntity[] newArray(int size) {
+                    return new BaseMenuEntity[size];
+                }
+            };
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getUp_type() {
+                return up_type;
+            }
+
+            public void setUp_type(String up_type) {
+                this.up_type = up_type;
+            }
+
+            public String getMenu_name() {
+                return menu_name;
+            }
+
+            public void setMenu_name(String menu_name) {
+                this.menu_name = menu_name;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(id);
+                dest.writeString(up_type);
+                dest.writeString(menu_name);
+                dest.writeString(remark);
+            }
+        }
+    }
+}

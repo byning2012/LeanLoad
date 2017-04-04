@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_match_quota"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.MatchQuotaActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_title="@string/match_quota_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dim40"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dim100"
+            android:layout_centerInParent="true"
+            android:background="@drawable/verified4" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dim162"
+        android:layout_height="@dimen/dim162"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim134"
+        android:src="@drawable/match_quota" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim30"
+        android:text="@string/match_quota"
+        android:textColor="@color/tc_black"
+        android:textSize="@dimen/txt36" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim20"
+        android:text="@string/matcg_quota_message"
+        android:textColor="@color/deep_text_white"
+        android:textSize="@dimen/txt30" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim60"
+        android:layout_marginRight="@dimen/dim60"
+        android:layout_marginTop="@dimen/dim96"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/complete"
+        android:textSize="@dimen/txt34"
+        android:textColor="@color/select_white_orange" />
+</LinearLayout>

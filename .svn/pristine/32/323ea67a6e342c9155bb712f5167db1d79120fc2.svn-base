@@ -1,0 +1,65 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.LinearLayout;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.BaseCertificationModel;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+
+/**
+ * 紧急联系人
+ */
+public class EmergencyContactActivity extends BaseActivity {
+
+    @BindView(R.id.et_relationship)
+    ClearEditText etRelationship;
+    @BindView(R.id.et_name)
+    ClearEditText etName;
+    @BindView(R.id.et_tel_num)
+    ClearEditText etTelNum;
+    @BindView(R.id.et_relationship2)
+    ClearEditText etRelationship2;
+    @BindView(R.id.et_name2)
+    ClearEditText etName2;
+    @BindView(R.id.et_tel_num2)
+    ClearEditText etTelNum2;
+    @BindView(R.id.activity_emergency_contact)
+    LinearLayout activityEmergencyContact;
+    private BaseCertificationModel.DataEntity.ConnectEntity mConnectEntity;
+
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_emergency_contact);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+    }
+
+    @Override
+    protected void initData() {
+        try {
+            mConnectEntity = getIntent().getExtras().getParcelable("emergency");
+
+            etRelationship.setText(mConnectEntity.getUrgent_tel().get(0).getName());
+            etName.setText(mConnectEntity.getUrgent_tel().get(0).getName());
+            etTelNum.setText(mConnectEntity.getUrgent_tel().get(0).getTel());
+
+            etRelationship2.setText(mConnectEntity.getUrgent_tel().get(1).getName());
+            etName2.setText(mConnectEntity.getUrgent_tel().get(1).getName());
+            etTelNum2.setText(mConnectEntity.getUrgent_tel().get(1).getTel());
+        } catch (NullPointerException e) {
+            LogUtil.e("空指针了");
+        }
+
+    }
+
+
+}

@@ -1,0 +1,220 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.MineModel;
+import com.hzxm.easyloan.presenter.implPresenter.MinePresenter;
+import com.hzxm.easyloan.presenter.implView.IMineView;
+import com.hzxm.easyloan.ui.activity.BankCarManagerActivity;
+import com.hzxm.easyloan.ui.activity.BaseCertificationActivity;
+import com.hzxm.easyloan.ui.activity.CertificationCenterActivity;
+import com.hzxm.easyloan.ui.activity.DocUploadActivity;
+import com.hzxm.easyloan.ui.activity.InfoCompleteActivity;
+import com.hzxm.easyloan.ui.activity.RepaymentDetailActivity;
+import com.hzxm.easyloan.ui.activity.SeetingActivity;
+import com.hzxm.easyloan.ui.activity.VerifiedActivity;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseFragment;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.widget.springview.container.LoanHeader;
+import com.lmz.baselibrary.widget.springview.widget.SpringView;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:59
+ * 个人中心
+ */
+public class MineFragment extends BaseFragment implements IMineView, SpringView.OnFreshListener {
+    @BindView(R.id.refresh)
+    SpringView mRefreshLayout;
+    @BindView(R.id.tv_verification_center)
+    TextView tvVerificationCenter;
+    @BindView(R.id.tv_loan_num)
+    TextView tvLoanNum;
+    @BindView(R.id.loan_recording)
+    RelativeLayout loanRecording;
+    @BindView(R.id.tv_overdue_time)
+    TextView tvOverdueTime;
+    @BindView(R.id.overdue_time)
+    RelativeLayout overdueTime;
+    @BindView(R.id.tv_bank_car_manager)
+    TextView tvBankCarManager;
+    @BindView(R.id.bank_car)
+    RelativeLayout bankCar;
+    @BindView(R.id.tv_seeting)
+    TextView tvSeeting;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.iv_bank_car_manager)
+    ImageView ivBankCarManager;
+    @BindView(R.id.tv_account)
+    TextView tvAccount;
+
+    private MinePresenter mMinePresenter;
+    private int uid;
+    private MineModel mMinModel;
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_mine;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+        SetStatusBarColor(R.color.home_blue);
+        mRefreshLayout.setHeader(new LoanHeader());
+        mRefreshLayout.setGive(SpringView.Give.TOP);
+        mRefreshLayout.setListener(this);
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        mMinePresenter = new MinePresenter(this);
+        mMinePresenter.mineMsg(uid);
+    }
+
+    /**
+     * 认证中心
+     */
+    @OnClick(R.id.tv_verification_center)
+    public void verficationCenter() {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        switch (mMinModel.getData().getStep()) {
+            case "0":
+                bundle.putInt("isHome", 2);
+                intent.setClass(getActivity(), VerifiedActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case "1":
+                intent.setClass(getActivity(), DocUploadActivity.class);
+                startActivity(intent);
+                break;
+            case "2":
+                intent.setClass(getActivity(), InfoCompleteActivity.class);
+                startActivity(intent);
+                break;
+            case "3":
+                if ("1".equals(mMinModel.getData().getStatus())) {
+                    showToast("审核中", Toast.LENGTH_SHORT);
+                    return;
+                }
+                if ("3".equals(mMinModel.getData().getStatus())) {
+                    showToast("审核未通过，请修改", Toast.LENGTH_SHORT);
+                    intent.setClass(getActivity(), BaseCertificationActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+            default:
+                intent.setClass(getActivity(), CertificationCenterActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    @OnClick(R.id.loan_recording)
+    public void recoding() {
+        Intent intent = new Intent(context, RepaymentDetailActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 银行卡管理
+     */
+    @OnClick(R.id.bank_car)
+    public void bankCar() {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        switch (mMinModel.getData().getStep()) {
+            case "0":
+                bundle.putInt("isHome", 2);
+                intent.setClass(getActivity(), VerifiedActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case "1":
+                intent.setClass(getActivity(), DocUploadActivity.class);
+                startActivity(intent);
+                break;
+            case "2":
+                intent.setClass(getActivity(), InfoCompleteActivity.class);
+                startActivity(intent);
+                break;
+            case "3":
+                if ("1".equals(mMinModel.getData().getStatus())) {
+                    showToast("审核中", Toast.LENGTH_SHORT);
+                    return;
+                }
+                if ("3".equals(mMinModel.getData().getStatus())) {
+                    showToast("审核未通过，请修改", Toast.LENGTH_SHORT);
+                    intent.setClass(getActivity(), BaseCertificationActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+            default:
+                intent.setClass(getActivity(), BankCarManagerActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    /**
+     * 设置
+     */
+    @OnClick(R.id.tv_seeting)
+    public void seeting() {
+        Intent intent = new Intent(context, SeetingActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void getData(MineModel mineModel) {
+        mMinModel = mineModel;
+        mRefreshLayout.onFinishFreshAndLoad();
+        if ("".equals(mineModel.getData().getReallyname())) {
+            tvAccount.setText("账号：" + mineModel.getData().getTel());
+        } else {
+            tvName.setText("姓名：" + mineModel.getData().getReallyname());
+        }
+        tvLoanNum.setText(mineModel.getData().getRepay() + "次");
+        tvOverdueTime.setText(mineModel.getData().getOverdue() + "次");
+    }
+
+    @Override
+    public void showProgressDialog() {
+        createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        mRefreshLayout.onFinishFreshAndLoad();
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onRefresh() {
+        mMinePresenter.mineMsg(uid);
+    }
+
+    @Override
+    public void onLoadmore() {
+
+    }
+}

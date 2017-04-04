@@ -1,0 +1,67 @@
+package com.hzxm.easyloan.presenter.implPresenter;
+
+import com.hzxm.easyloan.api.ApiManager;
+import com.hzxm.easyloan.model.mine.BaseCertificationModel;
+import com.hzxm.easyloan.presenter.IHome;
+import com.hzxm.easyloan.presenter.implView.IHomeView;
+import com.lmz.baselibrary.present.implPresenter.BasePresenterImpl;
+
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.schedulers.Schedulers;
+
+/**
+ * 作者：LMZ on 2017/1/4 0004 16:48
+ */
+public class HomePresenter extends BasePresenterImpl implements IHome {
+    private IHomeView mIHomeView;
+
+    public HomePresenter(IHomeView mIHomeView) {
+        this.mIHomeView = mIHomeView;
+    }
+
+    /**
+     * 获取基础认证数据
+     *
+     * @param uid
+     */
+    @Override
+    public void baseInfoData(int uid) {
+        Subscription s = ApiManager.getInstance().getLoanApiService().baseInfoData(System.currentTimeMillis() + "", "4b50512c9c732419a0d992ab9cd202bc", uid + "")
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mIHomeView.showProgressDialog();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseCertificationModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIHomeView.showError(e.getMessage());
+                        mIHomeView.hiteProgressDialog();
+                    }
+
+                    @Override
+                    public void onNext(BaseCertificationModel baseCertificationModel) {
+                        mIHomeView.hiteProgressDialog();
+                        int code = baseCertificationModel.getCode();
+                        if (code == 0) {
+                            mIHomeView.data(baseCertificationModel);
+                        } else {
+                            mIHomeView.showError(baseCertificationModel.getMsg());
+                        }
+                    }
+                });
+        addSubscription(s);
+    }
+}

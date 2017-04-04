@@ -1,0 +1,198 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MainActivity;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.BaseCertificationModel;
+import com.hzxm.easyloan.presenter.implPresenter.VerificationPresenter;
+import com.hzxm.easyloan.presenter.implView.IVerificationView;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.AppActivityManager;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.StringUtils;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.widget.ClearEditText;
+import com.lmz.baselibrary.widget.TitleLayout;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 实名认证
+ */
+public class VerifiedActivity extends BaseActivity implements IVerificationView {
+
+    @BindView(R.id.clearEditText)
+    ClearEditText clearEditText;
+    @BindView(R.id.et_card_num)
+    ClearEditText etCardNum;
+    @BindView(R.id.btn_next)
+    Button btnNext;
+    @BindView(R.id.activity_verified)
+    LinearLayout activityVerified;
+
+    VerificationPresenter mVerificationPresenter;
+    @BindView(R.id.rl_title_num)
+    RelativeLayout rlTitleNum;
+    @BindString(R.string.complete)
+    String complete;
+    //顶部警告栏
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.ll_top_remind)
+    LinearLayout llTopRemind;
+
+    @BindString(R.string.top_remind_msg_verified)
+    String mTopReminds;
+    @BindString(R.string.pass_verified)
+    String mPassVerified;
+    //标题栏
+    @BindView(R.id.title)
+    TitleLayout title;
+
+
+    private int uid;
+
+    private int isFromBaseCertifiActivity;
+
+    private BaseCertificationModel.DataEntity.ShimingEntity mShiMingEntity;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_verified);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        uid = SharedPreferencesUtil.getInstance(getApplicationContext()).getInt(Constant.UID, -1);
+    }
+
+    @Override
+    protected void initData() {
+        mVerificationPresenter = new VerificationPresenter(this);
+        try {
+            isFromBaseCertifiActivity = getIntent().getExtras().getInt("isBaseCertifiActivity", -1);
+            mShiMingEntity = getIntent().getExtras().getParcelable("shiming");
+            if (mShiMingEntity != null) {
+                clearEditText.setText(mShiMingEntity.getReallyname());
+                etCardNum.setText(mShiMingEntity.getId_card());
+                if (mShiMingEntity.getStatus() == 1) {  //通过实名认证  不可修改
+                    btnNext.setVisibility(View.GONE);
+                    clearEditText.setFocusable(false);
+                    etCardNum.setFocusable(false);
+                    clearEditText.setClearIconVisible(false);
+                    etCardNum.setClearIconVisible(false);
+                }
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            }
+        } catch (NullPointerException e) {
+            LogUtil.e(e.toString());
+        }
+        if (isFromBaseCertifiActivity == 1) { //从基础认证跳转过来的   改变布局
+            rlTitleNum.setVisibility(View.GONE);
+            title.setWhiteStyle(this);
+            SetStatusBarColor(R.color.transparent_white);
+            llTopRemind.setVisibility(View.VISIBLE);
+            btnNext.setText(complete);
+            if (mShiMingEntity != null) {
+                tvRemind.setText(mPassVerified);
+            } else {
+                tvRemind.setText(mTopReminds);
+            }
+        }
+        title.setOnBackButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MainActivity.class);
+                AppActivityManager.getAppManager().finishAllActivity();
+            }
+        });
+    }
+
+    /**
+     * 关闭头部警告栏
+     */
+    @OnClick(R.id.iv_delete)
+    public void closeTop() {
+        llTopRemind.setVisibility(View.GONE);
+    }
+
+
+    /**
+     * 跳转到证件上传页面
+     */
+    @OnClick(R.id.btn_next)
+    public void document() {
+        String mReallyName = clearEditText.getText().toString().trim();
+        String mIdCard = etCardNum.getText().toString().trim();
+        if ("".equals(mReallyName)) {
+            showToast("姓名不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if ("".equals(mIdCard)) {
+            showToast("证件号码不能为空", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (!StringUtils.isCard(mIdCard)) {
+            showToast("证件号码有误", Toast.LENGTH_SHORT);
+            return;
+        }
+        mVerificationPresenter.verification(uid + "", mReallyName, mIdCard);
+    }
+
+
+    @Override
+    public void showSuccess() {
+        if (isFromBaseCertifiActivity == 1) {
+            setResult(101);
+            finish();
+        } else {
+            startActivity(DocUploadActivity.class);
+        }
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        showToast(error, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mVerificationPresenter.unsubcrible();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isFromBaseCertifiActivity != 1) {
+            startActivity(BankCarManagerActivity.class);
+            AppActivityManager.getAppManager().finishAllActivity();
+        }
+
+    }
+}

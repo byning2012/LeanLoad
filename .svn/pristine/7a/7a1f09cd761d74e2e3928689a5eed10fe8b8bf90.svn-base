@@ -1,0 +1,158 @@
+package com.hzxm.easyloan.presenter.implPresenter;
+
+import com.hzxm.easyloan.api.ApiManager;
+import com.hzxm.easyloan.model.BaseModel;
+import com.hzxm.easyloan.model.UploadPicModel;
+import com.hzxm.easyloan.presenter.IPropertyCar;
+import com.hzxm.easyloan.presenter.implView.IPropertyAndCarView;
+import com.lmz.baselibrary.listener.ProgressListener;
+import com.lmz.baselibrary.present.implPresenter.BasePresenterImpl;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.UploadFileRequestBody;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.schedulers.Schedulers;
+
+/**
+ * 作者：LMZ on 2016/12/30 0030 17:21
+ * 行驶证和房产信息上传
+ */
+public class PropertyCarPresenter extends BasePresenterImpl implements IPropertyCar {
+    private IPropertyAndCarView mIPropertyAndCarView;
+
+    public PropertyCarPresenter(IPropertyAndCarView mIPropertyAndCarView) {
+        this.mIPropertyAndCarView = mIPropertyAndCarView;
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param file
+     * @param uid
+     * @param hashid
+     * @param type
+     */
+    @Override
+    public void uploadFace(File file, String uid, String hashid, final int type) {
+        Map<String, RequestBody> param = new HashMap<>();
+        UploadFileRequestBody fileRequestBody = new UploadFileRequestBody(file, new ProgressListener() {
+            @Override
+            public void onProgress(long hasWrittenLen, long totalLen, boolean hasFinish) {
+                mIPropertyAndCarView.uploadPrograss(hasWrittenLen, totalLen, type);
+            }
+        });
+        LogUtil.e("filename-->" + file.getName());
+        param.put("picture\";filename=\"" + file.getName(), fileRequestBody);
+        Subscription s = ApiManager.getInstance().getLoanApiService().uploadPic(System.currentTimeMillis() + "",
+                "0a51a705ca8ec26d83af2f1b239aae67", uid, hashid, "picture", param)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UploadPicModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIPropertyAndCarView.showPicError(e.getMessage(), type);
+                    }
+
+                    @Override
+                    public void onNext(UploadPicModel baseModel) {
+                        if (baseModel.getCode() == 0) {
+                            mIPropertyAndCarView.uploadSuccess(baseModel.getData().getPath(), type);
+                        } else {
+                            mIPropertyAndCarView.showPicError(baseModel.getMsg(), type);
+                        }
+
+                    }
+                });
+        addSubscription(s);
+    }
+
+    @Override
+    public void houseMessage(String uid, String house_img, String house_back_img) {
+        Subscription s = ApiManager.getInstance().getLoanApiService().houseMessage(System.currentTimeMillis() + "", "1356f8db3f8a13b47b2c1c54cedddc43"
+                , uid, house_img, house_back_img)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mIPropertyAndCarView.showProgressDialog();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIPropertyAndCarView.showError(e.getMessage());
+                        mIPropertyAndCarView.hiteProgressDialog();
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        mIPropertyAndCarView.hiteProgressDialog();
+                        if (baseModel.getCode() == 0) {
+                            mIPropertyAndCarView.showSuccess();
+                        } else {
+                            mIPropertyAndCarView.showError(baseModel.getMsg());
+                        }
+
+                    }
+                });
+        addSubscription(s);
+    }
+
+    @Override
+    public void carMessage(String uid, String car_img, String car_back_img) {
+        Subscription s = ApiManager.getInstance().getLoanApiService().carMessage(System.currentTimeMillis() + "", "0f3adc6f3e84ac2d8eee24297472695d"
+                , uid, car_img, car_back_img)
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        mIPropertyAndCarView.showProgressDialog();
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIPropertyAndCarView.showError(e.getMessage());
+                        mIPropertyAndCarView.hiteProgressDialog();
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        mIPropertyAndCarView.hiteProgressDialog();
+                        if (baseModel.getCode() == 0) {
+                            mIPropertyAndCarView.showSuccess();
+                        } else {
+                            mIPropertyAndCarView.showError(baseModel.getMsg());
+                        }
+
+                    }
+                });
+    }
+}

@@ -1,0 +1,49 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 实名认证
+ */
+public class VerifiedActivity extends BaseActivity {
+
+    @BindView(R.id.clearEditText)
+    ClearEditText clearEditText;
+    @BindView(R.id.btn_next)
+    Button btnNext;
+    @BindView(R.id.activity_verified)
+    LinearLayout activityVerified;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_verified);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 跳转到证件上传页面
+     */
+    @OnClick(R.id.btn_next)
+    public void document() {
+        startActivity(DocUploadActivity.class);
+    }
+
+}

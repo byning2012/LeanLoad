@@ -1,0 +1,110 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.home.LoanDetailModel;
+import com.hzxm.easyloan.presenter.implPresenter.LoanDetailPresenterr;
+import com.hzxm.easyloan.presenter.implView.ILoanDetailView;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.glide.GliderHelper;
+
+import butterknife.BindView;
+
+/**
+ * 查看借款详情
+ */
+public class LoanDetailActivity extends BaseActivity implements ILoanDetailView {
+
+    @BindView(R.id.iv_error_logo)
+    ImageView ivErrorLogo;
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
+    @BindView(R.id.tv_rate)
+    TextView tvRate;
+    @BindView(R.id.tv_formalities)
+    TextView tvFormalities;
+    @BindView(R.id.tv_withdraw)
+    TextView tvWithdraw;
+    @BindView(R.id.tv_overdue_money)
+    TextView tvOverdueMoney;
+    @BindView(R.id.tv_principal)
+    TextView tvPrincipal;
+    @BindView(R.id.tv_style)
+    TextView tvStyle;
+    @BindView(R.id.rl_style)
+    RelativeLayout rlStyle;
+    @BindView(R.id.tv_sum_money)
+    TextView tvSumMoney;
+    @BindView(R.id.activity_loan)
+    LinearLayout activityLoan;
+    private String id;
+
+    LoanDetailPresenterr mLoanDetailPresenterr;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_loan_detail);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        GliderHelper.loadImage(R.drawable.net_error, ivErrorLogo, null);
+    }
+
+    @Override
+    protected void initData() {
+        id = getIntent().getExtras().getString("id");
+        mLoanDetailPresenterr = new LoanDetailPresenterr(this);
+        mLoanDetailPresenterr.nomalDetail(id);
+    }
+
+    /**
+     * 获取数据
+     *
+     * @param loanDetailModel
+     */
+    @Override
+    public void getData(LoanDetailModel loanDetailModel) {
+        tvMoney.setText(loanDetailModel.getData().getRepay_all_money() + "");
+        tvRate.setText("利率费：" + loanDetailModel.getData().getRate_money() + "元");
+        tvFormalities.setText("手续费：" + loanDetailModel.getData().getChecked_money() + "元");
+        tvWithdraw.setText("提现费：" + loanDetailModel.getData().getCash_money() + "元");
+        tvOverdueMoney.setText("逾期费用：" + loanDetailModel.getData().getOverdue_money() + "元");
+        tvPrincipal.setText("本金：" + loanDetailModel.getData().getRepay_all_money() + "元");
+        tvSumMoney.setText(loanDetailModel.getData().getRepay_all_money() + "元");
+    }
+
+    @Override
+    public void showProgressDialog() {
+        createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        errorPage.setVisibility(View.VISIBLE);
+        activityLoan.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLoanDetailPresenterr.unsubcrible();
+    }
+}

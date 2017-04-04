@@ -1,0 +1,117 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.app.Dialog;
+import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.StringUtils;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 借款
+ */
+public class LoanActivity extends BaseActivity {
+
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
+    @BindView(R.id.tv_owe_money)
+    TextView tvOweMoney;
+    @BindView(R.id.tv_rate)
+    TextView tvRate;
+    @BindView(R.id.tv_formalities)
+    TextView tvFormalities;
+    @BindView(R.id.tv_audit)
+    TextView tvAudit;
+    @BindView(R.id.tv_withdraw)
+    TextView tvWithdraw;
+    @BindView(R.id.tv_principal)
+    TextView tvPrincipal;
+    @BindView(R.id.iv_go)
+    ImageView ivGo;
+    @BindView(R.id.tv_style)
+    TextView tvStyle;
+    @BindView(R.id.rl_style)
+    RelativeLayout rlStyle;
+    @BindView(R.id.tv_sum_money)
+    TextView tvSumMoney;
+    @BindView(R.id.btn_application)
+    Button btnApplication;
+    @BindView(R.id.activity_loan)
+    LinearLayout activityLoan;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_loan);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    /**
+     * 点击申请借款
+     */
+    @OnClick(R.id.btn_application)
+    public void application() {
+        showDialog();
+    }
+
+    protected void showDialog() {
+        final Dialog dialog = new Dialog(this, R.style.dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_protocol, null);
+        final TextView msgTv = (TextView) view.findViewById(R.id.et_detail_address);
+        final TextView mExpandTv = (TextView) view.findViewById(R.id.tv_expand);
+        //删除按钮
+        view.findViewById(R.id.rl_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.btn_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        //点击展开按钮
+        mExpandTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandTv.setVisibility(View.GONE);
+                msgTv.setMovementMethod(ScrollingMovementMethod.getInstance());
+            }
+        });
+
+        dialog.setContentView(view);
+        Window window = dialog.getWindow();
+        assert window != null;
+        WindowManager.LayoutParams wl = window.getAttributes();
+        wl.width = StringUtils.dip2px(this, 300);
+        window.setGravity(Gravity.CENTER);
+        dialog.onWindowAttributesChanged(wl);
+        dialog.show();
+    }
+
+}

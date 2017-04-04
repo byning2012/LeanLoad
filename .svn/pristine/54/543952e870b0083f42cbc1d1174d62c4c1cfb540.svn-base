@@ -1,0 +1,64 @@
+package com.hzxm.easyloan.adapter.chamberlain;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.chamberlain.CommonProblemModel;
+import com.hzxm.easyloan.ui.activity.HelpCenterActivity;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/29 0029 15:29
+ */
+public class CommonProItemAdapter extends RecyclerView.Adapter<CommonProItemAdapter.ItemViewHolder> {
+
+    private List<CommonProblemModel.DataEntity.ContentEntity> problems;
+    private Context context;
+
+    public CommonProItemAdapter(Context context, List<CommonProblemModel.DataEntity.ContentEntity> problems) {
+        this.problems = problems;
+        this.context = context;
+    }
+
+    @Override
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_rv_problem_item, parent, false);
+        return new ItemViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(final ItemViewHolder holder, int position) {
+        holder.mProblemTv.setText(problems.get(position).getTitle());
+        holder.mProblemTv.setTag(position);
+        holder.mProblemTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HelpCenterActivity.class);
+                intent.putExtra("problem", problems.get((Integer) holder.mProblemTv.getTag()).getContent());
+                intent.putExtra("title", problems.get((Integer) holder.mProblemTv.getTag()).getTitle());
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return problems.size();
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
+        private TextView mProblemTv;
+
+        public ItemViewHolder(View itemView) {
+            super(itemView);
+            mProblemTv = (TextView) itemView.findViewById(R.id.tv_problem);
+        }
+    }
+}

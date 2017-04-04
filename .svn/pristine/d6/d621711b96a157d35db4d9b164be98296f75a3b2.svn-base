@@ -1,0 +1,81 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.adapter.chamberlain.CommonProblemAdapte;
+import com.hzxm.easyloan.model.chamberlain.CommonProblemModel;
+import com.hzxm.easyloan.model.chamberlain.Problem;
+import com.lmz.baselibrary.ui.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindColor;
+import butterknife.BindView;
+import ca.barrenechea.widget.recyclerview.decoration.DividerDecoration;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:59
+ * 管家
+ */
+public class ChamberlainFragment extends BaseFragment {
+    @BindView(R.id.iv_news_remind)
+    ImageView ivNewsRemind;
+    @BindView(R.id.fl_news)
+    FrameLayout flNews;
+    @BindView(R.id.tv_msg)
+    TextView tvMsg;
+    @BindView(R.id.tv_common_proble)
+    TextView tvCommonProble;
+    @BindView(R.id.recycle_view)
+    RecyclerView recycleView;
+
+    @BindColor(R.color.home_blue)
+    int mBlueColor;
+
+    private List<CommonProblemModel> problems = new ArrayList<>();
+    private List<Problem> problemsList = new ArrayList<>();
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_chamberlain;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+        SetStatusBarColor(R.color.home_blue);
+        //改变字体颜色
+        SpannableString ss = new SpannableString(tvMsg.getText().toString());
+        ss.setSpan(new ForegroundColorSpan(mBlueColor), 23, 36, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvMsg.setText(ss);
+        //设置RecycleView
+        recycleView.setLayoutManager(new LinearLayoutManager(context));
+        recycleView.addItemDecoration(new DividerDecoration.Builder(context)
+                .setHeight(R.dimen.dim2)
+                .setColorResource(R.color.divide_line)
+                .build());
+        recycleView.setHasFixedSize(true);
+    }
+
+
+    @Override
+    protected void initData() {
+        problemsList.add(new Problem("凡易贷平台是哪里的"));
+        problemsList.add(new Problem("凡易贷平台是哪里的"));
+        problemsList.add(new Problem("凡易贷平台是哪里的"));
+        problems.add(new CommonProblemModel("认证问题", 1, problemsList));
+        problemsList.add(new Problem("我借钱怎么还?"));
+        problemsList.add(new Problem("我借钱怎么还?"));
+        problems.add(new CommonProblemModel("借款问题", 2, problemsList));
+        recycleView.setAdapter(new CommonProblemAdapte(context, problems));
+    }
+}

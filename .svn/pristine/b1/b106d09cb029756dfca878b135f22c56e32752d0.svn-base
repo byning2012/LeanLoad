@@ -1,0 +1,7 @@
+package com.hzxm.easyloan.api;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:21
+ */
+public interface LoanApi {
+}

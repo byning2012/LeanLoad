@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lmz.baselibrary.widget.springview.widget.SpringView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/home_blue"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_bg"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim250"
+                android:background="@color/home_blue"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dim50">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:text="姓名"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt36" />
+
+                <TextView
+                    android:id="@+id/tv_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:layout_marginTop="@dimen/dim10"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim20"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_verification_center"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim90"
+                    android:layout_marginLeft="@dimen/dim20"
+                    android:drawableLeft="@drawable/verified_center"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/dim20"
+                    android:text="@string/verified_center"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+                <include layout="@layout/divide_line" />
+
+                <RelativeLayout
+                    android:id="@+id/loan_recording"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim90"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dim20"
+                        android:drawableLeft="@drawable/loan_recording"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dim20"
+                        android:text="@string/repayment_recording"
+                        android:textColor="@color/tc_black"
+                        android:textSize="@dimen/dim30" />
+
+                    <ImageView
+                        android:id="@+id/iv_loan_go"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dim20"
+                        android:src="@drawable/go" />
+
+                    <TextView
+                        android:id="@+id/tv_loan_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/dim20"
+                        android:layout_toLeftOf="@+id/iv_loan_go"
+                        android:gravity="center"
+                        android:textColor="@color/shallow_gray"
+                        android:textSize="@dimen/txt30" />
+                </RelativeLayout>
+
+                <include layout="@layout/divide_line" />
+
+                <RelativeLayout
+                    android:id="@+id/overdue_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim90"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dim90"
+                        android:layout_marginLeft="@dimen/dim20"
+                        android:drawableLeft="@drawable/overdue_time"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dim20"
+                        android:text="@string/overdue_time"
+                        android:textColor="@color/tc_black"
+                        android:textSize="@dimen/dim30" />
+
+                    <TextView
+                        android:id="@+id/tv_overdue_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/dim70"
+                        android:gravity="center"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/shallow_gray"
+                        android:textSize="@dimen/txt30" />
+                </RelativeLayout>
+
+                <include layout="@layout/divide_line" />
+
+                <RelativeLayout
+                    android:id="@+id/bank_car"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim90"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dim20"
+                        android:drawableLeft="@drawable/bank_car_manager"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dim20"
+                        android:text="@string/bank_car_manager"
+                        android:textColor="@color/tc_black"
+                        android:textSize="@dimen/dim30" />
+
+                    <ImageView
+                        android:id="@+id/iv_bank_car_manager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dim20"
+                        android:src="@drawable/go" />
+
+                    <TextView
+                        android:id="@+id/tv_bank_car_manager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/dim20"
+                        android:layout_toLeftOf="@+id/iv_bank_car_manager"
+                        android:gravity="center"
+                        android:textColor="@color/shallow_gray"
+                        android:textSize="@dimen/txt30" />
+                </RelativeLayout>
+
+                <include layout="@layout/divide_line" />
+
+                <TextView
+                    android:id="@+id/tv_seeting"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim90"
+                    android:layout_marginLeft="@dimen/dim20"
+                    android:drawableLeft="@drawable/seeting"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/dim20"
+                    android:text="@string/seeting"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+                <include layout="@layout/divide_line" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</com.lmz.baselibrary.widget.springview.widget.SpringView>

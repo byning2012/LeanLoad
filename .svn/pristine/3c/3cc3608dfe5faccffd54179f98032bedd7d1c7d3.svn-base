@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_problem"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:layout_marginTop="@dimen/dim20"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/loan_problem"
+        android:textColor="@color/tc_black"
+        android:textSize="@dimen/txt22" />
+
+</LinearLayout>

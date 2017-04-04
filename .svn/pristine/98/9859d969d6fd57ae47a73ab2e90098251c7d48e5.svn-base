@@ -1,0 +1,95 @@
+package com.hzxm.easyloan.presenter.implPresenter;
+
+import android.support.v4.widget.SwipeRefreshLayout;
+
+import com.hzxm.easyloan.adapter.mine.BankCardAdapter;
+import com.hzxm.easyloan.api.ApiManager;
+import com.hzxm.easyloan.model.mine.BankCardModel;
+import com.hzxm.easyloan.presenter.IBankCardManager;
+import com.hzxm.easyloan.presenter.implView.IBankCardManagerView;
+import com.lmz.baselibrary.present.implPresenter.BasePresenterImpl;
+import com.lmz.baselibrary.util.LogUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+/**
+ * 作者：LMZ on 2016/12/28 0028 13:32
+ * 银行卡管理
+ */
+public class BankCardPresenter extends BasePresenterImpl implements
+        IBankCardManager,
+        SwipeRefreshLayout.OnRefreshListener {
+    private IBankCardManagerView mIBankCardManagerView;
+    private int uid;
+    private BankCardAdapter mBankCardAdapter;
+    private List<BankCardModel.DataEntity> mBankCards = new ArrayList<>();
+
+    public BankCardPresenter(IBankCardManagerView mIBankCardManagerView, int uid) {
+        this.mIBankCardManagerView = mIBankCardManagerView;
+        this.uid = uid;
+        mBankCardAdapter = new BankCardAdapter(mBankCards);
+    }
+
+    /**
+     * 银行卡信息查询
+     */
+    @Override
+    public void lookBankCard() {
+        Subscription s = ApiManager.getInstance().getLoanApiService().baseBankCard(System.currentTimeMillis() + "", "d992ab7bbad9588d4c5ffe0c569b25cd",
+                uid + "", "", "", "", "1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BankCardModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mIBankCardManagerView.hiteProgressDialog();
+                        mIBankCardManagerView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BankCardModel bankCardModel) {
+                        mIBankCardManagerView.hiteProgressDialog();
+                        int code = bankCardModel.getCode();
+                        LogUtil.e("code-->" + code);
+                        if (code == 0) {
+                            mIBankCardManagerView.showSuccess();
+                            if (mBankCards.size() == 0) {
+                                mIBankCardManagerView.showEmpyView();
+                            }
+                            mBankCards = bankCardModel.getData();
+                            mBankCardAdapter.setNewData(mBankCards);
+                        } else {
+                            mIBankCardManagerView.showError(bankCardModel.getMsg());
+                        }
+                    }
+                });
+        addSubscription(s);
+    }
+
+    /**
+     * 适配器
+     */
+    @Override
+    public BankCardAdapter getAdapter() {
+        return mBankCardAdapter;
+    }
+
+    /**
+     * 界面刷新
+     */
+    @Override
+    public void onRefresh() {
+        lookBankCard();
+    }
+}

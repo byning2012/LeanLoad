@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dim200"
+        android:layout_height="@dimen/dim200"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim180"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/loading_in" />
+
+        <ImageView
+            android:id="@+id/iv_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/loading_out" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dim20"
+        android:gravity="center"
+        android:text="@string/no_repayment_data"
+        android:textColor="@color/deep_text_white"
+        android:textSize="@dimen/txt30" />
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:layout_marginTop="@dimen/dim20"-->
+    <!--android:text="@string/card_supposed"-->
+    <!--android:textColor="@color/deep_text_white"-->
+    <!--android:textSize="@dimen/txt20" />-->
+</LinearLayout>

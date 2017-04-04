@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim20"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginTop="@dimen/dim20"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/dim8"
+        app:cardElevation="@dimen/dim8"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/ll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim220"
+            android:background="@drawable/icbc_bg"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dim40"
+                android:layout_marginLeft="@dimen/dim154"
+                android:layout_marginTop="@dimen/dim44"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_bank_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icbc"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt30" />
+
+                <TextView
+                    android:id="@+id/tv_bank_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dim10"
+                    android:gravity="center"
+                    android:text="@string/debit_card"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt22" />
+
+                <TextView
+                    android:id="@+id/tv_bank_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dim10"
+                    android:text="6222222222222222"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt40" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

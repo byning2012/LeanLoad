@@ -1,0 +1,53 @@
+package com.hzxm.easyloan.adapter.mine;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.mine.BankCardModel;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/28 0028 13:38
+ */
+public class BankCardAdapter extends BaseQuickAdapter<BankCardModel.DataEntity, BaseViewHolder> {
+    public BankCardAdapter(List<BankCardModel.DataEntity> data) {
+        super(R.layout.item_bank_card, data);
+    }
+
+    @Override
+    protected void convert(BaseViewHolder baseViewHolder, BankCardModel.DataEntity dataEntity) {
+        String bankName = dataEntity.getBank_name();
+        switch (bankName) {
+            case "中国工商银行":
+                baseViewHolder.setBackgroundRes(R.id.ll_bg, R.drawable.icbc_bg);
+                break;
+            case "中国建设银行":
+                baseViewHolder.setBackgroundRes(R.id.ll_bg, R.drawable.ccb_bg);
+                break;
+            case "中国农业银行":
+                baseViewHolder.setBackgroundRes(R.id.ll_bg, R.drawable.abc_bg);
+                break;
+            case "中国银行":
+                baseViewHolder.setBackgroundRes(R.id.ll_bg, R.drawable.boc_bg);
+                break;
+            case "交通银行":
+                baseViewHolder.setBackgroundRes(R.id.ll_bg, R.drawable.bcm_bg);
+                break;
+        }
+
+        String number = dataEntity.getBank_number();
+        try {
+            number.replace(number.substring(13, 16), "***");
+        } catch (Exception e) {
+
+        } finally {
+            baseViewHolder.setText(R.id.tv_bank_name, dataEntity.getBank_name())
+                    .setText(R.id.tv_bank_num, dataEntity.getBank_number())
+                    .setText(R.id.tv_bank_num, number);
+
+        }
+
+
+    }
+}

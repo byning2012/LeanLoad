@@ -1,0 +1,27 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseActivity;
+
+/**
+ * 还款记录
+ */
+public class RepaymentActivity extends BaseActivity {
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_repayment);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+}

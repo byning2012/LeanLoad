@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 黑色 -->
+    <color name="tc_black">#353535</color>
+    <color name="title_text">#555555</color>
+    <color name="white">#ffffff</color>
+    <color name="two_white">#33ffffff</color>
+    <color name="white_1a">#1Affffff</color>
+    <color name="orange_f6">#f6d282</color>
+    <color name="purple_82">#827a99</color>
+    <color name="app_bg">#f2f2f2</color>
+    <color name="abc_tab_text_normal">#212121</color>
+    <!--    <color name="home_blue">#0E81D9</color> -->
+   <color name="home_blue">#0E81D9</color>
+</resources>

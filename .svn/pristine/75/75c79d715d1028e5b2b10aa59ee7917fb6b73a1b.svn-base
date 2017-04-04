@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_feedback"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.FeedbackActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/feedback" />
+
+    <include layout="@layout/divide_line" />
+
+    <com.lmz.baselibrary.widget.ClearEditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim260"
+        android:layout_marginLeft="@dimen/dim20"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginTop="@dimen/dim30"
+        android:background="@drawable/feedback_corner"
+        android:gravity="top"
+        android:hint="@string/feedback_msg"
+        android:paddingLeft="@dimen/dim20"
+        android:paddingTop="@dimen/dim20"
+        android:textColorHint="@color/shallow_gray"
+        android:textSize="@dimen/txt30" />
+
+    <com.lmz.baselibrary.widget.ClearEditText
+        android:id="@+id/et_tel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:layout_marginLeft="@dimen/dim20"
+        android:layout_marginRight="@dimen/dim20"
+        android:layout_marginTop="@dimen/dim30"
+        android:background="@drawable/feedback_corner"
+        android:gravity="top"
+        android:hint="@string/feedback_msg_phone"
+        android:paddingLeft="@dimen/dim20"
+        android:paddingRight="@dimen/dim20"
+        android:paddingTop="@dimen/dim20"
+        android:textColorHint="@color/shallow_gray"
+        android:textSize="@dimen/txt30" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim60"
+        android:layout_marginRight="@dimen/dim60"
+        android:layout_marginTop="@dimen/dim120"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/submit"
+        android:textColor="@color/select_white_orange" />
+</LinearLayout>

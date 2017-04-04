@@ -1,0 +1,573 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.model.home.HomeModel;
+import com.hzxm.easyloan.presenter.implPresenter.HomePresenter;
+import com.hzxm.easyloan.presenter.implView.IHomeView;
+import com.hzxm.easyloan.ui.activity.BaseCertificationActivity;
+import com.hzxm.easyloan.ui.activity.DocUploadActivity;
+import com.hzxm.easyloan.ui.activity.IncreaseAmountActivity;
+import com.hzxm.easyloan.ui.activity.InfoCompleteActivity;
+import com.hzxm.easyloan.ui.activity.LoanActivity;
+import com.hzxm.easyloan.ui.activity.MyBillActivity;
+import com.hzxm.easyloan.ui.activity.RepaymentActivity;
+import com.hzxm.easyloan.ui.activity.VerifiedActivity;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseFragment;
+import com.lmz.baselibrary.util.LogUtil;
+import com.lmz.baselibrary.util.NetWorkUtil;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.StringUtils;
+import com.lmz.baselibrary.widget.springview.container.LoanHeader;
+import com.lmz.baselibrary.widget.springview.widget.SpringView;
+
+import java.text.DecimalFormat;
+
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:57
+ */
+public class HomeFragment extends BaseFragment implements
+        SeekBar.OnSeekBarChangeListener, IHomeView, SpringView.OnFreshListener {
+
+    @BindView(R.id.tv_my_billing)
+    TextView tvMyBilling;
+    @BindView(R.id.tv_promotion_quota)
+    TextView tvPromotionQuota;
+    @BindView(R.id.iv_go)
+    ImageView ivGo;
+    @BindView(R.id.tv_need_money)
+    TextView tvNeedMoney;
+    @BindView(R.id.tv_need_money_time)
+    TextView tvNeedMoneyTime;
+    @BindView(R.id.rl_need_repayment)
+    RelativeLayout rlNeedRepayment;
+    @BindView(R.id.tv_need_pay)
+    TextView tvNeedPay;
+    @BindView(R.id.tv_service_charge)
+    TextView tvServiceCharge;
+    @BindView(R.id.tv_loan)
+    TextView tvLoan;
+    @BindView(R.id.tv_nomal_loan)
+    TextView tvNomalLoan;
+    @BindView(R.id.tv_staging_loan)
+    TextView tvStagingLoan;
+    @BindView(R.id.sb_money)
+    SeekBar sbMoney;
+    @BindView(R.id.tv_current_money)
+    TextView tvCurrentMoney;
+    @BindView(R.id.tv_totle_money)
+    TextView tvTotleMoney;
+    @BindView(R.id.sb_time)
+    SeekBar sbTime;
+    @BindView(R.id.tv_current_time)
+    TextView tvCurrentTime;
+    @BindView(R.id.tv_totle_time)
+    TextView tvTotleTime;
+    @BindView(R.id.sb_data)
+    SeekBar sbData;
+    @BindView(R.id.tv_current_day)
+    TextView tvCurrentDay;
+    @BindView(R.id.tv_totle_day)
+    TextView tvTotleDay;
+    @BindView(R.id.btn_repayment)
+    Button btnRepayment;
+//    //错误
+//    @BindView(R.id.btn_error)
+//    Button btnError;
+//    @BindView(R.id.error_page)
+//    LinearLayout errorPage;
+//    @BindView(R.id.iv_error_logo)
+//    ImageView mErrorIv;
+
+    @BindView(R.id.ll_home)
+    LinearLayout llHome;
+    @BindView(R.id.rl_time)
+    RelativeLayout rlTime;
+
+    @BindColor(R.color.home_blue)
+    int mBlueColor;
+    @BindColor(R.color.deep_text_white)
+    int mDeepWhiteColor;
+    @BindView(R.id.tv_top_money)
+    TextView tvTopMoney;
+    @BindView(R.id.refresh)
+    SpringView refresh;
+
+
+    private boolean isNomal = true;
+
+    private float mCurrentMoney = 100, mServiceMoney = 0;
+    private int mCurrentData = 7;
+    private int INIT_MONEY = 100;
+    private int INIT_TIME = 3;
+    private int INIT_DATA = 7;
+    private int moneyPrograss = 1;
+    private int timePrograss = 3;//分期次数
+    private int dataPrograss = INIT_DATA;
+    private float mSalaryMoney, mCrashMoney, mCheckMoney, mDepositMoney;
+
+    private HomePresenter mHomePresenter;
+    private boolean isNotNet = true;
+    private NetWorkBroadcastReceiver netWorkBroadcastReceiver;
+
+    private int uid;
+    private HomeModel mHomeModel;
+    DecimalFormat df = new DecimalFormat("######0.00");
+
+    /**
+     * 利率
+     */
+    float nomalSalary, nomalCrashSalary, nomalCheckSalary;
+    /**
+     * 分期
+     */
+    float departSalary, departCrashSalary, departCheckSalary, departMoney;
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+        SetStatusBarColor(R.color.home_blue_title);
+        refresh.setHeader(new LoanHeader());
+        refresh.setGive(SpringView.Give.TOP);
+        refresh.setListener(this);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setTvSize(tvNeedPay);
+        setTvSize(tvServiceCharge);
+        setTvSizeData(tvLoan);
+        //先把 需要还款的 隐藏掉
+        rlNeedRepayment.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mHomePresenter.baseInfoData(uid);
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getContext()).getInt(Constant.UID, -1);
+        seekBarListener();
+        mHomePresenter = new HomePresenter(this);
+        mHomePresenter.baseInfoData(uid);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        netWorkBroadcastReceiver = new NetWorkBroadcastReceiver();
+        getActivity().registerReceiver(netWorkBroadcastReceiver, intentFilter);
+    }
+
+
+    private void seekBarListener() {
+        sbMoney.setOnSeekBarChangeListener(this);
+        sbTime.setOnSeekBarChangeListener(this);
+        sbData.setOnSeekBarChangeListener(this);
+    }
+
+    @OnClick(R.id.tv_my_billing)
+    public void myBilling() {
+        Intent intent = new Intent(getActivity(), MyBillActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 立即借款
+     */
+    @OnClick(R.id.btn_repayment)
+    public void repayMent() {
+        if (mHomeModel == null) {
+            showToast("请检查网络连接状态", Toast.LENGTH_SHORT);
+            return;
+        }
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        // "status": "1",  // 4未提交审核，1审核中，2审核通过，3审核否决
+        if ("1".equals(mHomeModel.getData().getStatus())) {
+            showToast("审核中", Toast.LENGTH_SHORT);
+        } else if ("3".equals(mHomeModel.getData().getStatus())) {
+            showToast("审核未通过，请修改", Toast.LENGTH_SHORT);
+            intent.setClass(getActivity(), BaseCertificationActivity.class);
+            startActivity(intent);
+        } else if ("2".equals(mHomeModel.getData().getStatus())) {
+            intent.setClass(getActivity(), LoanActivity.class);
+            if (isNomal) {
+                intent.putExtra("type", 2);//正常
+            } else {
+                intent.putExtra("type", 1);//分期
+                intent.putExtra("time", timePrograss);
+                intent.putExtra("deposit", mDepositMoney);
+            }
+            intent.putExtra("totle", mCurrentMoney);
+            intent.putExtra("principal", INIT_MONEY * moneyPrograss);
+            intent.putExtra("salary_money", mSalaryMoney);
+            intent.putExtra("crash_money", mCrashMoney);
+            intent.putExtra("check_money", mCheckMoney);
+            bundle.putParcelable("model", mHomeModel.getData());
+            intent.putExtras(bundle);
+            intent.putExtra("data", dataPrograss);
+            startActivity(intent);
+        } else if ("4".equals(mHomeModel.getData().getStatus())) {
+            switch (mHomeModel.getData().getStep()) {
+                case "0":
+                    bundle.putInt("isHome", 2);
+                    intent.setClass(getActivity(), VerifiedActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    break;
+                case "1":
+                    intent.setClass(getActivity(), DocUploadActivity.class);
+                    startActivity(intent);
+                    break;
+                case "2":
+                    intent.setClass(getActivity(), InfoCompleteActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+
+    }
+
+    /**
+     * 设置字体颜色
+     *
+     * @param view
+     */
+    public void setTvSize(TextView view) {
+        String mMsg = view.getText().toString().trim();
+        int index = mMsg.indexOf("元");
+        SpannableString ss = new SpannableString(mMsg);
+        ss.setSpan(new AbsoluteSizeSpan(StringUtils.dip2px(getContext(), 11)), index, mMsg.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        view.setText(ss);
+    }
+
+    /**
+     * 设置字体颜色 截取（天）
+     *
+     * @param view
+     */
+    public void setTvSizeData(TextView view) {
+        String mMsg = view.getText().toString().trim();
+        int index = mMsg.indexOf("天");
+        SpannableString ss = new SpannableString(mMsg);
+        ss.setSpan(new AbsoluteSizeSpan(StringUtils.dip2px(getContext(), 11)), index, mMsg.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        view.setText(ss);
+    }
+
+    @OnClick(R.id.rl_need_repayment)
+    public void repayment() {
+        Intent intent = new Intent(getActivity(), RepaymentActivity.class);
+        intent.putExtra("id", mHomeModel.getData().getRepay().getId());
+        startActivity(intent);
+    }
+
+    /**
+     * 提额
+     */
+    @OnClick(R.id.tv_promotion_quota)
+    public void increaseAmout() {
+        if (mHomeModel == null) {
+            showToast("请检查网络连接状态", Toast.LENGTH_SHORT);
+            return;
+        }
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        if ("1".equals(mHomeModel.getData().getStatus())) {
+            showToast("审核中", Toast.LENGTH_SHORT);
+        } else if ("3".equals(mHomeModel.getData().getStatus())) {
+            showToast("审核未通过，请修改", Toast.LENGTH_SHORT);
+            intent.setClass(getActivity(), BaseCertificationActivity.class);
+            startActivity(intent);
+        } else if ("2".equals(mHomeModel.getData().getStatus())) {
+            intent.setClass(getActivity(), IncreaseAmountActivity.class);
+            startActivity(intent);
+        } else if ("4".equals(mHomeModel.getData().getStatus())) {
+            switch (mHomeModel.getData().getStep()) {
+                case "0":
+                    bundle.putInt("isHome", 2);
+                    intent.setClass(getActivity(), VerifiedActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    break;
+                case "1":
+                    intent.setClass(getActivity(), DocUploadActivity.class);
+                    startActivity(intent);
+                    break;
+                case "2":
+                    intent.setClass(getActivity(), InfoCompleteActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 分期
+     */
+    @OnClick({R.id.tv_nomal_loan, R.id.tv_staging_loan})
+    public void loanCleck(TextView tv) {
+        switch (tv.getId()) {
+            case R.id.tv_nomal_loan:
+                sbTime.setVisibility(View.GONE);
+                rlTime.setVisibility(View.GONE);
+                tvStagingLoan.setTextColor(mDeepWhiteColor);
+                tvNomalLoan.setTextColor(mBlueColor);
+                try {
+                    sbData.setMax(Integer.parseInt(mHomeModel.getData().getNormal_time()) - INIT_DATA);
+                } catch (Exception e) {
+
+                }
+                tvCurrentDay.setText("7天");
+                dataPrograss = INIT_DATA;
+                tvLoan.setText(mCurrentData + "天\n借款期限");
+                if (mHomeModel != null) {
+                    tvTotleDay.setText(mHomeModel.getData().getNormal_time() + "天");
+                    computeNomal();
+                }
+                isNomal = true;
+                break;
+            case R.id.tv_staging_loan:
+                sbTime.setVisibility(View.VISIBLE);
+                tvCurrentDay.setText("10周期");
+                rlTime.setVisibility(View.VISIBLE);
+                tvStagingLoan.setTextColor(mBlueColor);
+                tvNomalLoan.setTextColor(mDeepWhiteColor);
+                tvLoan.setText(10 + "天\n周期");
+                sbData.setMax(2);
+                dataPrograss = 10;
+                if (mHomeModel != null) {
+                    tvTotleDay.setText("30周期");
+                    computeStaging();
+                }
+                isNomal = false;
+                break;
+        }
+        sbData.setProgress(0);
+        setTvSizeData(tvLoan);
+    }
+
+    /**
+     * SeekBar 滑动监听
+     *
+     * @param seekBar
+     * @param progress
+     * @param fromUser
+     */
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (mHomeModel == null) {
+            showToast("请检查网络连接状态", Toast.LENGTH_SHORT);
+            return;
+        }
+        switch (seekBar.getId()) {
+            case R.id.sb_money:
+                if (progress <= 1) {
+                    tvTopMoney.setText(INIT_MONEY + ".00");
+                    moneyPrograss = 1;
+                } else {
+                    tvTopMoney.setText(progress * INIT_MONEY + ".00");
+                    moneyPrograss = progress;
+                }
+
+                break;
+            case R.id.sb_time:
+                if (progress < 1) {
+                    timePrograss = INIT_TIME;
+                } else if (progress == 1) {
+                    timePrograss = 6;
+                } else if (progress == 2) {
+                    timePrograss = 9;
+                } else if (progress == 3) {
+                    timePrograss = 12;
+                }
+                break;
+            case R.id.sb_data:
+                if (isNomal) {//正常借款
+                    dataPrograss = progress + INIT_DATA;
+                } else {
+                    if (progress < 1) {
+                        dataPrograss = 10;
+                    } else if (progress == 1) {
+                        dataPrograss = 15;
+                    } else {
+                        dataPrograss = 30;
+                    }
+                }
+                break;
+        }
+        if (isNomal) {
+            tvLoan.setText(dataPrograss + "天\n借款期限");
+            computeNomal();
+        } else {
+            tvLoan.setText(dataPrograss + "天\n周期");
+            computeStaging();
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    /**
+     * 获取基础信息成功
+     *
+     * @param homeModel
+     */
+    @Override
+    public void data(HomeModel homeModel) {
+        refresh.onFinishFreshAndLoad();
+        mHomeModel = homeModel;
+        //还款
+        if (mHomeModel.getData().getRepay_status() != 2) {
+            rlNeedRepayment.setVisibility(View.VISIBLE);
+            tvNeedMoney.setText("-￥" + mHomeModel.getData().getRepay().getRepay_money());
+            tvNeedMoneyTime.setText(StringUtils.timeStamp2Date(mHomeModel.getData().getRepay().getBorrow_time(), "yyyy.MM.dd"));
+        }
+        nomalSalary = Float.valueOf(mHomeModel.getData().getNormal_salary());//比率
+        nomalCrashSalary = Float.valueOf(mHomeModel.getData().getNormal_crash());//服务比率
+        nomalCheckSalary = Float.valueOf(mHomeModel.getData().getNormal_check());//提现比率
+
+        //分期利率
+        departSalary = Float.valueOf(mHomeModel.getData().getDepart_salary());
+        departCrashSalary = Float.valueOf(mHomeModel.getData().getDepart_crash());
+        departCheckSalary = Float.valueOf(mHomeModel.getData().getDepart_check());
+        departMoney = Float.valueOf(mHomeModel.getData().getDepart_money());//押金
+        if (isNomal) {
+            computeNomal();
+            sbMoney.setMax((int) Float.parseFloat(mHomeModel.getData().getStill_money()) / 100);
+            sbData.setMax(Integer.parseInt(mHomeModel.getData().getNormal_time()) - INIT_DATA);
+            tvTotleDay.setText(mHomeModel.getData().getNormal_time() + "天");
+        } else {
+            computeStaging();
+        }
+        tvTotleMoney.setText(mHomeModel.getData().getStill_money() + "元");
+    }
+
+    private void computeNomal() {
+        mSalaryMoney = INIT_MONEY * moneyPrograss * nomalSalary * dataPrograss; // 利率
+        mCrashMoney = INIT_MONEY * moneyPrograss * nomalCrashSalary * dataPrograss;//手续费
+        mCheckMoney = INIT_MONEY * moneyPrograss * nomalCheckSalary * dataPrograss; //提现费
+        //服务费
+        float serviceMoney = mSalaryMoney + mCrashMoney + mCheckMoney;
+        mServiceMoney = (float) (Math.round(serviceMoney * 100)) / 100;
+        tvServiceCharge.setText(mServiceMoney + "元\n服务费用");
+        //总金额
+        float sumMoney = INIT_MONEY * moneyPrograss - serviceMoney;
+        mCurrentMoney = (float) (Math.round(sumMoney * 100)) / 100;
+        tvNeedPay.setText(mCurrentMoney + "元\n应得金额 ");
+        setTvSize(tvNeedPay);
+        setTvSize(tvServiceCharge);
+        setTvSizeData(tvLoan);
+    }
+
+    //分期算法
+    private void computeStaging() {
+        Float deposit = Float.parseFloat(mHomeModel.getData().getDepart_money());
+        mSalaryMoney = INIT_MONEY * moneyPrograss * departSalary * dataPrograss * timePrograss; // 利率
+        mCrashMoney = INIT_MONEY * moneyPrograss * departCrashSalary * dataPrograss * timePrograss;//手续费
+        mCheckMoney = INIT_MONEY * moneyPrograss * departCheckSalary * dataPrograss * timePrograss; //提现费
+        mDepositMoney = INIT_MONEY * moneyPrograss * deposit; //押金
+        //服务费
+        float serviceMoney = mSalaryMoney + mCrashMoney + mCheckMoney + mDepositMoney;
+        mServiceMoney = (float) (Math.round(serviceMoney * 100)) / 100;
+        tvServiceCharge.setText(mServiceMoney + "元\n服务费用");
+        //总金额
+        float sumMoney = INIT_MONEY * moneyPrograss + serviceMoney;
+        mCurrentMoney = (float) (Math.round(sumMoney * 100)) / 100;
+        tvNeedPay.setText(mCurrentMoney + "元\n应还金额 ");
+        setTvSize(tvNeedPay);
+        setTvSize(tvServiceCharge);
+        setTvSizeData(tvLoan);
+    }
+
+
+    @Override
+    public void showProgressDialog() {
+        createLoadingDialog();
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        refresh.onFinishFreshAndLoad();
+        LogUtil.e(error);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHomePresenter.unsubcrible();
+        getActivity().unregisterReceiver(netWorkBroadcastReceiver);
+    }
+
+    @Override
+    public void onRefresh() {
+        mHomePresenter.baseInfoData(uid);
+    }
+
+    @Override
+    public void onLoadmore() {
+
+    }
+
+
+    class NetWorkBroadcastReceiver extends BroadcastReceiver {
+
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            /**
+             * networkInfo.isAvailable();
+             * 是否有网络连接
+             */
+            if (NetWorkUtil.isNetWorkAvailable(context)) {
+                isNotNet = true;
+                mHomePresenter.baseInfoData(uid);
+                //  Toast.makeText(context, "网络连接正常", Toast.LENGTH_SHORT).show();
+            } else {
+                isNotNet = false;
+            }
+        }
+    }
+
+}

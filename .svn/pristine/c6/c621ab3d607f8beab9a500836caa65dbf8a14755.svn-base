@@ -1,0 +1,592 @@
+package com.hzxm.easyloan.model.mine;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/27 0027 14:55
+ * 基础认证信息
+ */
+public class BaseCertificationModel {
+
+    /**
+     * Code : 0
+     * Msg : 获取成功
+     * Time : 2017-01-04 18:20:28
+     * ApiUrl : /Api/Baseinfo/base_info_data.html
+     * Data : {"status":"3","step":"2","shiming":{"reallyname":"杨枭森","id_card":"330122199110142711","status":1},"zhenjian":{"card_img_face":"123","card_img_back":"123","card_img_all":"123","status":1},"zhima":{"credit_score":"657","status":1},"tel_sure":{"tel_sure":"1","status":1},"connect":{"urgent_tel":[{"name":"妈妈","tel":"15067126311"},{"name":"爸爸","tel":"15058827741"}],"status":1},"banck_card":{"bank_number":"62220212020370786776","bank_tel":"15067126319","banck_name":"中国工商银行","banck_type":"借记卡","status":1},"address":{"address":"123456","status":1}}
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private DataEntity Data;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public DataEntity getData() {
+        return Data;
+    }
+
+    public void setData(DataEntity Data) {
+        this.Data = Data;
+    }
+
+    public static class DataEntity implements  Parcelable{
+        /**
+         * status : 3
+         * step : 2
+         * shiming : {"reallyname":"杨枭森","id_card":"330122199110142711","status":1}
+         * zhenjian : {"card_img_face":"123","card_img_back":"123","card_img_all":"123","status":1}
+         * zhima : {"credit_score":"657","status":1}
+         * tel_sure : {"tel_sure":"1","status":1}
+         * connect : {"urgent_tel":[{"name":"妈妈","tel":"15067126311"},{"name":"爸爸","tel":"15058827741"}],"status":1}
+         * banck_card : {"bank_number":"62220212020370786776","bank_tel":"15067126319","banck_name":"中国工商银行","banck_type":"借记卡","status":1}
+         * address : {"address":"123456","status":1}
+         */
+
+        private String status;
+        private String step;
+        private ShimingEntity shiming;
+        private ZhenjianEntity zhenjian;
+        private ZhimaEntity zhima;
+        private TelSureEntity tel_sure;
+        private ConnectEntity connect;
+        private BanckCardEntity banck_card;
+        private AddressEntity address;
+
+        protected DataEntity(Parcel in) {
+            status = in.readString();
+            step = in.readString();
+            shiming = in.readParcelable(ShimingEntity.class.getClassLoader());
+            zhenjian = in.readParcelable(ZhenjianEntity.class.getClassLoader());
+            connect = in.readParcelable(ConnectEntity.class.getClassLoader());
+        }
+
+        public static final Creator<DataEntity> CREATOR = new Creator<DataEntity>() {
+            @Override
+            public DataEntity createFromParcel(Parcel in) {
+                return new DataEntity(in);
+            }
+
+            @Override
+            public DataEntity[] newArray(int size) {
+                return new DataEntity[size];
+            }
+        };
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getStep() {
+            return step;
+        }
+
+        public void setStep(String step) {
+            this.step = step;
+        }
+
+        public ShimingEntity getShiming() {
+            return shiming;
+        }
+
+        public void setShiming(ShimingEntity shiming) {
+            this.shiming = shiming;
+        }
+
+        public ZhenjianEntity getZhenjian() {
+            return zhenjian;
+        }
+
+        public void setZhenjian(ZhenjianEntity zhenjian) {
+            this.zhenjian = zhenjian;
+        }
+
+        public ZhimaEntity getZhima() {
+            return zhima;
+        }
+
+        public void setZhima(ZhimaEntity zhima) {
+            this.zhima = zhima;
+        }
+
+        public TelSureEntity getTel_sure() {
+            return tel_sure;
+        }
+
+        public void setTel_sure(TelSureEntity tel_sure) {
+            this.tel_sure = tel_sure;
+        }
+
+        public ConnectEntity getConnect() {
+            return connect;
+        }
+
+        public void setConnect(ConnectEntity connect) {
+            this.connect = connect;
+        }
+
+        public BanckCardEntity getBanck_card() {
+            return banck_card;
+        }
+
+        public void setBanck_card(BanckCardEntity banck_card) {
+            this.banck_card = banck_card;
+        }
+
+        public AddressEntity getAddress() {
+            return address;
+        }
+
+        public void setAddress(AddressEntity address) {
+            this.address = address;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(status);
+            dest.writeString(step);
+            dest.writeParcelable(shiming, flags);
+            dest.writeParcelable(zhenjian, flags);
+            dest.writeParcelable(connect, flags);
+        }
+
+        public static class ShimingEntity implements Parcelable {
+            /**
+             * reallyname : 杨枭森
+             * id_card : 330122199110142711
+             * status : 1
+             */
+
+            private String reallyname;
+            private String id_card;
+            private int status;
+
+            protected ShimingEntity(Parcel in) {
+                reallyname = in.readString();
+                id_card = in.readString();
+                status = in.readInt();
+            }
+
+            public static final Creator<ShimingEntity> CREATOR = new Creator<ShimingEntity>() {
+                @Override
+                public ShimingEntity createFromParcel(Parcel in) {
+                    return new ShimingEntity(in);
+                }
+
+                @Override
+                public ShimingEntity[] newArray(int size) {
+                    return new ShimingEntity[size];
+                }
+            };
+
+            public String getReallyname() {
+                return reallyname;
+            }
+
+            public void setReallyname(String reallyname) {
+                this.reallyname = reallyname;
+            }
+
+            public String getId_card() {
+                return id_card;
+            }
+
+            public void setId_card(String id_card) {
+                this.id_card = id_card;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(reallyname);
+                dest.writeString(id_card);
+                dest.writeInt(status);
+            }
+        }
+
+        public static class ZhenjianEntity implements Parcelable {
+            /**
+             * card_img_face : 123
+             * card_img_back : 123
+             * card_img_all : 123
+             * status : 1
+             */
+
+            private String card_img_face;
+            private String card_img_back;
+            private String card_img_all;
+            private int status;
+
+            protected ZhenjianEntity(Parcel in) {
+                card_img_face = in.readString();
+                card_img_back = in.readString();
+                card_img_all = in.readString();
+                status = in.readInt();
+            }
+
+            public static final Creator<ZhenjianEntity> CREATOR = new Creator<ZhenjianEntity>() {
+                @Override
+                public ZhenjianEntity createFromParcel(Parcel in) {
+                    return new ZhenjianEntity(in);
+                }
+
+                @Override
+                public ZhenjianEntity[] newArray(int size) {
+                    return new ZhenjianEntity[size];
+                }
+            };
+
+            public String getCard_img_face() {
+                return card_img_face;
+            }
+
+            public void setCard_img_face(String card_img_face) {
+                this.card_img_face = card_img_face;
+            }
+
+            public String getCard_img_back() {
+                return card_img_back;
+            }
+
+            public void setCard_img_back(String card_img_back) {
+                this.card_img_back = card_img_back;
+            }
+
+            public String getCard_img_all() {
+                return card_img_all;
+            }
+
+            public void setCard_img_all(String card_img_all) {
+                this.card_img_all = card_img_all;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(card_img_face);
+                dest.writeString(card_img_back);
+                dest.writeString(card_img_all);
+                dest.writeInt(status);
+            }
+        }
+
+        public static class ZhimaEntity {
+            /**
+             * credit_score : 657
+             * status : 1
+             */
+
+            private String credit_score;
+            private int status;
+
+            public String getCredit_score() {
+                return credit_score;
+            }
+
+            public void setCredit_score(String credit_score) {
+                this.credit_score = credit_score;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+        }
+
+        public static class TelSureEntity {
+            /**
+             * tel_sure : 1
+             * status : 1
+             */
+
+            private String tel_sure;
+            private int status;
+
+            public String getTel_sure() {
+                return tel_sure;
+            }
+
+            public void setTel_sure(String tel_sure) {
+                this.tel_sure = tel_sure;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+        }
+
+        public static class ConnectEntity implements Parcelable {
+            /**
+             * urgent_tel : [{"name":"妈妈","tel":"15067126311"},{"name":"爸爸","tel":"15058827741"}]
+             * status : 1
+             */
+
+            private int status;
+            private List<UrgentTelEntity> urgent_tel;
+
+            protected ConnectEntity(Parcel in) {
+                status = in.readInt();
+            }
+
+            public static final Creator<ConnectEntity> CREATOR = new Creator<ConnectEntity>() {
+                @Override
+                public ConnectEntity createFromParcel(Parcel in) {
+                    return new ConnectEntity(in);
+                }
+
+                @Override
+                public ConnectEntity[] newArray(int size) {
+                    return new ConnectEntity[size];
+                }
+            };
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+
+            public List<UrgentTelEntity> getUrgent_tel() {
+                return urgent_tel;
+            }
+
+            public void setUrgent_tel(List<UrgentTelEntity> urgent_tel) {
+                this.urgent_tel = urgent_tel;
+            }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(status);
+            }
+
+            public static class UrgentTelEntity implements  Parcelable{
+                /**
+                 * name : 妈妈
+                 * tel : 15067126311
+                 */
+
+                private String name;
+                private String tel;
+                private String relative;
+
+                protected UrgentTelEntity(Parcel in) {
+                    name = in.readString();
+                    tel = in.readString();
+                    relative = in.readString();
+                }
+
+                public static final Creator<UrgentTelEntity> CREATOR = new Creator<UrgentTelEntity>() {
+                    @Override
+                    public UrgentTelEntity createFromParcel(Parcel in) {
+                        return new UrgentTelEntity(in);
+                    }
+
+                    @Override
+                    public UrgentTelEntity[] newArray(int size) {
+                        return new UrgentTelEntity[size];
+                    }
+                };
+
+                public String getRelative() {
+                    return relative;
+                }
+
+                public void setRelative(String relative) {
+                    this.relative = relative;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getTel() {
+                    return tel;
+                }
+
+                public void setTel(String tel) {
+                    this.tel = tel;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(name);
+                    dest.writeString(tel);
+                    dest.writeString(relative);
+                }
+            }
+        }
+
+        public static class BanckCardEntity {
+            /**
+             * bank_number : 62220212020370786776
+             * bank_tel : 15067126319
+             * banck_name : 中国工商银行
+             * banck_type : 借记卡
+             * status : 1
+             */
+
+            private String bank_number;
+            private String bank_tel;
+            private String banck_name;
+            private String banck_type;
+            private int status;
+
+            public String getBank_number() {
+                return bank_number;
+            }
+
+            public void setBank_number(String bank_number) {
+                this.bank_number = bank_number;
+            }
+
+            public String getBank_tel() {
+                return bank_tel;
+            }
+
+            public void setBank_tel(String bank_tel) {
+                this.bank_tel = bank_tel;
+            }
+
+            public String getBanck_name() {
+                return banck_name;
+            }
+
+            public void setBanck_name(String banck_name) {
+                this.banck_name = banck_name;
+            }
+
+            public String getBanck_type() {
+                return banck_type;
+            }
+
+            public void setBanck_type(String banck_type) {
+                this.banck_type = banck_type;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+        }
+
+        public static class AddressEntity {
+            /**
+             * address : 123456
+             * status : 1
+             */
+
+            private String address;
+            private int status;
+
+            public String getAddress() {
+                return address;
+            }
+
+            public void setAddress(String address) {
+                this.address = address;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public void setStatus(int status) {
+                this.status = status;
+            }
+        }
+    }
+}

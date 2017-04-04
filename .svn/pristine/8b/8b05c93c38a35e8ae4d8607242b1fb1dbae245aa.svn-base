@@ -1,0 +1,158 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.adapter.mine.BankCardAdapter;
+import com.hzxm.easyloan.presenter.implPresenter.BankCardPresenter;
+import com.hzxm.easyloan.presenter.implView.IBankCardManagerView;
+import com.hzxm.easyloan.utils.Constant;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+import com.lmz.baselibrary.util.glide.GliderHelper;
+import com.lmz.baselibrary.widget.TitleLayout;
+import com.lmz.baselibrary.widget.springview.container.LoanHeader;
+import com.lmz.baselibrary.widget.springview.widget.SpringView;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 银行卡管理
+ */
+public class BankCarManagerActivity extends BaseActivity implements
+        IBankCardManagerView, SpringView.OnFreshListener {
+
+    @BindView(R.id.recycleView)
+    RecyclerView recycleView;
+    @BindView(R.id.refresh)
+    SpringView refresh;
+    @BindView(R.id.activity_bank_car_manager)
+    LinearLayout activityBankCarManager;
+    //错误界面
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+    @BindView(R.id.iv_error_logo)
+    ImageView mErrorView;
+
+    @BindView(R.id.title)
+    TitleLayout title;
+
+    private int uid;
+    BankCardPresenter mBankCardPresenter;
+    private BankCardAdapter mBankCardAdapter;
+
+    View EmptyView;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_bank_car_manager);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        title.setRightButton(R.drawable.more, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到添加银行卡
+                startActivityForResult(AddBankCardActivity.class, 101);
+            }
+        });
+        recycleView.setLayoutManager(new LinearLayoutManager(this));
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getApplication()).getInt(Constant.UID, -1);
+        EmptyView = getLayoutInflater().inflate(R.layout.empty_bank_card, (ViewGroup) recycleView.getParent(), false);
+        EmptyView.findViewById(R.id.btn_add_bank).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击空白页跳转到添加银行卡
+                startActivityForResult(AddBankCardActivity.class, 101);
+            }
+        });
+        GliderHelper.loadImage(R.drawable.net_error, mErrorView, null);
+        refresh.setHeader(new LoanHeader());
+        refresh.setGive(SpringView.Give.TOP);
+        refresh.setListener(this);
+    }
+
+    /**
+     * 错误页面
+     */
+    @OnClick(R.id.btn_error)
+    public void errorBtn() {
+        mBankCardPresenter.lookBankCard();
+    }
+
+    @Override
+    protected void initData() {
+        mBankCardPresenter = new BankCardPresenter(this, uid);
+        mBankCardPresenter.lookBankCard();
+        mBankCardAdapter = mBankCardPresenter.getAdapter();
+        recycleView.setAdapter(mBankCardAdapter);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        errorPage.setVisibility(View.VISIBLE);
+        recycleView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showEmpyView() {
+        mBankCardAdapter.setEmptyView(EmptyView);
+    }
+
+    @Override
+    public void showSuccess() {
+        refresh.onFinishFreshAndLoad();
+        errorPage.setVisibility(View.GONE);
+        recycleView.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        mBankCardPresenter.unsubcrible();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == 101) {
+            mBankCardPresenter.lookBankCard();
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        mBankCardPresenter.lookBankCard();
+    }
+
+    @Override
+    public void onLoadmore() {
+
+    }
+}

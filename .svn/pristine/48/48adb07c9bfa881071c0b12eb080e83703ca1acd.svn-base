@@ -1,0 +1,274 @@
+package com.hzxm.easyloan.ui.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.ui.activity.IncreaseAmountActivity;
+import com.hzxm.easyloan.ui.activity.VerifiedActivity;
+import com.lmz.baselibrary.ui.BaseFragment;
+import com.lmz.baselibrary.util.StringUtils;
+
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 作者：LMZ on 2016/12/22 0022 14:57
+ */
+public class HomeFragment extends BaseFragment implements SeekBar.OnSeekBarChangeListener {
+
+
+    @BindView(R.id.tv_my_billing)
+    TextView tvMyBilling;
+    @BindView(R.id.tv_promotion_quota)
+    TextView tvPromotionQuota;
+    @BindView(R.id.iv_go)
+    ImageView ivGo;
+    @BindView(R.id.tv_need_money)
+    TextView tvNeedMoney;
+    @BindView(R.id.tv_need_money_time)
+    TextView tvNeedMoneyTime;
+    @BindView(R.id.rl_need_repayment)
+    RelativeLayout rlNeedRepayment;
+    @BindView(R.id.tv_need_pay)
+    TextView tvNeedPay;
+    @BindView(R.id.tv_service_charge)
+    TextView tvServiceCharge;
+    @BindView(R.id.tv_loan)
+    TextView tvLoan;
+    @BindView(R.id.tv_nomal_loan)
+    TextView tvNomalLoan;
+    @BindView(R.id.tv_staging_loan)
+    TextView tvStagingLoan;
+    @BindView(R.id.sb_money)
+    SeekBar sbMoney;
+    @BindView(R.id.tv_current_money)
+    TextView tvCurrentMoney;
+    @BindView(R.id.tv_totle_money)
+    TextView tvTotleMoney;
+    @BindView(R.id.sb_time)
+    SeekBar sbTime;
+    @BindView(R.id.tv_current_time)
+    TextView tvCurrentTime;
+    @BindView(R.id.tv_totle_time)
+    TextView tvTotleTime;
+    @BindView(R.id.sb_data)
+    SeekBar sbData;
+    @BindView(R.id.tv_current_day)
+    TextView tvCurrentDay;
+    @BindView(R.id.tv_totle_day)
+    TextView tvTotleDay;
+    @BindView(R.id.btn_repayment)
+    Button btnRepayment;
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+    @BindView(R.id.ll_home)
+    LinearLayout llHome;
+    @BindView(R.id.rl_time)
+    RelativeLayout rlTime;
+
+    @BindColor(R.color.home_blue)
+    int mBlueColor;
+    @BindColor(R.color.deep_text_white)
+    int mDeepWhiteColor;
+    @BindView(R.id.tv_top_money)
+    TextView tvTopMoney;
+    private boolean isNomal = true;
+
+    private int mCurrentMoney, mServiceMoney;
+    private int mCurrentTime, mServiceTime;
+    private int mCurrentData, mServiceData;
+
+
+    @Override
+    public int setFragmentLayoutID() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected void initView(View rootView) {
+        SetStatusBarColor(R.color.home_blue_title);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setTvSize(tvNeedPay);
+        setTvSize(tvServiceCharge);
+        setTvSizeData(tvLoan);
+        //先把 需要还款的 隐藏掉
+        rlNeedRepayment.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void initData() {
+        seekBarListener();
+    }
+
+    private void seekBarListener() {
+        sbMoney.setOnSeekBarChangeListener(this);
+        sbTime.setOnSeekBarChangeListener(this);
+        sbData.setOnSeekBarChangeListener(this);
+    }
+
+    @OnClick(R.id.btn_repayment)
+    public void repayMent() {
+        Intent intent=new Intent(context,VerifiedActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 设置字体颜色
+     *
+     * @param view
+     */
+    public void setTvSize(TextView view) {
+        String mMsg = view.getText().toString().trim();
+        int index = mMsg.indexOf("元");
+        SpannableString ss = new SpannableString(mMsg);
+        ss.setSpan(new AbsoluteSizeSpan(StringUtils.dip2px(getContext(), 11)), index, mMsg.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        view.setText(ss);
+    }
+
+    /**
+     * 设置字体颜色 截取（天）
+     *
+     * @param view
+     */
+    public void setTvSizeData(TextView view) {
+        String mMsg = view.getText().toString().trim();
+        int index = mMsg.indexOf("天");
+        SpannableString ss = new SpannableString(mMsg);
+        ss.setSpan(new AbsoluteSizeSpan(StringUtils.dip2px(getContext(), 11)), index, mMsg.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        view.setText(ss);
+    }
+
+    /**
+     * 提额
+     */
+    @OnClick(R.id.tv_promotion_quota)
+    public void increaseAmout() {
+        Intent intent = new Intent(context, IncreaseAmountActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 分期
+     */
+    @OnClick({R.id.tv_nomal_loan, R.id.tv_staging_loan})
+    public void loanCleck(TextView tv) {
+        switch (tv.getId()) {
+            case R.id.tv_nomal_loan:
+                sbTime.setVisibility(View.GONE);
+                rlTime.setVisibility(View.GONE);
+                tvStagingLoan.setTextColor(mDeepWhiteColor);
+                tvNomalLoan.setTextColor(mBlueColor);
+                tvLoan.setText(0 + "天\n借款期限");
+                isNomal = true;
+                break;
+            case R.id.tv_staging_loan:
+                sbTime.setVisibility(View.VISIBLE);
+                rlTime.setVisibility(View.VISIBLE);
+                tvStagingLoan.setTextColor(mBlueColor);
+                tvNomalLoan.setTextColor(mDeepWhiteColor);
+                tvLoan.setText(0 + "天\n周期");
+                isNomal = false;
+                break;
+        }
+        sbMoney.setProgress(0);
+        sbData.setProgress(0);
+        sbTime.setProgress(0);
+        tvNeedPay.setText(0 + "元\n应还金额 ");
+        tvServiceCharge.setText(0 + "元\n服务费用");
+        tvCurrentMoney.setText("0元");
+        tvCurrentDay.setText("0天");
+        tvCurrentTime.setText("0次");
+        setTvSize(tvNeedPay);
+        setTvSize(tvServiceCharge);
+        setTvSizeData(tvLoan);
+    }
+
+    /**
+     * SeekBar 滑动监听
+     *
+     * @param seekBar
+     * @param progress
+     * @param fromUser
+     */
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        switch (seekBar.getId()) {
+            //假数据 我模拟的
+            case R.id.sb_money:
+                if (isNomal) {
+                    tvCurrentMoney.setText(progress * 100 + "元");
+                    tvTopMoney.setText(progress * 100 + ".00");
+                    mCurrentMoney = progress * 101;
+                    mServiceMoney = progress;
+                } else {
+                    tvCurrentMoney.setText(progress * 100 + "元");
+                    tvTopMoney.setText(progress * 100 + ".00");
+                    mCurrentMoney = progress * 102;
+                    mServiceMoney = progress * 2;
+                }
+                break;
+            case R.id.sb_time:
+                tvCurrentTime.setText(progress + "次");
+                if (isNomal) {
+                    mCurrentTime = progress * 5;
+                    mServiceTime = progress;
+                } else {
+                    mCurrentTime = progress * 7;
+                    mServiceTime = progress * 2;
+                }
+                break;
+            case R.id.sb_data:
+                tvCurrentDay.setText(progress + "天");
+                if (isNomal) { //正常借贷
+                    tvLoan.setText(progress + "天\n借款期限");
+                    mCurrentData = progress * 10;
+                    mServiceData = progress;
+                } else {
+                    tvLoan.setText(progress + "天\n周期");
+                    mCurrentData = progress * 20;
+                    mServiceData = progress * 2;
+                }
+                break;
+        }
+        if (mCurrentMoney == 0) {
+            tvNeedPay.setText(0 + "元\n应还金额 ");
+            tvServiceCharge.setText(0 + "元\n服务费用");
+        } else {
+            tvNeedPay.setText(mCurrentMoney + mCurrentTime + mCurrentData + "元\n应还金额 ");
+            tvServiceCharge.setText(mServiceMoney + mServiceTime + mServiceData + "元\n服务费用");
+        }
+        setTvSize(tvNeedPay);
+        setTvSize(tvServiceCharge);
+        setTvSizeData(tvLoan);
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+
+}

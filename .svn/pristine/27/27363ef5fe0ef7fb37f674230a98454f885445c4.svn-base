@@ -1,0 +1,15 @@
+package com.hzxm.easyloan.presenter.implView;
+
+import com.lmz.baselibrary.present.implView.IBasePresenter;
+
+/**
+ * Created by walter on 16/12/28.
+ */
+
+public interface ICompanyInfoView  extends IBasePresenter{
+    void uploadSuccess(String path);
+
+    void uploadPrograss(long hasWrittenLen, long totalLen);
+
+    void showSuccess();
+}

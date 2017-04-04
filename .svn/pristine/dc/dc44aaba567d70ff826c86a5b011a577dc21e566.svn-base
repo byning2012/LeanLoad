@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_seeting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.SeetingActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/seeting" />
+
+    <include layout="@layout/divide_line" />
+
+    <TextView
+        android:id="@+id/tv_psw_modify"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dim30"
+        android:text="@string/psw_modify"
+        android:textColor="@color/tc_black"
+        android:textSize="@dimen/txt30" />
+
+    <include layout="@layout/divide_line" />
+
+    <TextView
+        android:id="@+id/tv_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dim30"
+        android:text="@string/feedback"
+        android:textColor="@color/tc_black"
+        android:textSize="@dimen/txt30" />
+
+    <include layout="@layout/divide_line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_call_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dim90"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dim30"
+            android:text="@string/call_phone"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <TextView
+            android:id="@+id/tv_call_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dim90"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dim30"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="1333333333"
+            android:textColor="@color/deep_text_white"
+            android:textSize="@dimen/txt30" />
+    </RelativeLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dim20"
+        android:background="@color/divide_line" />
+
+    <TextView
+        android:id="@+id/tv_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dim30"
+        android:text="@string/about_us"
+        android:textColor="@color/tc_black"
+        android:textSize="@dimen/txt30" />
+
+    <include layout="@layout/divide_line" />
+
+    <Button
+        android:id="@+id/btn_exit_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_marginTop="@dimen/dim66"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/exit"
+        android:textColor="@color/select_white_orange"
+        android:textSize="@dimen/txt36" />
+</LinearLayout>

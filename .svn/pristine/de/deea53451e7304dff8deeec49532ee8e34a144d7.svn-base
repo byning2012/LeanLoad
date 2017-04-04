@@ -1,0 +1,149 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.MyApplication;
+import com.hzxm.easyloan.R;
+import com.hzxm.easyloan.adapter.mine.AmountBaseAdapter;
+import com.hzxm.easyloan.adapter.mine.AmountCreateAdapter;
+import com.hzxm.easyloan.model.mine.AmountCreateModel;
+import com.hzxm.easyloan.presenter.implPresenter.AmountCreatePresenter;
+import com.hzxm.easyloan.presenter.implView.IAmountCreateView;
+import com.hzxm.easyloan.utils.Constant;
+import com.hzxm.easyloan.utils.HorizontalDecoration;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.util.SharedPreferencesUtil;
+import com.lmz.baselibrary.util.dialog.LoadingDialog;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class IncreaseAmountActivity extends BaseActivity implements IAmountCreateView {
+
+    @BindView(R.id.tv_identity)
+    TextView tvIdentity;
+    @BindView(R.id.rl_identity)
+    RelativeLayout rlIdentity;
+    @BindView(R.id.rv_base)
+    RecyclerView rvBase;
+    @BindView(R.id.rv_oother)
+    RecyclerView rvOother;
+    @BindView(R.id.activity_increase_amount)
+    LinearLayout activityIncreaseAmount;
+    @BindView(R.id.btn_verification)
+    Button btnVerification;
+    @BindView(R.id.ll_main)
+    LinearLayout llMain;
+
+    //错误界面
+    @BindView(R.id.btn_error)
+    Button btnError;
+    @BindView(R.id.error_page)
+    LinearLayout errorPage;
+
+    //头部警告栏
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.ll_top_remind)
+    LinearLayout llTopRemind;
+
+    @BindString(R.string.top_remind_increate)
+    String mTopMsg;
+
+    private AmountCreatePresenter mAmountCreatePresenter;
+    //用户的类型 1学生2工薪3其他
+    private String type = "1";
+    private int uid;
+    private AmountBaseAdapter mAmountBaseAdapter;
+    private AmountCreateAdapter mAmountCreateAdapter;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_increase_amount);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        tvRemind.setText(mTopMsg);
+        rvBase.setLayoutManager(new LinearLayoutManager(this));
+        rvOother.setLayoutManager(new LinearLayoutManager(this));
+        rvBase.setHasFixedSize(true);
+        rvOother.setHasFixedSize(true);
+        rvBase.addItemDecoration(new HorizontalDecoration(this, LinearLayout.VERTICAL));
+        rvOother.addItemDecoration(new HorizontalDecoration(this, LinearLayout.VERTICAL));
+    }
+
+    @Override
+    protected void initData() {
+        uid = SharedPreferencesUtil.getInstance(MyApplication.getApplication()).getInt(Constant.UID, -1);
+        mAmountCreatePresenter = new AmountCreatePresenter(this);
+        rvBase.setAdapter(mAmountCreatePresenter.getBaseAdapter());
+        rvOother.setAdapter(mAmountCreatePresenter.getOtherAdapter());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAmountCreatePresenter.amoutCreateInfo(type, uid + "");
+    }
+
+    /**
+     * 关闭头部警告栏
+     */
+    @OnClick(R.id.iv_delete)
+    public void closeTop() {
+        llTopRemind.setVisibility(View.GONE);
+    }
+
+    /**
+     * 点击错误页面
+     */
+    @OnClick(R.id.btn_error)
+    public void setErrorBtn() {
+        mAmountCreatePresenter.amoutCreateInfo(type, uid + "");
+    }
+
+    /**
+     * 获取数据成功
+     *
+     * @param amountCreateModel
+     */
+    @Override
+    public void getData(AmountCreateModel amountCreateModel) {
+        llMain.setVisibility(View.VISIBLE);
+        errorPage.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgressDialog() {
+        LoadingDialog.createLoadingDialog(this);
+    }
+
+    @Override
+    public void hiteProgressDialog() {
+        LoadingDialog.cancleDialog();
+    }
+
+    @Override
+    public void showError(String error) {
+        llMain.setVisibility(View.GONE);
+        errorPage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mAmountCreatePresenter.unsubcrible();
+        super.onDestroy();
+    }
+}

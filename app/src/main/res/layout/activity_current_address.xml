@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_current_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.CurrentAddressActivity">
+
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/now_address" />
+
+    <include layout="@layout/divide_line" />
+
+    <include layout="@layout/top_remind" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dim40"
+        android:background="@color/divide_line" />
+
+    <RelativeLayout
+        android:id="@+id/ll_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dim30"
+            android:text="@string/current_address"
+            android:textColor="@color/tc_black" />
+
+        <TextView
+            android:id="@+id/tv_show_address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/go"
+            android:gravity="center"
+            android:paddingRight="@dimen/dim30"
+            android:text="@string/detailed_address"
+            android:textColor="@color/deep_text_white" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:id="@+id/rl_detail_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dim30"
+            android:text="@string/detailed_address"
+            android:textColor="@color/tc_black" />
+
+        <TextView
+            android:id="@+id/tv_detail_address"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:drawableRight="@drawable/go"
+            android:ellipsize="end"
+            android:gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/dim20"
+            android:lines="1"
+            android:paddingRight="@dimen/dim30"
+            android:textColor="@color/deep_text_white" />
+
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:layout_marginLeft="@dimen/dim30"
+        android:layout_marginRight="@dimen/dim30"
+        android:layout_marginTop="@dimen/dim90"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/save"
+        android:textColor="@color/select_white_orange"
+        android:textSize="@dimen/txt34" />
+</LinearLayout>

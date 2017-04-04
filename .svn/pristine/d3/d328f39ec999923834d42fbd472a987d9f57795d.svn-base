@@ -1,0 +1,427 @@
+package com.hzxm.easyloan.model.mine;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2017/1/6 0006 10:47
+ */
+public class Text {
+
+    /**
+     * Code : 0
+     * Msg : ok
+     * Time : 2017-01-06 15:56:54
+     * ApiUrl : /Api/Metioninfo/othermenu.html
+     * Data : {"type":2,"other_menu":[{"id":"18","name":"其他资料","pid":"2","other_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"公司照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"其他","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]}],"base_menu":[{"id":"4","up_type":"2","menu_name":"company","remark":"公司"},{"id":"5","up_type":"2","menu_name":"socal","remark":"社保"},{"id":"6","up_type":"2","menu_name":"car","remark":"车辆信息"},{"id":"7","up_type":"2","menu_name":"home","remark":"房产证"}],"info":{"company":{"company_name":"新苗","company_tel":"66666666666","company_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"公司照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}],"company_year":"2018.8.8","work_year":"90","work_money":"99999999.00","company_work":"安卓"},"car":{"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"home":{"house_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}},"check_status":"0"}
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private DataEntity Data;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public DataEntity getData() {
+        return Data;
+    }
+
+    public void setData(DataEntity Data) {
+        this.Data = Data;
+    }
+
+    public static class DataEntity {
+        /**
+         * type : 2
+         * other_menu : [{"id":"18","name":"其他资料","pid":"2","other_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"公司照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"其他","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]}]
+         * base_menu : [{"id":"4","up_type":"2","menu_name":"company","remark":"公司"},{"id":"5","up_type":"2","menu_name":"socal","remark":"社保"},{"id":"6","up_type":"2","menu_name":"car","remark":"车辆信息"},{"id":"7","up_type":"2","menu_name":"home","remark":"房产证"}]
+         * info : {"company":{"company_name":"新苗","company_tel":"66666666666","company_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"公司照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}],"company_year":"2018.8.8","work_year":"90","work_money":"99999999.00","company_work":"安卓"},"car":{"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},"home":{"house_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}}
+         * check_status : 0
+         */
+
+        private int type;
+        private InfoEntity info;
+        private String check_status;
+        private List<OtherMenuEntity> other_menu;
+        private List<BaseMenuEntity> base_menu;
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public InfoEntity getInfo() {
+            return info;
+        }
+
+        public void setInfo(InfoEntity info) {
+            this.info = info;
+        }
+
+        public String getCheck_status() {
+            return check_status;
+        }
+
+        public void setCheck_status(String check_status) {
+            this.check_status = check_status;
+        }
+
+        public List<OtherMenuEntity> getOther_menu() {
+            return other_menu;
+        }
+
+        public void setOther_menu(List<OtherMenuEntity> other_menu) {
+            this.other_menu = other_menu;
+        }
+
+        public List<BaseMenuEntity> getBase_menu() {
+            return base_menu;
+        }
+
+        public void setBase_menu(List<BaseMenuEntity> base_menu) {
+            this.base_menu = base_menu;
+        }
+
+        public static class InfoEntity {
+            /**
+             * company : {"company_name":"新苗","company_tel":"66666666666","company_img":[{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"公司照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}],"company_year":"2018.8.8","work_year":"90","work_money":"99999999.00","company_work":"安卓"}
+             * car : {"car_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","car_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}
+             * home : {"house_back_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg","house_img":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}
+             */
+
+            private CompanyEntity company;
+            private CarEntity car;
+            private HomeEntity home;
+
+            public CompanyEntity getCompany() {
+                return company;
+            }
+
+            public void setCompany(CompanyEntity company) {
+                this.company = company;
+            }
+
+            public CarEntity getCar() {
+                return car;
+            }
+
+            public void setCar(CarEntity car) {
+                this.car = car;
+            }
+
+            public HomeEntity getHome() {
+                return home;
+            }
+
+            public void setHome(HomeEntity home) {
+                this.home = home;
+            }
+
+            public static class CompanyEntity {
+                /**
+                 * company_name : 新苗
+                 * company_tel : 66666666666
+                 * company_img : [{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg"},{"name":"公司照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"更多照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]
+                 * company_year : 2018.8.8
+                 * work_year : 90
+                 * work_money : 99999999.00
+                 * company_work : 安卓
+                 */
+
+                private String company_name;
+                private String company_tel;
+                private String company_year;
+                private String work_year;
+                private String work_money;
+                private String company_work;
+                private List<CompanyImgEntity> company_img;
+
+                public String getCompany_name() {
+                    return company_name;
+                }
+
+                public void setCompany_name(String company_name) {
+                    this.company_name = company_name;
+                }
+
+                public String getCompany_tel() {
+                    return company_tel;
+                }
+
+                public void setCompany_tel(String company_tel) {
+                    this.company_tel = company_tel;
+                }
+
+                public String getCompany_year() {
+                    return company_year;
+                }
+
+                public void setCompany_year(String company_year) {
+                    this.company_year = company_year;
+                }
+
+                public String getWork_year() {
+                    return work_year;
+                }
+
+                public void setWork_year(String work_year) {
+                    this.work_year = work_year;
+                }
+
+                public String getWork_money() {
+                    return work_money;
+                }
+
+                public void setWork_money(String work_money) {
+                    this.work_money = work_money;
+                }
+
+                public String getCompany_work() {
+                    return company_work;
+                }
+
+                public void setCompany_work(String company_work) {
+                    this.company_work = company_work;
+                }
+
+                public List<CompanyImgEntity> getCompany_img() {
+                    return company_img;
+                }
+
+                public void setCompany_img(List<CompanyImgEntity> company_img) {
+                    this.company_img = company_img;
+                }
+
+                public static class CompanyImgEntity {
+                    /**
+                     * name : 工作证/入职协议
+                     * image : http://139.196.214.241:8100/Uploads/Picture/2016-12-26/5860f0c730ddd.jpg
+                     */
+
+                    private String name;
+                    private String image;
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getImage() {
+                        return image;
+                    }
+
+                    public void setImage(String image) {
+                        this.image = image;
+                    }
+                }
+            }
+
+            public static class CarEntity {
+                /**
+                 * car_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 * car_back_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 */
+
+                private String car_img;
+                private String car_back_img;
+
+                public String getCar_img() {
+                    return car_img;
+                }
+
+                public void setCar_img(String car_img) {
+                    this.car_img = car_img;
+                }
+
+                public String getCar_back_img() {
+                    return car_back_img;
+                }
+
+                public void setCar_back_img(String car_back_img) {
+                    this.car_back_img = car_back_img;
+                }
+            }
+
+            public static class HomeEntity {
+                /**
+                 * house_back_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 * house_img : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 */
+
+                private String house_back_img;
+                private String house_img;
+
+                public String getHouse_back_img() {
+                    return house_back_img;
+                }
+
+                public void setHouse_back_img(String house_back_img) {
+                    this.house_back_img = house_back_img;
+                }
+
+                public String getHouse_img() {
+                    return house_img;
+                }
+
+                public void setHouse_img(String house_img) {
+                    this.house_img = house_img;
+                }
+            }
+        }
+
+        public static class OtherMenuEntity {
+            /**
+             * id : 18
+             * name : 其他资料
+             * pid : 2
+             * other_img : [{"name":"工作证/入职协议","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"公司照片","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"},{"name":"其他","image":"http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg"}]
+             */
+
+            private String id;
+            private String name;
+            private String pid;
+            private List<OtherImgEntity> other_img;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getPid() {
+                return pid;
+            }
+
+            public void setPid(String pid) {
+                this.pid = pid;
+            }
+
+            public List<OtherImgEntity> getOther_img() {
+                return other_img;
+            }
+
+            public void setOther_img(List<OtherImgEntity> other_img) {
+                this.other_img = other_img;
+            }
+
+            public static class OtherImgEntity {
+                /**
+                 * name : 工作证/入职协议
+                 * image : http://139.196.214.241:8100/Uploads/Picture/2016-12-27/5861c14817465.jpg
+                 */
+
+                private String name;
+                private String image;
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getImage() {
+                    return image;
+                }
+
+                public void setImage(String image) {
+                    this.image = image;
+                }
+            }
+        }
+
+        public static class BaseMenuEntity {
+            /**
+             * id : 4
+             * up_type : 2
+             * menu_name : company
+             * remark : 公司
+             */
+
+            private String id;
+            private String up_type;
+            private String menu_name;
+            private String remark;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getUp_type() {
+                return up_type;
+            }
+
+            public void setUp_type(String up_type) {
+                this.up_type = up_type;
+            }
+
+            public String getMenu_name() {
+                return menu_name;
+            }
+
+            public void setMenu_name(String menu_name) {
+                this.menu_name = menu_name;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
+        }
+    }
+}

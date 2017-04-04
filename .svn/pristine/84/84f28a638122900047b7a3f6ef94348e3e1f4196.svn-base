@@ -1,0 +1,137 @@
+package com.hzxm.easyloan.model.home;
+
+/**
+ * 作者：LMZ on 2017/1/10 0010 10:18
+ */
+public class HomeModel {
+
+    /**
+     * Code : 0
+     * Msg : 返回成功
+     * Time : 2017-01-10 10:16:43
+     * ApiUrl : /Api/Billinfo/bill_index.html
+     * Data : {"still_money":"0.00","status":"1","step":"3","salary":"0.100","date_salary":"0.100","crash_salary":"0.100","check_salary":"0.100"}
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private DataEntity Data;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public DataEntity getData() {
+        return Data;
+    }
+
+    public void setData(DataEntity Data) {
+        this.Data = Data;
+    }
+
+    public static class DataEntity {
+        /**
+         * still_money : 0.00
+         * status : 1
+         * step : 3
+         * salary : 0.100
+         * date_salary : 0.100
+         * crash_salary : 0.100
+         * check_salary : 0.100
+         */
+
+        private String still_money;
+        private String status;
+        private String step;
+        private String salary;
+        private String date_salary;
+        private String crash_salary;
+        private String check_salary;
+
+        public String getStill_money() {
+            return still_money;
+        }
+
+        public void setStill_money(String still_money) {
+            this.still_money = still_money;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getStep() {
+            return step;
+        }
+
+        public void setStep(String step) {
+            this.step = step;
+        }
+
+        public String getSalary() {
+            return salary;
+        }
+
+        public void setSalary(String salary) {
+            this.salary = salary;
+        }
+
+        public String getDate_salary() {
+            return date_salary;
+        }
+
+        public void setDate_salary(String date_salary) {
+            this.date_salary = date_salary;
+        }
+
+        public String getCrash_salary() {
+            return crash_salary;
+        }
+
+        public void setCrash_salary(String crash_salary) {
+            this.crash_salary = crash_salary;
+        }
+
+        public String getCheck_salary() {
+            return check_salary;
+        }
+
+        public void setCheck_salary(String check_salary) {
+            this.check_salary = check_salary;
+        }
+    }
+}

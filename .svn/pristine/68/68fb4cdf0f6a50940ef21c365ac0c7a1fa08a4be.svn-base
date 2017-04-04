@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.BaseCertificationActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/base_certificationn_title" />
+
+    <include layout="@layout/divide_line" />
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/error_page" />
+
+                <LinearLayout
+                    android:id="@+id/activity_base_certification"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dim40"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_verified"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim20"
+                            android:gravity="center_vertical"
+                            android:paddingRight="@dimen/dim20"
+                            android:text="@string/verified"
+                            android:textColor="@color/tc_black"
+                            android:textSize="@dimen/dim30" />
+
+
+                        <TextView
+                            android:id="@+id/tv_verified"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dim20"
+                            android:drawablePadding="@dimen/dim20"
+                            android:drawableRight="@drawable/go"
+                            android:gravity="center"
+                            android:text="@string/not_verified"
+                            android:textColor="@color/shallow_gray"
+                            android:textSize="@dimen/txt30" />
+                    </RelativeLayout>
+
+                    <include layout="@layout/divide_line" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_doc_upload"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim20"
+                            android:gravity="center_vertical"
+                            android:paddingRight="@dimen/dim20"
+                            android:text="@string/document_upload"
+                            android:textColor="@color/tc_black"
+                            android:textSize="@dimen/dim30" />
+
+
+                        <TextView
+                            android:id="@+id/tv_doc_upload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dim20"
+                            android:drawablePadding="@dimen/dim20"
+                            android:drawableRight="@drawable/go"
+                            android:gravity="center"
+                            android:text="@string/not_verified"
+                            android:textColor="@color/shallow_gray"
+                            android:textSize="@dimen/txt30" />
+                    </RelativeLayout>
+
+                    <include layout="@layout/divide_line" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_sesame_points"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim20"
+                            android:gravity="center_vertical"
+                            android:paddingRight="@dimen/dim20"
+                            android:text="@string/sesame_points"
+                            android:textColor="@color/tc_black"
+                            android:textSize="@dimen/dim30" />
+
+
+                        <TextView
+                            android:id="@+id/tv_verified_state"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dim20"
+                            android:drawablePadding="@dimen/dim20"
+                            android:drawableRight="@drawable/go"
+                            android:gravity="center"
+                            android:text="@string/not_verified"
+                            android:textColor="@color/shallow_gray"
+                            android:textSize="@dimen/txt30" />
+                    </RelativeLayout>
+
+                    <include layout="@layout/divide_line" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_phone_certification"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim20"
+                            android:gravity="center_vertical"
+                            android:paddingRight="@dimen/dim20"
+                            android:text="@string/phone_certification"
+                            android:textColor="@color/tc_black"
+                            android:textSize="@dimen/dim30" />
+
+                        <TextView
+                            android:id="@+id/tv_phone_certification"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dim20"
+                            android:drawablePadding="@dimen/dim20"
+                            android:drawableRight="@drawable/go"
+                            android:gravity="center"
+                            android:text="@string/not_verified"
+                            android:textColor="@color/shallow_gray"
+                            android:textSize="@dimen/txt30" />
+                    </RelativeLayout>
+
+                    <include layout="@layout/divide_line" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginTop="@dimen/dim40"
+                        android:background="@color/divide_line" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_emergency_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim20"
+                            android:gravity="center_vertical"
+                            android:paddingRight="@dimen/dim20"
+                            android:text="@string/emergency_contact"
+                            android:textColor="@color/tc_black"
+                            android:textSize="@dimen/dim30" />
+
+
+                        <TextView
+                            android:id="@+id/tv_emergency_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dim20"
+                            android:drawablePadding="@dimen/dim20"
+                            android:drawableRight="@drawable/go"
+                            android:gravity="center"
+                            android:text="@string/not_add"
+                            android:textColor="@color/shallow_gray"
+                            android:textSize="@dimen/txt30" />
+                    </RelativeLayout>
+
+                    <include layout="@layout/divide_line" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_reserved_bank_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim20"
+                            android:gravity="center_vertical"
+                            android:paddingRight="@dimen/dim20"
+                            android:text="@string/reserved_bank_card"
+                            android:textColor="@color/tc_black"
+                            android:textSize="@dimen/dim30" />
+
+
+                        <TextView
+                            android:id="@+id/tv_reserved_bank_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dim20"
+                            android:drawablePadding="@dimen/dim20"
+                            android:drawableRight="@drawable/go"
+                            android:gravity="center"
+                            android:text="@string/not_add"
+                            android:textColor="@color/shallow_gray"
+                            android:textSize="@dimen/txt30" />
+                    </RelativeLayout>
+
+                    <include layout="@layout/divide_line" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_now_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim90"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim20"
+                            android:gravity="center_vertical"
+                            android:paddingRight="@dimen/dim20"
+                            android:text="@string/now_address"
+                            android:textColor="@color/tc_black"
+                            android:textSize="@dimen/dim30" />
+
+
+                        <TextView
+                            android:id="@+id/tv_now_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dim20"
+                            android:drawablePadding="@dimen/dim20"
+                            android:drawableRight="@drawable/go"
+                            android:gravity="center"
+                            android:text="@string/not_add"
+                            android:textColor="@color/shallow_gray"
+                            android:textSize="@dimen/txt30" />
+                    </RelativeLayout>
+
+                    <include layout="@layout/divide_line" />
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

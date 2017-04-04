@@ -1,0 +1,61 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindString;
+import butterknife.BindView;
+
+/**
+ * 添加银行卡
+ */
+public class AddBankCardActivity extends BaseActivity {
+
+
+    @BindView(R.id.tv_remind)
+    TextView tvRemind;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
+    @BindView(R.id.ll_top_remind)
+    LinearLayout llTopRemind;
+    @BindView(R.id.et_name)
+    ClearEditText etName;
+    @BindView(R.id.et_bank_card_num)
+    ClearEditText etBankCardNum;
+    @BindView(R.id.et_reserved_num)
+    ClearEditText etReservedNum;
+    @BindView(R.id.et_verification)
+    ClearEditText etVerification;
+    @BindView(R.id.tv_verification)
+    TextView tvVerification;
+    @BindView(R.id.btn_bind)
+    Button btnBind;
+    @BindView(R.id.activity_add_bank_card)
+    LinearLayout activityAddBankCard;
+
+    @BindString(R.string.bind_bank_card_msg)
+    String remindMsg;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_add_bank_card);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+        SetStatusBarColor(R.color.transparent_white);
+        tvRemind.setText(remindMsg);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+}

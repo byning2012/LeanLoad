@@ -1,0 +1,52 @@
+package com.hzxm.easyloan.ui.activity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.hzxm.easyloan.R;
+import com.lmz.baselibrary.ui.BaseActivity;
+import com.lmz.baselibrary.widget.ClearEditText;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 找回密码
+ */
+public class FindPswActivity extends BaseActivity {
+
+
+    @BindView(R.id.et_num)
+    ClearEditText etNum;
+    @BindView(R.id.tv_verification_code)
+    TextView tvVerificationCode;
+    @BindView(R.id.et_verification_code)
+    ClearEditText etVerificationCode;
+    @BindView(R.id.btn_verification)
+    Button btnVerification;
+    @BindView(R.id.activity_find_psw)
+    LinearLayout activityFindPsw;
+
+    @Override
+    protected void initConvetView(Bundle saveInstanceState) {
+        setContentView(R.layout.activity_find_psw);
+    }
+
+    @Override
+    protected void initView(Bundle saveInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @OnClick(R.id.btn_verification)
+    public void verification() {
+        startActivity(ResetPswActivity.class);
+    }
+
+}

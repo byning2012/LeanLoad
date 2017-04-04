@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_loan"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.LoanActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_title="@string/right_loan" />
+
+    <include layout="@layout/divide_line" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dim20"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="@string/right_loan_msg"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/txt30" />
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="1000505.00"
+                    android:textColor="@color/home_red"
+                    android:textSize="@dimen/txt80" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="@dimen/dim100"
+                    android:layout_marginRight="@dimen/dim100"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:background="@color/divide_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim80"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:text="@string/data_detail"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/txt30" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim100"
+                    android:layout_marginRight="@dimen/dim100"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_rate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="利率费：150元"
+                        android:textColor="@color/shallow_gray"
+                        android:textSize="@dimen/txt30" />
+
+                    <TextView
+                        android:id="@+id/tv_formalities"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="手续费：150元"
+                        android:textColor="@color/shallow_gray"
+                        android:textSize="@dimen/txt30" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim100"
+                    android:layout_marginRight="@dimen/dim100"
+                    android:layout_marginTop="@dimen/dim20"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tv_withdraw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="提现费：150元"
+                        android:textColor="@color/shallow_gray"
+                        android:textSize="@dimen/txt30" />
+
+                    <TextView
+                        android:id="@+id/tv_audit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="押金：150元"
+                        android:textColor="@color/shallow_gray"
+                        android:textSize="@dimen/txt30"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="@dimen/dim100"
+                    android:layout_marginRight="@dimen/dim100"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:background="@color/divide_line" />
+
+                <TextView
+                    android:id="@+id/tv_principal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dim30"
+                    android:layout_marginRight="@dimen/dim100"
+                    android:layout_marginTop="@dimen/dim30"
+                    android:gravity="right"
+                    android:text="本金：5000元"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/txt30" />
+            </LinearLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/dim20"
+                android:background="@color/divide_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="@string/loan_style"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/txt30" />
+
+                <ImageView
+                    android:id="@+id/iv_go"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:background="@drawable/go"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim20"
+                    android:layout_toLeftOf="@id/iv_go"
+                    android:drawablePadding="@dimen/dim20"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center"
+                    android:text="@string/staging_loan"
+                    android:textColor="@color/shallow_gray"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="@string/loan_sum"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/txt30" />
+
+                <TextView
+                    android:id="@+id/tv_sum_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="11800.00(元)"
+                    android:textColor="@color/home_red"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_choose_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:layout_marginTop="@dimen/dim40"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="@string/card_choose"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/txt30" />
+
+                <TextView
+                    android:id="@+id/tv_bank_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="@string/go_choose"
+                    android:textColor="@color/shallow_gray"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_application"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:layout_marginLeft="@dimen/dim30"
+                android:layout_marginRight="@dimen/dim30"
+                android:layout_marginTop="@dimen/dim100"
+                android:background="@drawable/select_sure_register_btn"
+                android:text="@string/right_loan"
+                android:textColor="@color/select_white_orange"
+                android:textSize="@dimen/txt34" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

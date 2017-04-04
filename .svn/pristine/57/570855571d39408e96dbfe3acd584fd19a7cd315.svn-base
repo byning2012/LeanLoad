@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_social_security"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.SocialSecurityActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_style="true"
+        app:titlelayout_title="@string/social_security_auth" />
+
+    <include layout="@layout/divide_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dim30"
+        android:background="@color/divide_line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_social_city"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/social_security_city"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:drawablePadding="@dimen/dim20"
+            android:drawableRight="@drawable/go"
+            android:gravity="center"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+    </RelativeLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/login_name"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_login_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim20"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/input_login_name"
+            android:textColor="@color/tc_black"
+            android:textColorHint="@color/shallow_gray"
+            android:textSize="@dimen/txt30" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim90"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dim30"
+        android:paddingRight="@dimen/dim30">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/login_password"
+            android:textColor="@color/tc_black"
+            android:textSize="@dimen/txt30" />
+
+        <com.lmz.baselibrary.widget.ClearEditText
+            android:id="@+id/et_login_psw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim20"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/input_login_psw"
+            android:textColor="@color/tc_black"
+            android:textColorHint="@color/shallow_gray"
+            android:textSize="@dimen/txt30" />
+    </LinearLayout>
+
+    <include layout="@layout/divide_line" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim80"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dim60"
+        android:layout_marginRight="@dimen/dim60"
+        android:layout_marginTop="@dimen/dim100"
+        android:background="@drawable/select_sure_register_btn"
+        android:text="@string/submit"
+        android:textColor="@color/select_white_orange"
+        android:textSize="@dimen/txt34" />
+</LinearLayout>

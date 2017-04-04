@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_info_complete"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.InfoCompleteActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_title="@string/info_complete" />
+
+    <com.lmz.baselibrary.widget.springview.widget.SpringView
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dim40"
+                android:background="@color/white">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dim100"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/verified3" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center"
+                    android:text="@string/phone"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+                <TextView
+                    android:id="@+id/tv_phone_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:gravity="center"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_sesame_points"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/dim30"
+                    android:text="@string/sesame_points"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+
+                <TextView
+                    android:id="@+id/tv_verified_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:drawablePadding="@dimen/dim20"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center"
+                    android:text="@string/not_verified"
+                    android:textColor="@color/shallow_gray"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_bank_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:layout_marginBottom="@dimen/dim40"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/dim20"
+                    android:text="@string/bank_card"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+
+                <TextView
+                    android:id="@+id/tv_bank_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:drawablePadding="@dimen/dim20"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center"
+                    android:text="@string/not_verified"
+                    android:textColor="@color/shallow_gray"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_emergency_contact"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center_vertical"
+                    android:text="@string/emergency_contact"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+
+                <TextView
+                    android:id="@+id/tv_emergency_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:drawablePadding="@dimen/dim20"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center"
+                    android:text="@string/not_add"
+                    android:textColor="@color/shallow_gray"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_phone_certification"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center_vertical"
+                    android:text="@string/phone_certification"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+                <TextView
+                    android:id="@+id/tv_phone_certification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:drawablePadding="@dimen/dim20"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center"
+                    android:text="@string/not_add"
+                    android:textColor="@color/shallow_gray"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_now_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:gravity="center_vertical"
+                    android:paddingRight="@dimen/dim30"
+                    android:text="@string/now_address"
+                    android:textColor="@color/tc_black"
+                    android:textSize="@dimen/dim30" />
+
+                <TextView
+                    android:id="@+id/tv_now_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:drawablePadding="@dimen/dim20"
+                    android:drawableRight="@drawable/go"
+                    android:gravity="center"
+                    android:text="@string/not_add"
+                    android:textColor="@color/shallow_gray"
+                    android:textSize="@dimen/txt30" />
+            </RelativeLayout>
+
+            <include layout="@layout/divide_line" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim90"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dim60"
+                android:layout_marginRight="@dimen/dim60"
+                android:layout_marginTop="@dimen/dim140"
+                android:background="@drawable/select_sure_register_btn"
+                android:text="@string/next_step"
+                android:textColor="@color/select_white_orange" />
+        </LinearLayout>
+    </com.lmz.baselibrary.widget.springview.widget.SpringView>
+</LinearLayout>

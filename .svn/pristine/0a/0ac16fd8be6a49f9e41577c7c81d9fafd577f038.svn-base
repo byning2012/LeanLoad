@@ -1,0 +1,166 @@
+package com.hzxm.easyloan.model.mine;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/29 0029 17:57
+ */
+public class AmountCreateModel {
+
+    /**
+     * Code : 0
+     * Msg : ok
+     * Time : 2016-12-29 17:26:26
+     * ApiUrl : /Api/Metioninfo/othermenu.html
+     * Data : {"bace_menu":[{"id":"1","up_type":"1","menu_name":"school","remark":"学校"},{"id":"2","up_type":"1","menu_name":"school_depatr","remark":"系别"},{"id":"12","up_type":"1","menu_name":"xuexin","remark":"学信网"}],"other_menu":[{"id":"8","pid":"1","name":"速度"},{"id":"9","pid":"1","name":"11"},{"id":"10","pid":"1","name":"556"},{"id":"12","pid":"1","name":"asas"}]}
+     */
+
+    private int Code;
+    private String Msg;
+    private String Time;
+    private String ApiUrl;
+    private DataEntity Data;
+
+    public int getCode() {
+        return Code;
+    }
+
+    public void setCode(int Code) {
+        this.Code = Code;
+    }
+
+    public String getMsg() {
+        return Msg;
+    }
+
+    public void setMsg(String Msg) {
+        this.Msg = Msg;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String Time) {
+        this.Time = Time;
+    }
+
+    public String getApiUrl() {
+        return ApiUrl;
+    }
+
+    public void setApiUrl(String ApiUrl) {
+        this.ApiUrl = ApiUrl;
+    }
+
+    public DataEntity getData() {
+        return Data;
+    }
+
+    public void setData(DataEntity Data) {
+        this.Data = Data;
+    }
+
+    public static class DataEntity {
+        private List<BaceMenuEntity> bace_menu;
+        private List<OtherMenuEntity> other_menu;
+
+        public List<BaceMenuEntity> getBace_menu() {
+            return bace_menu;
+        }
+
+        public void setBace_menu(List<BaceMenuEntity> bace_menu) {
+            this.bace_menu = bace_menu;
+        }
+
+        public List<OtherMenuEntity> getOther_menu() {
+            return other_menu;
+        }
+
+        public void setOther_menu(List<OtherMenuEntity> other_menu) {
+            this.other_menu = other_menu;
+        }
+
+        public static class BaceMenuEntity {
+            /**
+             * id : 1
+             * up_type : 1
+             * menu_name : school
+             * remark : 学校
+             */
+
+            private String id;
+            private String up_type;
+            private String menu_name;
+            private String remark;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getUp_type() {
+                return up_type;
+            }
+
+            public void setUp_type(String up_type) {
+                this.up_type = up_type;
+            }
+
+            public String getMenu_name() {
+                return menu_name;
+            }
+
+            public void setMenu_name(String menu_name) {
+                this.menu_name = menu_name;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
+        }
+
+        public static class OtherMenuEntity {
+            /**
+             * id : 8
+             * pid : 1
+             * name : 速度
+             */
+
+            private String id;
+            private String pid;
+            private String name;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getPid() {
+                return pid;
+            }
+
+            public void setPid(String pid) {
+                this.pid = pid;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+        }
+    }
+}

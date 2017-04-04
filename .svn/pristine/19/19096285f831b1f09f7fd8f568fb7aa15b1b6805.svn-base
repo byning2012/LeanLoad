@@ -1,0 +1,46 @@
+package com.hzxm.easyloan.model.chamberlain;
+
+import java.util.List;
+
+/**
+ * 作者：LMZ on 2016/12/29 0029 14:49
+ */
+public class CommonProblemModel {
+    private String name;
+    private int logo;
+    public List<Problem> problem;
+
+    public CommonProblemModel(String name, int logo, List<Problem> problem) {
+        this.name = name;
+        this.logo = logo;
+        this.problem = problem;
+    }
+
+    public void setProblem(List<Problem> problem) {
+        this.problem = problem;
+    }
+
+    public List<Problem> getProblem() {
+        return problem;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLogo(int logo) {
+        this.logo = logo;
+    }
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLogo() {
+        return logo;
+    }
+
+
+}

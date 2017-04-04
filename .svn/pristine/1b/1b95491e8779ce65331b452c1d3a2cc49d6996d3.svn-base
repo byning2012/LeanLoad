@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_increase_amount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hzxm.easyloan.ui.activity.IncreaseAmountActivity">
+
+    <com.lmz.baselibrary.widget.TitleLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titlelayout_showback="true"
+        app:titlelayout_title="@string/increase_amout" />
+
+    <include layout="@layout/top_remind" />
+    <com.lmz.baselibrary.widget.springview.widget.SpringView
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="@dimen/dim40"
+                    android:background="@color/divide_line" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim90"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dim20"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dim20"
+                        android:text="@string/identity_selection"
+                        android:textColor="@color/tc_black"
+                        android:textSize="@dimen/dim30" />
+
+
+                    <TextView
+                        android:id="@+id/tv_identity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dim20"
+                        android:drawablePadding="@dimen/dim20"
+                        android:drawableRight="@drawable/go"
+                        android:gravity="center"
+                        android:text="@string/student"
+                        android:textColor="@color/tc_black"
+                        android:textSize="@dimen/txt30" />
+                </RelativeLayout>
+
+                <include layout="@layout/divide_line" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_base"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none" />
+
+                <include layout="@layout/divide_line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="@dimen/dim40"
+                    android:background="@color/divide_line" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_oother"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none" />
+
+                <include layout="@layout/divide_line" />
+
+                <Button
+                    android:id="@+id/btn_verification"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dim90"
+                    android:layout_marginLeft="@dimen/dim30"
+                    android:layout_marginRight="@dimen/dim30"
+                    android:layout_marginTop="@dimen/dim80"
+                    android:background="@drawable/select_sure_register_btn"
+                    android:text="@string/submit"
+                    android:textColor="@color/select_white_orange"
+                    android:textSize="@dimen/txt34" />
+            </LinearLayout>
+
+            <include layout="@layout/error_page" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+    </com.lmz.baselibrary.widget.springview.widget.SpringView>
+</LinearLayout>
